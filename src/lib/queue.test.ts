@@ -80,7 +80,9 @@ describe('classifyResponse', () => {
     const err = { code: '23503', message: 'fk violation on budget_item_id' }
     const c = classifyResponse(err, null)
     expect(c.kind).toBe('dead')
-    expect(c.reason).toMatch(/fk/i)
+    if (c.kind === 'dead') {
+      expect(c.reason).toMatch(/fk/i)
+    }
   })
   it('classifies 4xx as dead-other', () => {
     expect(classifyResponse({ code: '23502', message: 'not null' }, null).kind).toBe('dead')
