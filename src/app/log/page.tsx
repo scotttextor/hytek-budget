@@ -8,13 +8,19 @@ import { useRecentItems } from '@/lib/use-recent-items'
 import { useOfflineQueue } from '@/lib/use-offline-queue'
 import { supabase } from '@/lib/supabase'
 import { buildClaimRow, type ClaimPayload } from '@/lib/claim-payload'
-import { enqueueClaim } from '@/lib/queue'
+import { buildVariationRow, type VariationPayload } from '@/lib/variation-payload'
+import { buildReworkRow, type ReworkPayload } from '@/lib/rework-payload'
+import { enqueueClaim, enqueueMutation } from '@/lib/queue'
+import { resizeImageToBlob, buildPhotoStoragePath } from '@/lib/photo'
 import type { InstallBudgetItem } from '@/lib/types'
 import { JobHeader } from './components/JobHeader'
 import { ItemPicker } from './components/ItemPicker'
 import { ClaimInput } from './components/ClaimInput'
 import { SaveConfirmation } from './components/SaveConfirmation'
 import { TodaysClaimsList, type SessionClaim } from './components/TodaysClaimsList'
+import { StreamSelector, type LogStream } from './components/StreamSelector'
+import { VariationInput } from './components/VariationInput'
+import { ReworkInput } from './components/ReworkInput'
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10)
@@ -47,12 +53,12 @@ export default function LogPage() {
   const { items: recents, refresh: refreshRecents } = useRecentItems(user?.id ?? null, job?.id ?? null)
   const { counts, drainNow } = useOfflineQueue()
 
+  const [stream, setStream] = useState<LogStream>('progress')
   const [allItems, setAllItems] = useState<InstallBudgetItem[]>([])
   const [selected, setSelected] = useState<InstallBudgetItem | null>(null)
   const [confirmation, setConfirmation] = useState<{ offline: boolean } | null>(null)
   const [sessionClaims, setSessionClaims] = useState<SessionClaim[]>([])
 
-  // Guard auth + job selection
   useEffect(() => {
     if (!authLoading && !user) router.replace('/login')
   }, [authLoading, user, router])
@@ -60,7 +66,6 @@ export default function LogPage() {
     if (!jobLoading && !job) router.replace('/log/pick-job')
   }, [jobLoading, job, router])
 
-  // Load budget items for the active job
   useEffect(() => {
     if (!job) { setAllItems([]); return }
     supabase
@@ -72,7 +77,17 @@ export default function LogPage() {
       .then(({ data }) => setAllItems((data as InstallBudgetItem[]) ?? []))
   }, [job])
 
-  const handleSave = useCallback(async (payload: ClaimPayload) => {
+  // Clear form state when stream changes so no stale selection leaks
+  useEffect(() => {
+    setSelected(null)
+  }, [stream])
+
+  const fireConfirmationAndDrain = useCallback(() => {
+    setConfirmation({ offline: typeof navigator !== 'undefined' ? !navigator.onLine : false })
+    drainNow().then(() => refreshRecents())
+  }, [drainNow, refreshRecents])
+
+  const handleSaveProgress = useCallback(async (payload: ClaimPayload) => {
     if (!user || !job || !selected) return
     const gps = await readGpsOrNull()
     const row = buildClaimRow(payload, {
@@ -84,16 +99,58 @@ export default function LogPage() {
       gps,
     })
     await enqueueClaim(row)
-    // Confirmation fires OFF the IndexedDB write — per Panel #2 UX
     setSessionClaims((prev) => [
       { id: row.id, item: selected, payload, stampedAt: new Date() },
       ...prev,
     ].slice(0, 10))
-    setConfirmation({ offline: typeof navigator !== 'undefined' ? !navigator.onLine : false })
     setSelected(null)
-    // Kick drain in background — do NOT await
-    drainNow().then(() => refreshRecents())
-  }, [user, job, selected, drainNow, refreshRecents])
+    fireConfirmationAndDrain()
+  }, [user, job, selected, fireConfirmationAndDrain])
+
+  const handleSaveVariation = useCallback(async (payload: VariationPayload) => {
+    if (!user || !job) return
+    const gps = await readGpsOrNull()
+    const row = buildVariationRow(payload, {
+      userId: user.id,
+      jobId: job.id,
+      claimDate: todayIso(),
+      gps,
+    })
+    await enqueueMutation({
+      id: row.id,
+      kind: 'variation',
+      table: 'job_variations',
+      // VariationRow.status is VariationState; queue union requires literal 'raised'.
+      // buildVariationRow always sets status:'raised' — cast is safe.
+      payload: row as typeof row & { status: 'raised' },
+    })
+    fireConfirmationAndDrain()
+    setStream('progress') // hop back so the next action starts from Progress
+  }, [user, job, fireConfirmationAndDrain])
+
+  const handleSaveRework = useCallback(async (payload: ReworkPayload, photo: File) => {
+    if (!user || !job) return
+    const gps = await readGpsOrNull()
+    const resized = await resizeImageToBlob(photo)
+    const row = buildReworkRow(payload, {
+      userId: user.id,
+      jobId: job.id,
+      claimDate: todayIso(),
+      gps,
+    })
+    const storagePath = buildPhotoStoragePath(user.id, row.id, todayIso())
+    await enqueueMutation({
+      id: row.id,
+      kind: 'rework_with_photo',
+      table: 'job_rework',
+      // ReworkRow.status is ReworkStatus; queue union requires literal 'identified'.
+      // buildReworkRow always sets status:'identified' — cast is safe.
+      payload: row as typeof row & { status: 'identified' },
+      photo: { blob: resized, storagePath, fileName: photo.name },
+    })
+    fireConfirmationAndDrain()
+    setStream('progress')
+  }, [user, job, fireConfirmationAndDrain])
 
   if (authLoading || jobLoading || !user || !job) {
     return (
@@ -117,20 +174,40 @@ export default function LogPage() {
         onDismiss={() => setConfirmation(null)}
       />
       <div className="flex-1 space-y-4 overflow-y-auto p-4">
-        {selected ? (
-          <ClaimInput
-            item={selected}
-            onSave={handleSave}
-            onCancel={() => setSelected(null)}
-          />
-        ) : (
-          <ItemPicker
-            recents={recents}
-            allItems={allItems}
-            onSelect={setSelected}
+        <StreamSelector active={stream} onChange={setStream} />
+
+        {stream === 'progress' && (
+          <>
+            {selected ? (
+              <ClaimInput
+                item={selected}
+                onSave={handleSaveProgress}
+                onCancel={() => setSelected(null)}
+              />
+            ) : (
+              <ItemPicker
+                recents={recents}
+                allItems={allItems}
+                onSelect={setSelected}
+              />
+            )}
+            <TodaysClaimsList claims={sessionClaims} />
+          </>
+        )}
+
+        {stream === 'variation' && (
+          <VariationInput
+            onSave={handleSaveVariation}
+            onCancel={() => setStream('progress')}
           />
         )}
-        <TodaysClaimsList claims={sessionClaims} />
+
+        {stream === 'rework' && (
+          <ReworkInput
+            onSave={handleSaveRework}
+            onCancel={() => setStream('progress')}
+          />
+        )}
       </div>
     </main>
   )
