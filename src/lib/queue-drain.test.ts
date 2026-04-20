@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { enqueueClaim, loadAllQueued } from './queue'
+import { enqueueClaim, loadAllQueued, updateQueued } from './queue'
 import { drainQueue } from './queue-drain'
 import type { ClaimRow } from './claim-payload'
 import { clear } from 'idb-keyval'
@@ -69,6 +69,25 @@ describe('drainQueue', () => {
     await drainQueue(sb, { online: false })
     expect(insertSpy).not.toHaveBeenCalled()
     expect(await loadAllQueued()).toHaveLength(1)
+  })
+
+  it('preserves attempts count through in_flight recovery', async () => {
+    // Simulate a record whose prior drain attempt crashed mid-flight:
+    // set it directly to in_flight with 3 prior attempts and an expired lease
+    await enqueueClaim(baseRow)
+    await updateQueued(baseRow.id, {
+      state: 'in_flight',
+      leaseUntil: Date.now() - 1000, // expired 1s ago
+      attempts: 3,
+    })
+    const sb = mockClient(() => ({ error: { message: 'Failed to fetch' } }))
+    await drainQueue(sb, { online: true })
+    const all = await loadAllQueued()
+    expect(all).toHaveLength(1)
+    expect(all[0].status.state).toBe('failed')
+    if (all[0].status.state === 'failed') {
+      expect(all[0].status.attempts).toBe(4) // 3 prior + 1 new attempt
+    }
   })
 
   it('is reentrant-safe (concurrent calls yield 1 insert)', async () => {

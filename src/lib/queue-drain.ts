@@ -36,7 +36,11 @@ export async function drainQueue(
     const records = (await loadAllQueued()).filter((r) => isReady(r, now))
 
     for (const record of records) {
-      await updateQueued(record.id, { state: 'in_flight', leaseUntil: Date.now() + LEASE_MS })
+      await updateQueued(record.id, {
+        state: 'in_flight',
+        leaseUntil: Date.now() + LEASE_MS,
+        attempts: priorAttempts(record),
+      })
 
       let error: { code?: string; message?: string } | null = null
       try {
@@ -66,7 +70,7 @@ export async function drainQueue(
         await updateQueued(record.id, {
           state: 'dead',
           attempts,
-          lastError: error?.message ?? 'max_attempts',
+          lastError: `max_attempts (last: ${error?.message ?? 'unknown'})`,
           deadAt: Date.now(),
         })
       } else {
@@ -84,6 +88,6 @@ export async function drainQueue(
 }
 
 function priorAttempts(r: QueuedClaim): number {
-  if (r.status.state === 'failed' || r.status.state === 'dead') return r.status.attempts
+  if (r.status.state === 'failed' || r.status.state === 'dead' || r.status.state === 'in_flight') return r.status.attempts
   return 0
 }

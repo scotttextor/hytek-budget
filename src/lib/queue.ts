@@ -6,7 +6,7 @@ import type { ClaimRow } from './claim-payload'
 
 export type QueueStatus =
   | { state: 'pending' }
-  | { state: 'in_flight'; leaseUntil: number }
+  | { state: 'in_flight'; leaseUntil: number; attempts: number }
   | { state: 'failed'; attempts: number; lastError: string; nextRetryAt: number }
   | { state: 'dead'; attempts: number; lastError: string; deadAt: number }
 
