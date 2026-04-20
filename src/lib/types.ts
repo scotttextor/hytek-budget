@@ -36,17 +36,38 @@ export interface InstallBudgetItem {
   created_at: string
 }
 
+// `install_claims` real columns (verified against scripts/install-schema.sql +
+// install-phase1-data-foundation.sql + install-templates.sql in hytek-detailing).
+// claim_amount is the canonical payable $ (NOT NULL, DB default 0).
+// Metadata fields (percent_complete / hours+rate_used / qty+rate_used) are the
+// audit trail for HOW claim_amount was computed; claim_kind discriminates.
+export type ClaimKind = 'dollar' | 'percent' | 'hours' | 'qty'
+
 export interface InstallClaim {
   id: string
+  job_id: string
   budget_item_id: string
-  amount: number | null
+  sub_item_id: string | null
+  claim_date: string // date (day resolution) — display/reporting
+  claim_kind: ClaimKind
+  claim_amount: number // NOT NULL — canonical payable $
   percent_complete: number | null
   hours: number | null
   qty: number | null
+  rate_used: number | null
   notes: string | null
-  captured_at: string // client-stamped (when installer pressed save)
-  created_at: string  // server-stamped (when Supabase received)
+  over_budget: boolean
+  captured_at: string  // client-stamped timestamptz (when installer pressed save)
+  captured_lat: number | null
+  captured_lng: number | null
+  captured_accuracy_m: number | null
   created_by: string | null
+  created_at: string   // server-stamped (when Supabase received)
+  // Contractor/rate-card linkage (from install-phase1-part2-alters.sql)
+  company_id: string | null
+  company_service_id: string | null
+  unit_no: string | null
+  supervisor_id: string | null
 }
 
 // Variation state machine — Budget app is sole writer

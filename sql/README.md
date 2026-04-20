@@ -6,12 +6,21 @@
 2. Paste `01-snapshot-install-tables.sql` → Run → check the verify query at bottom shows matching row counts (live = snapshot)
 3. Paste `02-budget-migration-v1.sql` → Run → check for "COMMIT" and no errors
 4. Run post-apply verification queries at bottom of `02-budget-migration-v1.sql`
-5. From a terminal:
+5. Paste `03-phase1-claim-kind.sql` → Run → check for "COMMIT" and run the 3 verify queries at the bottom
+6. From a terminal:
    ```bash
    cd ../hytek-detailing/app
    node scripts/check-job-lifecycle.js
    ```
    Must show `✓ No drift detected across all 3 per-department statuses`
+
+## Migration log
+
+| File | Applied | What it did |
+|---|---|---|
+| `01-snapshot-install-tables.sql` | 2026-04-20 | Snapshot of install_*, job_variations, job_rework at `_snapshot_20260420` |
+| `02-budget-migration-v1.sql` | 2026-04-20 | Variation state machine expansion, PO columns, transition log, rate history |
+| `03-phase1-claim-kind.sql` | pending | Discriminated `claim_kind` + `over_budget` flag + GPS columns on `install_claims` |
 
 ## If anything looks wrong
 
