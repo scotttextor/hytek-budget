@@ -12,12 +12,13 @@ export type QueueStatus =
   | { state: 'failed'; attempts: number; lastError: string; nextRetryAt: number }
   | { state: 'dead'; attempts: number; lastError: string; deadAt: number }
 
-export type QueuedMutationKind = 'claim' | 'variation' | 'rework'
+export type QueuedMutationKind = 'claim' | 'variation' | 'rework' | 'rework_with_photo'
 
 export type QueuedMutation =
   | { id: string; kind: 'claim'; table: 'install_claims'; payload: ClaimRow; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
   | { id: string; kind: 'variation'; table: 'job_variations'; payload: Partial<JobVariation> & { id: string; job_id: string; variation_number: string; description: string; status: 'raised' }; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
   | { id: string; kind: 'rework'; table: 'job_rework'; payload: Partial<JobRework> & { id: string; job_id: string; rework_number: string; description: string; explanation: string; responsible_department: ResponsibleDepartment; status: 'identified' }; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
+  | { id: string; kind: 'rework_with_photo'; table: 'job_rework'; payload: Partial<JobRework> & { id: string; job_id: string; rework_number: string; description: string; explanation: string; responsible_department: import('./types').ResponsibleDepartment; status: 'identified' }; photo: { blob: Blob; storagePath: string; fileName: string }; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
 
 // Retain old alias so existing code (use-offline-queue.ts, queue-drain.ts) keeps compiling
 export type QueuedClaim = QueuedMutation
@@ -33,7 +34,11 @@ async function saveIndex(ids: string[]): Promise<void> {
   await set(INDEX_KEY, ids)
 }
 
-export async function enqueueMutation(record: Omit<QueuedMutation, 'firstQueuedAt' | 'updatedAt' | 'status'>): Promise<void> {
+// Distributive Omit — applies Omit to each union member individually so
+// discriminants and kind-specific fields (e.g. `photo` on rework_with_photo) are preserved.
+type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never
+
+export async function enqueueMutation(record: DistributiveOmit<QueuedMutation, 'firstQueuedAt' | 'updatedAt' | 'status'>): Promise<void> {
   const now = Date.now()
   const full = { ...record, firstQueuedAt: now, updatedAt: now, status: { state: 'pending' as const } } as QueuedMutation
   await set(`${KEY_PREFIX}${record.id}`, full)

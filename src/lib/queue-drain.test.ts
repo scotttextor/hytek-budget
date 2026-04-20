@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { enqueueClaim, loadAllQueued, updateQueued } from './queue'
+import { enqueueClaim, enqueueMutation, loadAllQueued, updateQueued } from './queue'
 import { drainQueue } from './queue-drain'
 import type { ClaimRow } from './claim-payload'
 import { clear } from 'idb-keyval'
@@ -19,12 +19,23 @@ beforeEach(async () => {
   await clear()
 })
 
-function mockClient(responder: (row: ClaimRow) => { error: { code?: string; message?: string } | null }) {
+function mockClient(responder: (op: { table?: string; storage?: string; row?: any; blob?: Blob }) => { error: { code?: string; message?: string } | null }) {
   return {
-    from() { return this },
-    async insert(rows: ClaimRow[]) {
-      const row = Array.isArray(rows) ? rows[0] : rows
-      return { error: responder(row).error, data: null }
+    from(table: string) {
+      return {
+        async insert(payload: any) {
+          return { error: responder({ table, row: payload }).error, data: null }
+        },
+      }
+    },
+    storage: {
+      from(bucket: string) {
+        return {
+          async upload(_path: string, blob: Blob) {
+            return { error: responder({ storage: bucket, blob }).error, data: null }
+          },
+        }
+      },
     },
   } as any
 }
@@ -99,5 +110,57 @@ describe('drainQueue', () => {
       drainQueue(sb, { online: true }),
     ])
     expect(calls).toBe(1)
+  })
+
+  it('drains a variation row to job_variations', async () => {
+    await enqueueMutation({
+      id: 'v-1',
+      kind: 'variation',
+      table: 'job_variations',
+      payload: {
+        id: 'v-1',
+        job_id: 'j',
+        variation_number: 'V-20260420-0001',
+        description: 'Extra wall',
+        status: 'raised',
+      },
+    })
+    const tables: string[] = []
+    const sb = mockClient((op) => {
+      if (op.table) tables.push(op.table)
+      return { error: null }
+    })
+    await drainQueue(sb, { online: true })
+    expect(tables).toEqual(['job_variations'])
+    expect(await loadAllQueued()).toHaveLength(0)
+  })
+
+  it('drains a rework_with_photo — storage upload, then rework insert, then rework_photos insert', async () => {
+    const blob = new Blob(['fake-jpeg'], { type: 'image/jpeg' })
+    await enqueueMutation({
+      id: 'r-1',
+      kind: 'rework_with_photo',
+      table: 'job_rework',
+      payload: {
+        id: 'r-1',
+        job_id: 'j',
+        rework_number: 'R-20260420-0001',
+        description: 'Fix corner',
+        explanation: 'Stud misaligned',
+        responsible_department: 'install',
+        status: 'identified',
+      },
+      photo: { blob, storagePath: 'u/202604/r-1.jpg', fileName: 'site.jpg' },
+    })
+
+    const order: string[] = []
+    const sb = mockClient((op) => {
+      if (op.storage) order.push(`storage:${op.storage}`)
+      if (op.table) order.push(`insert:${op.table}`)
+      return { error: null }
+    })
+    await drainQueue(sb, { online: true })
+    expect(order).toEqual(['storage:install-photos', 'insert:job_rework', 'insert:rework_photos'])
+    expect(await loadAllQueued()).toHaveLength(0)
   })
 })
