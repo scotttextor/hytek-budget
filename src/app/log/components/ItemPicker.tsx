@@ -57,11 +57,12 @@ export function ItemPicker({ recents, allItems, onSelect }: Props) {
       <div className="space-y-2">
         <input
           type="text"
+          aria-label="Search items"
           placeholder="Search items…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div className="flex gap-2 overflow-x-auto">
+        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
           <button
             type="button"
             onClick={() => setActiveCategory(null)}
