@@ -38,11 +38,16 @@ export default function DashboardPage() {
       </header>
 
       <section className="rounded-2xl bg-white p-6 shadow">
-        <h2 className="mb-2 text-lg font-semibold">Phase 0 — Bootstrap check</h2>
-        <p className="text-sm text-gray-600">
-          If you&apos;re reading this, auth and Supabase are wired up. Phase 1
-          (mobile Quick-Log) is next.
+        <h2 className="mb-2 text-lg font-semibold">Quick-Log</h2>
+        <p className="mb-4 text-sm text-gray-600">
+          Log a progress claim against your current job.
         </p>
+        <a
+          href="/log"
+          className="inline-block rounded-lg bg-hytek-yellow px-4 py-3 font-semibold text-hytek-black"
+        >
+          Log a claim
+        </a>
       </section>
     </main>
   )
