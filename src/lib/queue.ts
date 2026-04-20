@@ -1,8 +1,10 @@
-// Offline claim queue stored in idb-keyval. Panel #2 Architect §1-§3:
+// Offline mutation queue stored in idb-keyval. Panel #2 Architect §1-§3:
 // append-only, UUID is idempotency key, 4-state status.
+// Supports claim, variation, and rework kinds (discriminated union).
 
 import { get, set, del } from 'idb-keyval'
 import type { ClaimRow } from './claim-payload'
+import type { JobVariation, JobRework, ResponsibleDepartment } from './types'
 
 export type QueueStatus =
   | { state: 'pending' }
@@ -10,14 +12,15 @@ export type QueueStatus =
   | { state: 'failed'; attempts: number; lastError: string; nextRetryAt: number }
   | { state: 'dead'; attempts: number; lastError: string; deadAt: number }
 
-export interface QueuedClaim {
-  id: string
-  kind: 'claim'
-  payload: ClaimRow
-  firstQueuedAt: number
-  updatedAt: number
-  status: QueueStatus
-}
+export type QueuedMutationKind = 'claim' | 'variation' | 'rework'
+
+export type QueuedMutation =
+  | { id: string; kind: 'claim'; table: 'install_claims'; payload: ClaimRow; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
+  | { id: string; kind: 'variation'; table: 'job_variations'; payload: Partial<JobVariation> & { id: string; job_id: string; variation_number: string; description: string; status: 'raised' }; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
+  | { id: string; kind: 'rework'; table: 'job_rework'; payload: Partial<JobRework> & { id: string; job_id: string; rework_number: string; description: string; explanation: string; responsible_department: ResponsibleDepartment; status: 'identified' }; firstQueuedAt: number; updatedAt: number; status: QueueStatus }
+
+// Retain old alias so existing code (use-offline-queue.ts, queue-drain.ts) keeps compiling
+export type QueuedClaim = QueuedMutation
 
 const KEY_PREFIX = 'queue:'
 const INDEX_KEY = 'queue:index'
@@ -30,28 +33,26 @@ async function saveIndex(ids: string[]): Promise<void> {
   await set(INDEX_KEY, ids)
 }
 
-export async function enqueueClaim(row: ClaimRow): Promise<void> {
+export async function enqueueMutation(record: Omit<QueuedMutation, 'firstQueuedAt' | 'updatedAt' | 'status'>): Promise<void> {
   const now = Date.now()
-  const record: QueuedClaim = {
-    id: row.id,
-    kind: 'claim',
-    payload: row,
-    firstQueuedAt: now,
-    updatedAt: now,
-    status: { state: 'pending' },
-  }
-  await set(`${KEY_PREFIX}${row.id}`, record)
+  const full = { ...record, firstQueuedAt: now, updatedAt: now, status: { state: 'pending' as const } } as QueuedMutation
+  await set(`${KEY_PREFIX}${record.id}`, full)
   const ids = await loadIndex()
-  if (!ids.includes(row.id)) {
-    ids.push(row.id)
+  if (!ids.includes(record.id)) {
+    ids.push(record.id)
     await saveIndex(ids)
   }
 }
 
-export async function loadAllQueued(): Promise<QueuedClaim[]> {
+// Back-compat shim: existing callers pass a ClaimRow directly
+export async function enqueueClaim(row: ClaimRow): Promise<void> {
+  await enqueueMutation({ id: row.id, kind: 'claim', table: 'install_claims', payload: row })
+}
+
+export async function loadAllQueued(): Promise<QueuedMutation[]> {
   const ids = await loadIndex()
-  const records = await Promise.all(ids.map((id) => get<QueuedClaim>(`${KEY_PREFIX}${id}`)))
-  return records.filter((r): r is QueuedClaim => r !== undefined)
+  const records = await Promise.all(ids.map((id) => get<QueuedMutation>(`${KEY_PREFIX}${id}`)))
+  return records.filter((r): r is QueuedMutation => r !== undefined)
 }
 
 export async function removeQueued(id: string): Promise<void> {
@@ -62,9 +63,9 @@ export async function removeQueued(id: string): Promise<void> {
 
 export async function updateQueued(id: string, status: QueueStatus): Promise<void> {
   const key = `${KEY_PREFIX}${id}`
-  const existing = await get<QueuedClaim>(key)
+  const existing = await get<QueuedMutation>(key)
   if (!existing) return
-  const next: QueuedClaim = { ...existing, status, updatedAt: Date.now() }
+  const next: QueuedMutation = { ...existing, status, updatedAt: Date.now() }
   await set(key, next)
 }
 
