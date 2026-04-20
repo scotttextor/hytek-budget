@@ -67,8 +67,8 @@ export default function LogPage() {
       .from('install_budget_items')
       .select('*')
       .eq('job_id', job.id)
-      .order('category')
-      .order('description')
+      .order('sort_order')
+      .order('name')
       .then(({ data }) => setAllItems((data as InstallBudgetItem[]) ?? []))
   }, [job])
 

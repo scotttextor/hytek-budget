@@ -25,14 +25,31 @@ export interface Job {
   created_at: string
 }
 
+// Real columns (verified 2026-04-20 against live Supabase):
+// id, job_id, name, category, budget_amount, budget_hours, budget_qty,
+// rate_per_unit, unit, unit_type (often null), notes, sort_order,
+// created_at, completed, completed_at, group_id, scope, unit_no, parent_item_id.
+// UI display uses `name`. `unit` is billing cadence ("per hour"/"lump sum");
+// `unit_type` is the semantic kind when populated, else null.
 export interface InstallBudgetItem {
   id: string
   job_id: string
+  name: string | null
   category: string
-  description: string | null
   budget_amount: number | null
+  budget_hours: number | null
+  budget_qty: number | null
+  rate_per_unit: number | null
+  unit: string | null
   unit_type: string | null
+  notes: string | null
+  sort_order: number | null
   completed: boolean
+  completed_at: string | null
+  group_id: string | null
+  scope: string | null
+  unit_no: string | null
+  parent_item_id: string | null
   created_at: string
 }
 

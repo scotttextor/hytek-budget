@@ -16,8 +16,11 @@ interface Props {
 }
 
 export function ClaimInput({ item, onSave, onCancel }: Props) {
+  // Real schema: unit_type is often null; unit carries the billing cadence
+  // ("per hour" / "per day" / "lump sum"). Prefer unit_type when set, fall
+  // back to unit, then to null (→ dollar mode).
   const mode = useMemo(
-    () => unitTypeToInputMode(item.unit_type, {
+    () => unitTypeToInputMode(item.unit_type ?? item.unit ?? null, {
       budgetAmountCents: item.budget_amount != null ? Math.round(item.budget_amount * 100) : null,
     }),
     [item],
@@ -57,7 +60,7 @@ export function ClaimInput({ item, onSave, onCancel }: Props) {
     <div className="space-y-4 rounded-2xl bg-white p-4 shadow-lg">
       <div>
         <div className="text-xs uppercase text-gray-500">{item.category}</div>
-        <div className="text-lg font-semibold">{item.description ?? '(no description)'}</div>
+        <div className="text-lg font-semibold">{item.name ?? '(unnamed item)'}</div>
       </div>
       <label className="block">
         <span className="mb-1 block text-sm font-medium">{effectiveMode.label}</span>

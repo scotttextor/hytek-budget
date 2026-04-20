@@ -26,7 +26,7 @@ export function ItemPicker({ recents, allItems, onSelect }: Props) {
       if (activeCategory && i.category !== activeCategory) return false
       if (!q) return true
       return (
-        (i.description ?? '').toLowerCase().includes(q) ||
+        (i.name ?? '').toLowerCase().includes(q) ||
         i.category.toLowerCase().includes(q)
       )
     })
@@ -46,7 +46,7 @@ export function ItemPicker({ recents, allItems, onSelect }: Props) {
                   className="w-full rounded-xl bg-white p-3 text-left shadow"
                 >
                   <div className="text-xs text-gray-500">{r.budgetItem.category}</div>
-                  <div className="text-sm font-medium">{r.budgetItem.description ?? '(no description)'}</div>
+                  <div className="text-sm font-medium">{r.budgetItem.name ?? '(unnamed item)'}</div>
                 </button>
               </li>
             ))}
@@ -96,7 +96,7 @@ export function ItemPicker({ recents, allItems, onSelect }: Props) {
               className="w-full rounded-xl bg-white p-3 text-left shadow"
             >
               <div className="text-xs text-gray-500">{i.category}</div>
-              <div className="text-sm">{i.description ?? '(no description)'}</div>
+              <div className="text-sm">{i.name ?? '(unnamed item)'}</div>
             </button>
           </li>
         ))}

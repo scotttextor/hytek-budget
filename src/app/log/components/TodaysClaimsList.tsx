@@ -35,7 +35,7 @@ export function TodaysClaimsList({ claims }: Props) {
         {claims.map((c) => (
           <li key={c.id} className="rounded-xl bg-white px-3 py-2 text-sm shadow">
             <div className="flex items-center justify-between gap-2">
-              <span className="truncate">{c.item.description ?? c.item.category}</span>
+              <span className="truncate">{c.item.name ?? c.item.category}</span>
               <span className="shrink-0 font-semibold">{describeClaim(c.payload)}</span>
             </div>
             <div className="text-xs text-gray-500">{TIME_FORMAT.format(c.stampedAt)}</div>
