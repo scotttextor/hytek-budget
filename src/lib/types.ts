@@ -98,28 +98,71 @@ export type VariationState =
   | 'cancelled'
   | 'superseded'
 
+// Real columns (verified 2026-04-20 against add-variations-rework.sql + 02-budget-migration-v1.sql).
+// `description` is the required headline text (the UI's "title"). `reason` is optional narrative.
+// `purchase_order` is a legacy free-text field from original creation; `po_reference` added by
+// Phase 0 migration and is the canonical PO field for the new Budget app — prefer po_reference.
+// `variation_number` is app-generated (`V-YYYYMMDD-xxxx`) — no DB default.
 export interface JobVariation {
   id: string
   job_id: string
-  title: string
-  description: string | null
-  estimated_cost: number | null
-  actual_cost: number | null
+  variation_number: string
+  description: string               // title (NOT NULL)
+  reason: string | null
+  estimated_cost: number            // NOT NULL DEFAULT 0
+  actual_cost: number               // NOT NULL DEFAULT 0
+  purchase_order: string | null     // legacy
+  po_reference: string | null       // canonical for Budget app
+  requires_gm_approval: boolean
+  gm_approved: boolean
+  gm_approved_by: string | null
+  approved_by: string | null
+  approved_date: string | null
   status: VariationState
-  po_reference: string | null
+  affects_detailing: boolean
+  affects_dispatch: boolean
+  affects_install: boolean
+  affects_fabrication: boolean
+  daywork_notes: string | null
   status_changed_at: string | null
   status_changed_by: string | null
+  // Phase 1.5 additions (in migration sql/04)
+  captured_at: string | null
+  captured_lat: number | null
+  captured_lng: number | null
+  captured_accuracy_m: number | null
+  created_by: string | null
+  created_by_department: string | null
   created_at: string
 }
+
+// Real columns (verified 2026-04-20 against add-variations-rework.sql).
+// UI "title" → `description`, UI "details" → `explanation`. `responsible_department`
+// is a CHECK-constrained enum and is the core categorisation — we use it as the
+// installer's "who" picker on the Rework form. `status` starts 'identified' (not 'open').
+export type ReworkStatus = 'identified' | 'in_progress' | 'complete'
+export type ResponsibleDepartment = 'detailing' | 'dispatch' | 'install' | 'fabrication' | 'other'
 
 export interface JobRework {
   id: string
   job_id: string
-  title: string
-  description: string | null
-  root_cause: string | null
-  estimated_cost: number | null
-  actual_cost: number | null
-  status: 'open' | 'in_progress' | 'complete'
+  rework_number: string
+  description: string               // title (NOT NULL)
+  explanation: string               // required details (NOT NULL)
+  responsible_department: ResponsibleDepartment
+  responsible_person: string | null
+  estimated_cost: number            // NOT NULL DEFAULT 0
+  actual_cost: number               // NOT NULL DEFAULT 0
+  status: ReworkStatus
+  affects_detailing: boolean
+  affects_dispatch: boolean
+  affects_install: boolean
+  affects_fabrication: boolean
+  // Phase 1.5 additions (in migration sql/04)
+  captured_at: string | null
+  captured_lat: number | null
+  captured_lng: number | null
+  captured_accuracy_m: number | null
+  created_by: string | null
   created_at: string
 }
