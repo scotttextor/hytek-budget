@@ -1,20 +1,40 @@
 @AGENTS.md
 
-# HYTEK Budget App
+# HYTEK Budget App — MOTHBALLED 2026-04-22
 
-> **⚠ BEING SUPERSEDED 2026-04-21:** A new full-featured `hytek-install` repo at
-> `C:/Users/ScottTextor/CLAUDE CODE/hytek-install/` replaces this app once it
-> reaches parity in production. Both apps write side-by-side during transition
-> (append-only — no conflicts). See `hytek-install/RESUME.md` and
-> `session_landmark_hytek_install_overnight.md` in user memory.
+> **🛑 MOTHBALLED 2026-04-22:** This app has been retired. All routes now 307
+> redirect to `https://hytek-install.vercel.app/dashboard` via
+> [`next.config.ts`](next.config.ts) `redirects()`. Any request hitting
+> `budget.hytekframing.com.au` lands on the new app.
 >
-> **Do not start new feature work here.** Build new features in `hytek-install`.
+> **Why:** hytek-install has full parity and is the sole writer for all
+> install tables (verified 2026-04-22 — hytek-install writes
+> install_claims, install_budget_items, install_flagged_items,
+> install_photos, job_rework + job_variations via the offline queue).
+> Keeping two apps alive was pure maintenance tax.
+>
+> **What stayed:**
+> - The Vercel deployment (serves the redirect + fallback page)
+> - The GitHub repo + full git history
+> - The Supabase tables (hytek-install still writes them)
+> - The OneDrive git-bundle backup at `CLAUDE DATA FILE/github-mirror/hytek-budget.bundle`
+> - Git tag `mothballed-2026-04-22` on the commit that flipped the redirect
+>
+> **What changed:**
+> - Every HTTP path redirects to hytek-install (307 — intentionally non-permanent
+>   so browsers don't aggressively cache if we ever un-mothball)
+> - Root page shows a static "retired" notice as a safety fallback
+>
+> **To un-mothball:** delete the `redirects()` block in `next.config.ts` and
+> redeploy. All routes instantly work again.
+>
+> **Do not start new feature work here.** Build in `hytek-install`.
 
-Mobile-first budget tracking app for HYTEK Framing. Originally built to replace the retired Install UI that used to live under `hytek-detailing/app/install/*`. Now itself being replaced by `hytek-install` which expands to cover the full install workflow (office desktop + mobile PIN supervisors).
+Mobile-first budget tracking app for HYTEK Framing. Was built to replace the earlier Install UI that lived under `hytek-detailing/app/install/*`. Since superseded by `hytek-install` which expanded to cover the full install workflow (office desktop + mobile PIN supervisors).
 
-## Role in the HYTEK suite
+## Role in the HYTEK suite (historical — pre-mothball)
 
-- **Sole writer** for `install_budget_items`, `install_claims`, `job_variations`, `job_rework`, `install_photos`, `install_flagged_items` in the shared `hytek-detailing` Supabase project.
+- **WAS sole writer** for `install_budget_items`, `install_claims`, `job_variations`, `job_rework`, `install_photos`, `install_flagged_items` in the shared `hytek-detailing` Supabase project. hytek-install now covers all writes.
 - Install app UI is retired (routes still on disk in git history at tag `pre-install-retirement-2026-04-20` on both `hytek-detailing` and `hytek-detailing/app`). Safety branches: `install-retired-backup` on both.
 - Hub import (`hytek-hub/app/api/import-job/route.ts`) continues to seed `install_budget_items` on quote import. Budget reads what Hub seeded and is the only thing that mutates it thereafter.
 - Dispatch, Detailing, Planner, Invoicing apps all unchanged — they read the same shared DB.
