@@ -10,6 +10,7 @@
 6. Paste `04-phase1.5-variations-rework.sql` → Run → check for "COMMIT" and run the verify queries at the bottom
 7. Paste `05-phase2-roles.sql` → Run → check for "COMMIT" and run all 9 verify queries at the bottom
 8. Paste `06-customer-grant-prune-fn.sql` → Run → check for "COMMIT". Test with: `SELECT public.prune_expired_customer_grants();` (returns 0 on a clean DB)
+9. Paste `07-contractor-identity-standalone.sql` → Run → check for "COMMIT" and run the 4 verify queries at the bottom (A–D)
 9. From a terminal:
    ```bash
    cd ../hytek-detailing/app
@@ -27,6 +28,7 @@
 | `04-phase1.5-variations-rework.sql` | pending | captured_at + GPS on job_variations + job_rework, partial CHECK approved⇒po_reference, install-photos storage bucket |
 | `05-phase2-roles.sql` | pending | contractor role in profiles CHECK; jobs.closed_at set-once trigger; 6 new tables (install_contractor_assignments, customer_super_grants, install_progress_reports, claim_report_links, delivery_sightings, admin_alerts); install_photos.report_id FK; full RLS. Design: hytek-install/docs/superpowers/specs/2026-04-21-contractor-customer-roles-design.md |
 | `06-customer-grant-prune-fn.sql` | pending | `prune_expired_customer_grants()` SECURITY DEFINER function: deletes auth.users rows whose every grant is expired or revoked. Admin-invocable via `SELECT public.prune_expired_customer_grants()`. Returns deleted row count. Manual trigger only (not pg_cron) — current volume ~200 rows/year. |
+| `07-contractor-identity-standalone.sql` | pending | Root-cause fix for T3 bug: `install_contractors.profile_id` → nullable; FKs on `install_contractor_assignments.contractor_id` and `install_progress_reports.contractor_id` re-pointed from `profiles` → `install_contractors`; `install_photos.created_by` → nullable. Safe: both child tables were empty pre-apply (verified via service-role curl). Pairs with hytek-install code fix. |
 
 ## If anything looks wrong
 
