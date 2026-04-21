@@ -10,6 +10,14 @@
 --   delivery_sightings.delivery_id now REFERENCES public.dispatch_trips(id) — confirmed
 --   via dispatch-v2-schema.sql (dispatch_trips has id uuid primary key).
 --
+-- Revised 2026-04-21 (3rd revision) per Scott's scope clarification:
+--   HYTEK installer role has the SAME access pattern as contractor (field worker,
+--   no $ visible, progress reports only) — Scott's 2026-04-21 clarification.
+--   Full-access HYTEK staff = admin + supervisor only. All staff-check RLS policies
+--   shrunk from role IN ('admin','supervisor','installer','detailer','driver')
+--   to role IN ('admin','supervisor'). detailer and driver belong to other apps
+--   and have no progress-report write access here.
+--
 -- Apply AFTER sql/01, 02, 03, 04. Safe to re-run (IF NOT EXISTS + DROP/re-add on constraints).
 --
 -- What this does (additive only — zero destructive ops):
@@ -85,6 +93,12 @@ CREATE TRIGGER trg_jobs_closed_at
 -- Session stored in localStorage; Supabase calls go as anon (same pattern as dispatch drivers).
 -- profile_id links to the profiles row that holds this contractor's identity; UNIQUE enforces
 -- one contractor record per profile.
+--
+-- NOTE: Holds BOTH HYTEK employee installers (company = 'HYTEK Framing' or similar) and
+-- external contractors. Both get the same restricted field-worker UI. Use company to
+-- distinguish HYTEK employees from external contractors in reports. No separate table needed
+-- — the 'installer' profiles role and 'contractor' profiles role both resolve to this
+-- same restricted field-worker access pattern (Scott's 2026-04-21 clarification).
 CREATE TABLE IF NOT EXISTS public.install_contractors (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   profile_id  uuid NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
@@ -274,7 +288,7 @@ CREATE POLICY "staff reads progress reports"
     EXISTS (
       SELECT 1 FROM public.profiles
       WHERE id = auth.uid()
-        AND role IN ('admin','supervisor','installer','detailer','driver')
+        AND role IN ('admin','supervisor')
     )
   );
 
@@ -398,7 +412,7 @@ CREATE POLICY "staff reads sightings"
     EXISTS (
       SELECT 1 FROM public.profiles
       WHERE id = auth.uid()
-        AND role IN ('admin','supervisor','installer','detailer','driver')
+        AND role IN ('admin','supervisor')
     )
   );
 
