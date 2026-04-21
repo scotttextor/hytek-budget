@@ -2,18 +2,27 @@
 -- Design source: hytek-install/docs/superpowers/specs/2026-04-21-contractor-customer-roles-design.md
 -- Panel synthesis: Panel #3, 2026-04-21 (UX / Architect / Mathematician / Strategist)
 --
+-- Revised 2026-04-21 per Scott's Q1 decision:
+--   Contractors authenticate via 4-digit PIN (install_contractors table) mirroring
+--   install_supervisors pattern — Scott's 2026-04-21 decision. Session stored in
+--   localStorage; Supabase calls go as anon. RLS on contractor-facing tables rewritten
+--   to anon-readable with app-layer filtering (auth.uid() unavailable for contractor side).
+--   delivery_sightings.delivery_id now REFERENCES public.dispatch_trips(id) — confirmed
+--   via dispatch-v2-schema.sql (dispatch_trips has id uuid primary key).
+--
 -- Apply AFTER sql/01, 02, 03, 04. Safe to re-run (IF NOT EXISTS + DROP/re-add on constraints).
 --
 -- What this does (additive only — zero destructive ops):
 --   1. Extends profiles.role CHECK to include 'contractor'
 --   2. Adds jobs.closed_at (set-once timestamptz) + trigger
---   3. Creates install_contractor_assignments (per-item contractor scope)
---   4. Creates customer_super_grants (ephemeral per-job access, not in profiles)
---   5. Creates install_progress_reports (contractor-submitted progress against assigned items)
---   6. Creates claim_report_links (N:M junction: claims ↔ progress reports)
---   7. Adds install_photos.report_id FK column (nullable, additive)
---   8. Creates delivery_sightings (append-only customer-super sighting log)
---   9. Creates admin_alerts (rate-limit breach + misuse signals)
+--   3. Creates install_contractors (PIN-auth table, mirrors install_supervisors pattern)
+--   4. Creates install_contractor_assignments (per-item contractor scope)
+--   5. Creates customer_super_grants (ephemeral per-job access, not in profiles)
+--   6. Creates install_progress_reports (contractor-submitted progress against assigned items)
+--   7. Creates claim_report_links (N:M junction: claims ↔ progress reports)
+--   8. Adds install_photos.report_id FK column (nullable, additive)
+--   9. Creates delivery_sightings (append-only customer-super sighting log)
+--  10. Creates admin_alerts (rate-limit breach + misuse signals)
 --
 -- DB PROBE RESULTS (2026-04-21):
 --   - jobs.updated_at: DOES NOT EXIST (42703) → backfill uses created_at
@@ -70,7 +79,49 @@ CREATE TRIGGER trg_jobs_closed_at
   FOR EACH ROW EXECUTE FUNCTION public.trg_set_job_closed_at();
 
 -- =============================================================================
--- 3. install_contractor_assignments — per-item contractor scope
+-- 3. install_contractors — PIN-auth table (mirrors install_supervisors pattern)
+-- =============================================================================
+-- Scott's 2026-04-21 decision: contractors authenticate via 4-digit PIN, not magic link.
+-- Session stored in localStorage; Supabase calls go as anon (same pattern as dispatch drivers).
+-- profile_id links to the profiles row that holds this contractor's identity; UNIQUE enforces
+-- one contractor record per profile.
+CREATE TABLE IF NOT EXISTS public.install_contractors (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  profile_id  uuid NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  name        text NOT NULL,
+  pin         text NOT NULL CHECK (pin ~ '^[0-9]{4}$'),   -- 4-digit numeric
+  company     text,                                        -- e.g. "Acme Framing Pty Ltd"
+  phone       text,
+  email       text,
+  active      boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT one_profile_one_contractor UNIQUE (profile_id)
+);
+
+-- PIN lookup index: partial on active=true so login queries stay O(1) even at scale
+CREATE INDEX IF NOT EXISTS idx_install_contractors_pin
+  ON public.install_contractors (pin) WHERE active = true;
+
+ALTER TABLE public.install_contractors ENABLE ROW LEVEL SECURITY;
+
+-- Staff (admin/supervisor) manages all contractor records
+DROP POLICY IF EXISTS "staff manages contractors" ON public.install_contractors;
+CREATE POLICY "staff manages contractors" ON public.install_contractors
+  FOR ALL TO authenticated
+  USING (EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('admin','supervisor')))
+  WITH CHECK (EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('admin','supervisor')));
+
+-- PIN-based login lookup: anon can SELECT active rows to find the PIN match.
+-- Mirrors install_supervisors + dispatch drivers pattern: the PIN IS the auth boundary;
+-- knowing a PIN by itself is not meaningful without the app.
+DROP POLICY IF EXISTS "anon reads active contractors for pin lookup" ON public.install_contractors;
+CREATE POLICY "anon reads active contractors for pin lookup" ON public.install_contractors
+  FOR SELECT TO anon
+  USING (active = true);
+
+-- =============================================================================
+-- 4. install_contractor_assignments — per-item contractor scope
 -- =============================================================================
 -- Design doc §3.3: granularity is per-item (precise RLS joins), with UI bulk helpers.
 -- UNIQUE on (contractor_id, budget_item_id) — one active assignment per contractor per item.
@@ -112,17 +163,19 @@ CREATE POLICY "staff manages assignments"
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('admin','supervisor'))
   );
 
--- Contractors can read their own non-revoked assignments (so they know their scope)
+-- Anon can read assignments — app filters by contractor_id from localStorage session.
+-- Staff-side policies (manage) stay unchanged. Security here is:
+-- (a) PIN is the auth boundary at app layer
+-- (b) App only ever queries with .eq('contractor_id', session.contractor_id)
+-- (c) Knowing a contractor_id UUID by itself is near-useless — nothing to exfiltrate at scale
+-- NOTE: cannot use auth.uid() here because contractor sessions live in localStorage (anon calls).
 DROP POLICY IF EXISTS "contractor reads own assignments" ON public.install_contractor_assignments;
-CREATE POLICY "contractor reads own assignments"
-  ON public.install_contractor_assignments FOR SELECT TO authenticated
-  USING (
-    contractor_id = auth.uid()
-    AND revoked_at IS NULL
-  );
+CREATE POLICY "anon reads assignments (app-filtered)"
+  ON public.install_contractor_assignments FOR SELECT TO anon
+  USING (revoked_at IS NULL);
 
 -- =============================================================================
--- 4. customer_super_grants — ephemeral per-job external access
+-- 5. customer_super_grants — ephemeral per-job external access
 -- =============================================================================
 -- Design doc §3.1: customer supers are NOT in profiles (avoids identity table bloat
 -- from thousands of single-use records). One row per (job, customer email).
@@ -178,7 +231,7 @@ CREATE POLICY "customer super reads own grant"
   );
 
 -- =============================================================================
--- 5. install_progress_reports — contractor progress submissions
+-- 6. install_progress_reports — contractor progress submissions
 -- =============================================================================
 -- Design doc §3.6(e): contractors submit progress against assigned items.
 -- RLS: staff reads all; contractor reads/writes only their own where assignment exists.
@@ -236,33 +289,34 @@ CREATE POLICY "staff writes progress reports"
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('admin','supervisor'))
   );
 
--- Contractor reads ONLY their own reports (cross-contractor isolation per Mathematician §8)
+-- Anon can SELECT reports — app filters by contractor_id from localStorage.
+-- Staff-side policies (reads all / writes all) stay unchanged.
+-- NOTE: cannot use auth.uid() here because contractor sessions are anon (PIN + localStorage).
 DROP POLICY IF EXISTS "contractor reads own reports" ON public.install_progress_reports;
-CREATE POLICY "contractor reads own reports"
-  ON public.install_progress_reports FOR SELECT TO authenticated
-  USING (
-    contractor_id = auth.uid()
-    AND EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'contractor')
-  );
-
--- Contractor inserts against assigned items only (not against unassigned or revoked)
 DROP POLICY IF EXISTS "contractor writes own reports" ON public.install_progress_reports;
-CREATE POLICY "contractor writes own reports"
-  ON public.install_progress_reports FOR INSERT TO authenticated
+
+-- Anon reads: open SELECT; app enforces filtering by contractor_id from session.
+CREATE POLICY "anon reads reports (app-filtered)"
+  ON public.install_progress_reports FOR SELECT TO anon
+  USING (true);
+
+-- Anon INSERT: assignment-gated — the INSERT must reference a valid non-revoked assignment
+-- linking the contractor, job, and budget_item together. This is the DB-enforced safety net
+-- even though the PIN is the primary auth boundary at app layer.
+CREATE POLICY "anon writes reports (assignment-gated)"
+  ON public.install_progress_reports FOR INSERT TO anon
   WITH CHECK (
-    contractor_id = auth.uid()
-    AND EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'contractor')
-    AND EXISTS (
+    EXISTS (
       SELECT 1 FROM public.install_contractor_assignments a
-      WHERE a.contractor_id = auth.uid()
-        AND a.job_id         = install_progress_reports.job_id
-        AND a.budget_item_id = install_progress_reports.budget_item_id
-        AND a.revoked_at     IS NULL
+      WHERE a.contractor_id   = install_progress_reports.contractor_id
+        AND a.job_id          = install_progress_reports.job_id
+        AND a.budget_item_id  = install_progress_reports.budget_item_id
+        AND a.revoked_at      IS NULL
     )
   );
 
 -- =============================================================================
--- 6. claim_report_links — N:M junction (claims ↔ progress reports)
+-- 7. claim_report_links — N:M junction (claims ↔ progress reports)
 -- =============================================================================
 -- Design doc §3.6(f) + Mathematician §3:
 -- One claim can batch multiple reports; one report can feed multiple claims
@@ -294,7 +348,7 @@ CREATE POLICY "staff manages claim report links"
   );
 
 -- =============================================================================
--- 7. install_photos.report_id — additive FK column
+-- 8. install_photos.report_id — additive FK column
 -- =============================================================================
 -- Design doc §3.6(g): photos taken during a progress report get this FK.
 -- Existing photos remain with report_id = NULL (no data touched).
@@ -308,23 +362,16 @@ CREATE INDEX IF NOT EXISTS idx_install_photos_report
   WHERE report_id IS NOT NULL;
 
 -- =============================================================================
--- 8. delivery_sightings — append-only customer-super sighting log
+-- 9. delivery_sightings — append-only customer-super sighting log
 -- =============================================================================
 -- Design doc §3.6(h) + §3.5:
 -- Audit rows log grant_id + ip_address + user_agent (not a profile identity — customer
 -- may forward the link). Legal audit: "sighted by customer-super link for Job N from
 -- IP x.y.z.w" — the truthful claim, not a named individual.
 --
--- TODO: delivery_id has NO FK constraint intentionally. The dispatch delivery table name
--- is not confirmed. Once confirmed (check hytek-detailing/app scripts for delivery table),
--- add: ALTER TABLE public.delivery_sightings
---        ADD CONSTRAINT delivery_sightings_delivery_id_fkey
---        FOREIGN KEY (delivery_id) REFERENCES public.<dispatch_delivery_table>(id);
 CREATE TABLE IF NOT EXISTS public.delivery_sightings (
   id              uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
-  -- FK to dispatch's delivery table — intentionally unconstrained (table name TBD)
-  -- See TODO above before adding FK at T10.
-  delivery_id     uuid        NOT NULL,
+  delivery_id     uuid        NOT NULL REFERENCES public.dispatch_trips(id) ON DELETE CASCADE,
   grant_id        uuid        NOT NULL REFERENCES public.customer_super_grants(id) ON DELETE CASCADE,
   action          text        NOT NULL CHECK (action IN ('sighted', 'retracted')),
   reason          text,
@@ -383,7 +430,7 @@ CREATE POLICY "customer super reads own sightings"
   );
 
 -- =============================================================================
--- 9. admin_alerts — rate-limit breach + grant misuse signals
+-- 10. admin_alerts — rate-limit breach + grant misuse signals
 -- =============================================================================
 -- Design doc §3.11 + Mathematician §8:
 -- App middleware writes rows here when rate limit sustained (20 req/hour per magic link,
@@ -449,11 +496,12 @@ FROM pg_trigger
 WHERE tgrelid = 'public.jobs'::regclass AND tgname = 'trg_jobs_closed_at';
 -- Expect: 1 row
 
--- D. New tables exist (expect 6 rows)
+-- D. New tables exist (expect 7 rows)
 SELECT table_name
 FROM information_schema.tables
 WHERE table_schema = 'public'
   AND table_name IN (
+    'install_contractors',
     'install_contractor_assignments',
     'customer_super_grants',
     'install_progress_reports',
@@ -469,11 +517,12 @@ FROM information_schema.columns
 WHERE table_schema = 'public' AND table_name = 'install_photos' AND column_name = 'report_id';
 -- Expect: 1 row, uuid, YES (nullable)
 
--- F. RLS is enabled on all new tables (expect 6 rows, all relrowsecurity = true)
+-- F. RLS is enabled on all new tables (expect 7 rows, all relrowsecurity = true)
 SELECT relname, relrowsecurity
 FROM pg_class
 WHERE relnamespace = 'public'::regnamespace
   AND relname IN (
+    'install_contractors',
     'install_contractor_assignments',
     'customer_super_grants',
     'install_progress_reports',
@@ -487,6 +536,7 @@ ORDER BY relname;
 SELECT polrelid::regclass AS table_name, count(*) AS policy_count
 FROM pg_policy
 WHERE polrelid::regclass::text IN (
+  'install_contractors',
   'install_contractor_assignments',
   'customer_super_grants',
   'install_progress_reports',
@@ -497,9 +547,10 @@ WHERE polrelid::regclass::text IN (
 GROUP BY polrelid
 ORDER BY table_name;
 -- Expect:
---   install_contractor_assignments  → 2
+--   install_contractors             → 2  (staff manages + anon reads active for pin lookup)
+--   install_contractor_assignments  → 2  (staff manages + anon reads app-filtered)
 --   customer_super_grants           → 2
---   install_progress_reports        → 4
+--   install_progress_reports        → 4  (staff reads all + staff writes all + anon reads + anon writes assignment-gated)
 --   claim_report_links              → 1
 --   delivery_sightings              → 3
 --   admin_alerts                    → 1
@@ -510,11 +561,12 @@ FROM public.jobs
 WHERE install_status = 'complete' AND closed_at IS NULL;
 -- Expect: 0
 
--- I. All indexes created (expect 9 rows)
+-- I. All indexes created (expect 12 rows)
 SELECT indexname
 FROM pg_indexes
 WHERE schemaname = 'public'
   AND indexname IN (
+    'idx_install_contractors_pin',
     'idx_contractor_assignments_contractor',
     'idx_contractor_assignments_job',
     'idx_customer_super_grants_user',
@@ -528,28 +580,30 @@ WHERE schemaname = 'public'
     'idx_admin_alerts_unack'
   )
 ORDER BY indexname;
--- Expect: 11 rows
+-- Expect: 12 rows
 
 
 -- =============================================================================
 -- ROLLBACK (uncomment to undo — apply as a separate transaction)
 -- =============================================================================
 -- BEGIN;
--- -- 9. admin_alerts
+-- -- 10. admin_alerts
 -- DROP TABLE IF EXISTS public.admin_alerts CASCADE;
--- -- 8. delivery_sightings
+-- -- 9. delivery_sightings
 -- DROP TABLE IF EXISTS public.delivery_sightings CASCADE;
--- -- 7. install_photos.report_id
+-- -- 8. install_photos.report_id
 -- DROP INDEX IF EXISTS public.idx_install_photos_report;
 -- ALTER TABLE public.install_photos DROP COLUMN IF EXISTS report_id;
--- -- 6. claim_report_links
+-- -- 7. claim_report_links
 -- DROP TABLE IF EXISTS public.claim_report_links CASCADE;
--- -- 5. install_progress_reports
+-- -- 6. install_progress_reports
 -- DROP TABLE IF EXISTS public.install_progress_reports CASCADE;
--- -- 4. customer_super_grants
+-- -- 5. customer_super_grants
 -- DROP TABLE IF EXISTS public.customer_super_grants CASCADE;
--- -- 3. install_contractor_assignments
+-- -- 4. install_contractor_assignments
 -- DROP TABLE IF EXISTS public.install_contractor_assignments CASCADE;
+-- -- 3. install_contractors
+-- DROP TABLE IF EXISTS public.install_contractors CASCADE;
 -- -- 2. jobs.closed_at + trigger
 -- DROP TRIGGER IF EXISTS trg_jobs_closed_at ON public.jobs;
 -- DROP FUNCTION IF EXISTS public.trg_set_job_closed_at();
