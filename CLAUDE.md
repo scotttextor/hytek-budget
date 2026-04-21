@@ -2,7 +2,15 @@
 
 # HYTEK Budget App
 
-Mobile-first budget tracking app for HYTEK Framing. Replaces the retired Install UI that used to live under `hytek-detailing/app/install/*`.
+> **⚠ BEING SUPERSEDED 2026-04-21:** A new full-featured `hytek-install` repo at
+> `C:/Users/ScottTextor/CLAUDE CODE/hytek-install/` replaces this app once it
+> reaches parity in production. Both apps write side-by-side during transition
+> (append-only — no conflicts). See `hytek-install/RESUME.md` and
+> `session_landmark_hytek_install_overnight.md` in user memory.
+>
+> **Do not start new feature work here.** Build new features in `hytek-install`.
+
+Mobile-first budget tracking app for HYTEK Framing. Originally built to replace the retired Install UI that used to live under `hytek-detailing/app/install/*`. Now itself being replaced by `hytek-install` which expands to cover the full install workflow (office desktop + mobile PIN supervisors).
 
 ## Role in the HYTEK suite
 
