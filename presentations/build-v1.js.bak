@@ -1,0 +1,910 @@
+// HYTEK Operations Platform — Manager Meeting Presentation
+// Self-running 16-slide showcase, 4-min loop
+// Brand: Black #231F20 + Yellow #FFCB05
+
+const pptxgen = require("pptxgenjs");
+
+const BLACK = "231F20";
+const YELLOW = "FFCB05";
+const WHITE = "FFFFFF";
+const GREY_LIGHT = "E5E5E5";
+const GREY_MID = "8A8685";
+const GREY_DARK = "2E2A29";
+const GREY_PANEL = "1A1617";
+
+const HEADER_FONT = "Impact";
+const BODY_FONT = "Calibri";
+
+const pres = new pptxgen();
+pres.layout = "LAYOUT_16x9"; // 10" × 5.625"
+pres.title = "HYTEK Operations Platform 2026";
+pres.author = "Scott Textor";
+pres.company = "HYTEK Framing";
+
+const W = 10, H = 5.625;
+
+// ---------- helpers ----------
+function addChip(slide, label) {
+  // Yellow slide-index chip top-left — wide enough for longest labels
+  slide.addShape(pres.shapes.RECTANGLE, {
+    x: 0.4, y: 0.32, w: 2.8, h: 0.42,
+    fill: { color: YELLOW }, line: { type: "none" }
+  });
+  slide.addText(label, {
+    x: 0.4, y: 0.32, w: 2.8, h: 0.42,
+    fontFace: HEADER_FONT, fontSize: 13, color: BLACK,
+    align: "center", valign: "middle", charSpacing: 3, margin: 0
+  });
+}
+
+function addCornerBracket(slide, color = YELLOW) {
+  // Top-right yellow L-bracket (signature motif)
+  slide.addShape(pres.shapes.RECTANGLE, {
+    x: W - 0.9, y: 0.35, w: 0.5, h: 0.06,
+    fill: { color }, line: { type: "none" }
+  });
+  slide.addShape(pres.shapes.RECTANGLE, {
+    x: W - 0.46, y: 0.35, w: 0.06, h: 0.5,
+    fill: { color }, line: { type: "none" }
+  });
+}
+
+function addFooter(slide, color = GREY_MID) {
+  slide.addText("HYTEK FRAMING  ·  OPERATIONS PLATFORM  ·  2026", {
+    x: 0.4, y: H - 0.35, w: 6, h: 0.22,
+    fontFace: BODY_FONT, fontSize: 8, color, charSpacing: 3, margin: 0
+  });
+}
+
+function darkBg(slide, color = BLACK) {
+  slide.background = { color };
+}
+
+// ============================================================
+// SLIDE 1 — TITLE
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+
+  // Yellow accent strip down left side
+  s.addShape(pres.shapes.RECTANGLE, {
+    x: 0, y: 0, w: 0.15, h: H,
+    fill: { color: YELLOW }, line: { type: "none" }
+  });
+
+  // Massive HYTEK wordmark
+  s.addText("HYTEK", {
+    x: 0.8, y: 1.4, w: 8.5, h: 2.0,
+    fontFace: HEADER_FONT, fontSize: 200, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 12, margin: 0, bold: true
+  });
+
+  // Thin yellow divider
+  s.addShape(pres.shapes.RECTANGLE, {
+    x: 0.85, y: 3.55, w: 1.2, h: 0.04,
+    fill: { color: YELLOW }, line: { type: "none" }
+  });
+
+  s.addText("OPERATIONS PLATFORM", {
+    x: 0.8, y: 3.7, w: 8.5, h: 0.5,
+    fontFace: HEADER_FONT, fontSize: 28, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 10, margin: 0
+  });
+
+  s.addText("WHAT'S BEEN BUILT  ·  APRIL 2026", {
+    x: 0.8, y: 4.25, w: 8.5, h: 0.35,
+    fontFace: BODY_FONT, fontSize: 12, color: GREY_MID,
+    align: "left", valign: "middle", charSpacing: 6, margin: 0
+  });
+}
+
+// ============================================================
+// SLIDE 2 — BEFORE / THE PROBLEM
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, GREY_DARK);
+  addChip(s, "01 / BEFORE");
+  addCornerBracket(s);
+
+  s.addText("FIVE DEPARTMENTS.", {
+    x: 0.6, y: 1.2, w: 9, h: 1.0,
+    fontFace: HEADER_FONT, fontSize: 72, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  s.addText("ZERO SHARED DATA.", {
+    x: 0.6, y: 2.25, w: 9, h: 1.0,
+    fontFace: HEADER_FONT, fontSize: 72, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  s.addShape(pres.shapes.RECTANGLE, {
+    x: 0.65, y: 3.5, w: 0.8, h: 0.04,
+    fill: { color: YELLOW }, line: { type: "none" }
+  });
+
+  s.addText([
+    { text: "Paper claims.  ", options: { color: GREY_LIGHT } },
+    { text: "Lost variations.  ", options: { color: GREY_LIGHT } },
+    { text: "Nobody knew where a job really stood.", options: { color: GREY_LIGHT } }
+  ], {
+    x: 0.6, y: 3.7, w: 9, h: 0.5,
+    fontFace: BODY_FONT, fontSize: 18, align: "left", valign: "middle", margin: 0
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 3 — THE SOLUTION / THE MAP
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "02 / NOW");
+  addCornerBracket(s);
+
+  s.addText("ONE PLATFORM.", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  s.addText("FIVE APPS.  ONE DATABASE.", {
+    x: 0.6, y: 1.8, w: 9, h: 0.6,
+    fontFace: HEADER_FONT, fontSize: 28, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 6, margin: 0
+  });
+
+  // App flow diagram — 5 tiles in a row with arrows
+  const apps = ["PLANNER", "HUB", "DETAILING", "DISPATCH", "INSTALL"];
+  const tileW = 1.55, tileH = 1.0, gap = 0.22;
+  const totalW = apps.length * tileW + (apps.length - 1) * gap;
+  const startX = (W - totalW) / 2;
+  const tileY = 3.0;
+
+  apps.forEach((app, i) => {
+    const x = startX + i * (tileW + gap);
+    s.addShape(pres.shapes.RECTANGLE, {
+      x, y: tileY, w: tileW, h: tileH,
+      fill: { color: GREY_DARK }, line: { color: YELLOW, width: 1 }
+    });
+    s.addText(app, {
+      x, y: tileY, w: tileW, h: tileH,
+      fontFace: HEADER_FONT, fontSize: 16, color: WHITE,
+      align: "center", valign: "middle", charSpacing: 3, margin: 0
+    });
+    // Arrows between tiles
+    if (i < apps.length - 1) {
+      const arrowX = x + tileW + 0.02;
+      s.addShape(pres.shapes.RIGHT_TRIANGLE, {
+        x: arrowX, y: tileY + tileH / 2 - 0.06, w: 0.18, h: 0.12,
+        rotate: 90, fill: { color: YELLOW }, line: { type: "none" }
+      });
+    }
+  });
+
+  // Database footer
+  s.addText("↓  SHARED SUPABASE DATABASE  ·  INVOICING FEEDS OFF SAME SOURCE  ↓", {
+    x: 0.6, y: 4.4, w: 9, h: 0.35,
+    fontFace: BODY_FONT, fontSize: 11, color: GREY_MID,
+    align: "center", valign: "middle", charSpacing: 5, margin: 0
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 4 — HUB
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "03 / HUB");
+  addCornerBracket(s);
+
+  s.addText("ONE LOGIN.", {
+    x: 0.6, y: 0.9, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("EVERY APP.", {
+    x: 0.6, y: 1.8, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("Central launcher. One set of credentials. Staff click through — no re-logins, no confusion.", {
+    x: 0.6, y: 2.85, w: 5, h: 1.0,
+    fontFace: BODY_FONT, fontSize: 14, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Right side: mock hub tile grid (3x2)
+  const tiles = [
+    { label: "PLANNER", sub: "Est. & margin" },
+    { label: "DETAILING", sub: "Jobs & specs" },
+    { label: "DISPATCH", sub: "Trips & loads" },
+    { label: "INSTALL", sub: "Site claims" },
+    { label: "INVOICING", sub: "Progress claims" },
+    { label: "FAB", sub: "Coming soon", muted: true }
+  ];
+  const gx = 5.6, gy = 1.0, gw = 1.25, gh = 1.2, gp = 0.12;
+  tiles.forEach((t, i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = gx + col * (gw + gp);
+    const y = gy + row * (gh + gp);
+    s.addShape(pres.shapes.RECTANGLE, {
+      x, y, w: gw, h: gh,
+      fill: { color: t.muted ? GREY_PANEL : GREY_DARK },
+      line: { color: t.muted ? GREY_MID : YELLOW, width: t.muted ? 0.5 : 1 }
+    });
+    s.addText(t.label, {
+      x, y: y + 0.25, w: gw, h: 0.45,
+      fontFace: HEADER_FONT, fontSize: 14,
+      color: t.muted ? GREY_MID : WHITE,
+      align: "center", valign: "middle", charSpacing: 3, margin: 0
+    });
+    s.addText(t.sub, {
+      x, y: y + 0.7, w: gw, h: 0.3,
+      fontFace: BODY_FONT, fontSize: 9,
+      color: t.muted ? GREY_MID : YELLOW,
+      align: "center", valign: "middle", charSpacing: 2, margin: 0
+    });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 5 — DETAILING
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "04 / DETAILING");
+  addCornerBracket(s);
+
+  s.addText("DRAW IT.", {
+    x: 0.6, y: 0.9, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("ONCE.", {
+    x: 0.6, y: 1.8, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("Every job flows through the detailing pipeline. Status visible to every department. No more chasing detailers on WhatsApp.", {
+    x: 0.6, y: 2.85, w: 5, h: 1.5,
+    fontFace: BODY_FONT, fontSize: 14, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Right: job pipeline mock — vertical list of jobs with status dots
+  const jobs = [
+    { name: "Springfield Tower 4B",   status: "DELIVERED",  color: "4CAF50" },
+    { name: "Park Rd Apartments",     status: "FABRICATING",color: YELLOW },
+    { name: "Hospital Block C",       status: "DETAILING",  color: "2196F3" },
+    { name: "Chermside Offices",      status: "DETAILING",  color: "2196F3" },
+    { name: "Test 30 Unit Complex",   status: "QUOTED",     color: GREY_MID }
+  ];
+  const listX = 5.5, listY = 0.95, rowH = 0.55, listW = 4.1;
+  jobs.forEach((j, i) => {
+    const y = listY + i * (rowH + 0.08);
+    s.addShape(pres.shapes.RECTANGLE, {
+      x: listX, y, w: listW, h: rowH,
+      fill: { color: GREY_DARK }, line: { type: "none" }
+    });
+    s.addShape(pres.shapes.OVAL, {
+      x: listX + 0.2, y: y + rowH / 2 - 0.08, w: 0.16, h: 0.16,
+      fill: { color: j.color }, line: { type: "none" }
+    });
+    s.addText(j.name, {
+      x: listX + 0.45, y, w: 2.15, h: rowH,
+      fontFace: BODY_FONT, fontSize: 11, color: WHITE,
+      align: "left", valign: "middle", margin: 0, bold: true
+    });
+    s.addText(j.status, {
+      x: listX + 2.6, y, w: listW - 2.7, h: rowH,
+      fontFace: HEADER_FONT, fontSize: 9, color: j.color,
+      align: "right", valign: "middle", charSpacing: 2, margin: 0
+    });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 6 — DISPATCH
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "05 / DISPATCH");
+  addCornerBracket(s);
+
+  s.addText("LOGISTICS.", {
+    x: 0.6, y: 0.9, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("LIVE BOARD.", {
+    x: 0.6, y: 1.8, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("Every truck, every trip, every delivery. Drivers tick off loads on their phone. Installers know what's landing when.", {
+    x: 0.6, y: 2.85, w: 5, h: 1.5,
+    fontFace: BODY_FONT, fontSize: 14, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Right: mock dispatch board (5 days × 3 trucks) — explicit schedule
+  const days = ["MON", "TUE", "WED", "THU", "FRI"];
+  const trucks = ["T1", "T2", "T3"];
+  // Explicit schedule so URGENT cell lands on a filled slot
+  const schedule = [
+    [null,      "BOOKED", "BOOKED", null,      "BOOKED"],  // T1
+    ["BOOKED",  "BOOKED", "URGENT", null,      "BOOKED"],  // T2
+    ["BOOKED",  null,     "BOOKED", "BOOKED",  null]       // T3
+  ];
+  const boardX = 5.5, boardY = 0.95, cellW = 0.8, cellH = 0.55;
+  // Header row
+  days.forEach((d, i) => {
+    s.addText(d, {
+      x: boardX + 0.4 + i * cellW, y: boardY, w: cellW, h: 0.35,
+      fontFace: HEADER_FONT, fontSize: 10, color: YELLOW,
+      align: "center", valign: "middle", charSpacing: 2, margin: 0
+    });
+  });
+  trucks.forEach((t, r) => {
+    const y = boardY + 0.4 + r * (cellH + 0.08);
+    s.addText(t, {
+      x: boardX, y, w: 0.35, h: cellH,
+      fontFace: HEADER_FONT, fontSize: 11, color: GREY_LIGHT,
+      align: "center", valign: "middle", margin: 0
+    });
+    days.forEach((_, c) => {
+      const x = boardX + 0.4 + c * cellW;
+      const slot = schedule[r][c];
+      const isUrgent = slot === "URGENT";
+      const isEmpty = slot === null;
+      s.addShape(pres.shapes.RECTANGLE, {
+        x, y, w: cellW - 0.06, h: cellH,
+        fill: { color: isUrgent ? YELLOW : (isEmpty ? GREY_PANEL : GREY_DARK) },
+        line: { type: "none" }
+      });
+      if (!isEmpty) {
+        s.addText(slot, {
+          x, y, w: cellW - 0.06, h: cellH,
+          fontFace: HEADER_FONT, fontSize: 8,
+          color: isUrgent ? BLACK : GREY_LIGHT,
+          align: "center", valign: "middle", charSpacing: 1, margin: 0
+        });
+      }
+    });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 7 — INSTALL / OFFICE
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "06 / INSTALL · OFFICE");
+  addCornerBracket(s);
+
+  s.addText("BUDGET.", {
+    x: 0.6, y: 0.9, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 56, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("LIVE. PER JOB.", {
+    x: 0.6, y: 1.8, w: 5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 52, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("Every dollar of install cost, tracked against quote. Site claims flow in, numbers update instantly. No more end-of-month surprises.", {
+    x: 0.6, y: 2.85, w: 5, h: 1.5,
+    fontFace: BODY_FONT, fontSize: 14, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Right: mock budget-grid-like UI
+  const rows = [
+    { code: "INSTALL",  budget: "$ 48,500",  spent: "$ 31,200", pct: 64 },
+    { code: "CRANAGE",  budget: "$ 12,000",  spent: "$  8,750", pct: 73 },
+    { code: "REWORK",   budget: "$  2,500",  spent: "$  1,100", pct: 44 },
+    { code: "VARIATIONS",budget:"$  6,000",  spent: "$  5,400", pct: 90 }
+  ];
+  const tX = 5.4, tY = 1.0, tW = 4.3;
+  // header
+  s.addShape(pres.shapes.RECTANGLE, { x: tX, y: tY, w: tW, h: 0.35, fill: { color: YELLOW }, line: { type: "none" } });
+  s.addText("ITEM", { x: tX + 0.15, y: tY, w: 1.3, h: 0.35, fontFace: HEADER_FONT, fontSize: 10, color: BLACK, align: "left", valign: "middle", charSpacing: 2, margin: 0 });
+  s.addText("BUDGET", { x: tX + 1.5, y: tY, w: 1.0, h: 0.35, fontFace: HEADER_FONT, fontSize: 10, color: BLACK, align: "right", valign: "middle", charSpacing: 2, margin: 0 });
+  s.addText("SPENT", { x: tX + 2.55, y: tY, w: 1.0, h: 0.35, fontFace: HEADER_FONT, fontSize: 10, color: BLACK, align: "right", valign: "middle", charSpacing: 2, margin: 0 });
+  s.addText("USED", { x: tX + 3.55, y: tY, w: 0.7, h: 0.35, fontFace: HEADER_FONT, fontSize: 10, color: BLACK, align: "right", valign: "middle", charSpacing: 2, margin: 0 });
+  rows.forEach((r, i) => {
+    const y = tY + 0.4 + i * 0.55;
+    s.addShape(pres.shapes.RECTANGLE, { x: tX, y, w: tW, h: 0.5, fill: { color: i % 2 ? GREY_DARK : GREY_PANEL }, line: { type: "none" } });
+    s.addText(r.code, { x: tX + 0.15, y, w: 1.3, h: 0.5, fontFace: BODY_FONT, fontSize: 11, color: WHITE, align: "left", valign: "middle", bold: true, margin: 0 });
+    s.addText(r.budget, { x: tX + 1.5, y, w: 1.0, h: 0.5, fontFace: BODY_FONT, fontSize: 11, color: GREY_LIGHT, align: "right", valign: "middle", margin: 0 });
+    s.addText(r.spent, { x: tX + 2.55, y, w: 1.0, h: 0.5, fontFace: BODY_FONT, fontSize: 11, color: WHITE, align: "right", valign: "middle", bold: true, margin: 0 });
+    // usage bar
+    const barW = 0.7, barX = tX + 3.55;
+    s.addShape(pres.shapes.RECTANGLE, { x: barX, y: y + 0.32, w: barW, h: 0.1, fill: { color: GREY_PANEL }, line: { type: "none" } });
+    const fillColor = r.pct >= 85 ? "F96167" : (r.pct >= 70 ? YELLOW : "4CAF50");
+    s.addShape(pres.shapes.RECTANGLE, { x: barX, y: y + 0.32, w: barW * (r.pct / 100), h: 0.1, fill: { color: fillColor }, line: { type: "none" } });
+    s.addText(r.pct + "%", { x: barX, y: y + 0.02, w: barW, h: 0.3, fontFace: HEADER_FONT, fontSize: 10, color: WHITE, align: "right", valign: "middle", margin: 0 });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 8 — INSTALL / MOBILE — PIN
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "07 / INSTALL · MOBILE");
+  addCornerBracket(s);
+
+  s.addText("SUPERVISORS.", {
+    x: 0.6, y: 0.9, w: 5.5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 46, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("ON SITE.", {
+    x: 0.6, y: 1.8, w: 5.5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 46, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("TWO TAPS.", {
+    x: 0.6, y: 2.7, w: 5.5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 52, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("PIN login. No email, no password. Works in a roof cavity on 4G. Works offline — syncs when signal returns.", {
+    x: 0.6, y: 3.8, w: 5.5, h: 1.2,
+    fontFace: BODY_FONT, fontSize: 13, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Right: phone mockup showing PIN pad
+  const phX = 7.0, phY = 0.6, phW = 2.4, phH = 4.3;
+  // phone shell
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+    x: phX, y: phY, w: phW, h: phH,
+    fill: { color: "0A0809" }, line: { color: YELLOW, width: 1.5 }, rectRadius: 0.18
+  });
+  // screen
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+    x: phX + 0.12, y: phY + 0.25, w: phW - 0.24, h: phH - 0.5,
+    fill: { color: BLACK }, line: { type: "none" }, rectRadius: 0.1
+  });
+  // notch
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+    x: phX + phW / 2 - 0.4, y: phY + 0.08, w: 0.8, h: 0.15,
+    fill: { color: "0A0809" }, line: { type: "none" }, rectRadius: 0.05
+  });
+  // HYTEK header on screen
+  s.addText("HYTEK", {
+    x: phX + 0.2, y: phY + 0.45, w: phW - 0.4, h: 0.3,
+    fontFace: HEADER_FONT, fontSize: 16, color: YELLOW,
+    align: "center", valign: "middle", charSpacing: 4, margin: 0
+  });
+  s.addText("ENTER PIN", {
+    x: phX + 0.2, y: phY + 0.8, w: phW - 0.4, h: 0.25,
+    fontFace: HEADER_FONT, fontSize: 10, color: WHITE,
+    align: "center", valign: "middle", charSpacing: 3, margin: 0
+  });
+  // PIN dots
+  const dotY = phY + 1.15;
+  for (let i = 0; i < 4; i++) {
+    s.addShape(pres.shapes.OVAL, {
+      x: phX + phW / 2 - 0.45 + i * 0.25, y: dotY, w: 0.15, h: 0.15,
+      fill: { color: i < 2 ? YELLOW : GREY_DARK }, line: { type: "none" }
+    });
+  }
+  // keypad 3x4
+  const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "⌫"];
+  const keyW = 0.45, keyH = 0.42, keyGap = 0.1;
+  const padX = phX + phW / 2 - (3 * keyW + 2 * keyGap) / 2;
+  const padY = phY + 1.55;
+  keys.forEach((k, i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    const kx = padX + col * (keyW + keyGap);
+    const ky = padY + row * (keyH + keyGap);
+    if (k === "") return;
+    s.addShape(pres.shapes.OVAL, {
+      x: kx, y: ky, w: keyW, h: keyH,
+      fill: { color: GREY_DARK }, line: { type: "none" }
+    });
+    s.addText(k, {
+      x: kx, y: ky, w: keyW, h: keyH,
+      fontFace: BODY_FONT, fontSize: 14, color: WHITE,
+      align: "center", valign: "middle", margin: 0, bold: true
+    });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 9 — INSTALL / MOBILE — CLAIM
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "08 / INSTALL · CLAIM");
+  addCornerBracket(s);
+
+  s.addText("LOG A COST.", {
+    x: 0.6, y: 0.9, w: 5.5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 52, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("15 SECONDS.", {
+    x: 0.6, y: 1.8, w: 5.5, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 52, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("Pick the job. Pick the item (or recent). Enter the amount. Done. Claim is in the budget, visible to the office, and on its way to invoicing.", {
+    x: 0.6, y: 2.9, w: 5.5, h: 1.8,
+    fontFace: BODY_FONT, fontSize: 13, color: GREY_LIGHT,
+    align: "left", valign: "top", margin: 0
+  });
+
+  // Phone mockup — claim form
+  const phX = 7.0, phY = 0.6, phW = 2.4, phH = 4.3;
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX, y: phY, w: phW, h: phH, fill: { color: "0A0809" }, line: { color: YELLOW, width: 1.5 }, rectRadius: 0.18 });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX + 0.12, y: phY + 0.25, w: phW - 0.24, h: phH - 0.5, fill: { color: "101010" }, line: { type: "none" }, rectRadius: 0.1 });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX + phW / 2 - 0.4, y: phY + 0.08, w: 0.8, h: 0.15, fill: { color: "0A0809" }, line: { type: "none" }, rectRadius: 0.05 });
+
+  // Job header bar
+  s.addShape(pres.shapes.RECTANGLE, { x: phX + 0.12, y: phY + 0.4, w: phW - 0.24, h: 0.4, fill: { color: YELLOW }, line: { type: "none" } });
+  s.addText("SPRINGFIELD TOWER 4B", { x: phX + 0.15, y: phY + 0.4, w: phW - 0.3, h: 0.4, fontFace: HEADER_FONT, fontSize: 9, color: BLACK, align: "center", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // "PROGRESS CLAIM" label
+  s.addText("PROGRESS CLAIM", { x: phX + 0.2, y: phY + 0.95, w: phW - 0.4, h: 0.2, fontFace: BODY_FONT, fontSize: 8, color: GREY_MID, align: "left", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // Item pill
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX + 0.2, y: phY + 1.2, w: phW - 0.4, h: 0.45, fill: { color: GREY_DARK }, line: { color: YELLOW, width: 0.75 }, rectRadius: 0.08 });
+  s.addText("Install — Type A units", { x: phX + 0.3, y: phY + 1.2, w: phW - 0.5, h: 0.45, fontFace: BODY_FONT, fontSize: 10, color: WHITE, align: "left", valign: "middle", margin: 0 });
+
+  // Amount label
+  s.addText("AMOUNT", { x: phX + 0.2, y: phY + 1.85, w: phW - 0.4, h: 0.2, fontFace: BODY_FONT, fontSize: 8, color: GREY_MID, align: "left", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // Amount field
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX + 0.2, y: phY + 2.1, w: phW - 0.4, h: 0.55, fill: { color: BLACK }, line: { color: YELLOW, width: 1 }, rectRadius: 0.05 });
+  s.addText("$ 3,450", { x: phX + 0.3, y: phY + 2.1, w: phW - 0.5, h: 0.55, fontFace: HEADER_FONT, fontSize: 20, color: YELLOW, align: "left", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // Over-budget hint
+  s.addText("78% of item budget", { x: phX + 0.2, y: phY + 2.75, w: phW - 0.4, h: 0.2, fontFace: BODY_FONT, fontSize: 8, color: GREY_MID, align: "left", valign: "middle", margin: 0 });
+
+  // SAVE button
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: phX + 0.2, y: phY + 3.4, w: phW - 0.4, h: 0.5, fill: { color: YELLOW }, line: { type: "none" }, rectRadius: 0.08 });
+  s.addText("LOG CLAIM", { x: phX + 0.2, y: phY + 3.4, w: phW - 0.4, h: 0.5, fontFace: HEADER_FONT, fontSize: 13, color: BLACK, align: "center", valign: "middle", charSpacing: 4, margin: 0 });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 10 — VARIATIONS
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "09 / VARIATIONS");
+  addCornerBracket(s);
+
+  s.addText("EVERY CHANGE.", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("TRACKED.", {
+    x: 0.6, y: 1.8, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  // State machine — 5 boxes connected
+  const states = ["RAISED", "PRICED", "SUBMITTED", "APPROVED", "INVOICED"];
+  const sW = 1.55, sH = 0.75, sGap = 0.22;
+  const sTotalW = states.length * sW + (states.length - 1) * sGap;
+  const sStartX = (W - sTotalW) / 2;
+  const sY = 3.15;
+
+  states.forEach((st, i) => {
+    const x = sStartX + i * (sW + sGap);
+    const isLast = i === states.length - 1;
+    s.addShape(pres.shapes.RECTANGLE, {
+      x, y: sY, w: sW, h: sH,
+      fill: { color: isLast ? YELLOW : GREY_DARK },
+      line: { color: YELLOW, width: 1 }
+    });
+    s.addText(st, {
+      x, y: sY, w: sW, h: sH,
+      fontFace: HEADER_FONT, fontSize: 14,
+      color: isLast ? BLACK : WHITE,
+      align: "center", valign: "middle", charSpacing: 3, margin: 0
+    });
+    if (i < states.length - 1) {
+      const arrowX = x + sW + 0.02;
+      s.addShape(pres.shapes.RIGHT_TRIANGLE, {
+        x: arrowX, y: sY + sH / 2 - 0.06, w: 0.18, h: 0.12,
+        rotate: 90, fill: { color: YELLOW }, line: { type: "none" }
+      });
+    }
+  });
+
+  s.addText("No more losing variations between site, office, and invoicing. PO-backed. Audit trail. Nothing slips.", {
+    x: 0.6, y: 4.15, w: 9, h: 0.7,
+    fontFace: BODY_FONT, fontSize: 14, color: GREY_LIGHT,
+    align: "center", valign: "top", margin: 0
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 11 — REWORK
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "10 / REWORK");
+  addCornerBracket(s);
+
+  s.addText("EVERY DEFECT.", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("OWNED.", {
+    x: 0.6, y: 1.8, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  // 3-column "who pays" panel
+  const payers = [
+    { who: "FABRICATION", note: "Back-charge to fab line" },
+    { who: "INSTALLER",   note: "Back-charge to crew" },
+    { who: "HYTEK",       note: "Absorbed, investigated" }
+  ];
+  const pW = 2.7, pH = 1.25, pGap = 0.25;
+  const pTotalW = payers.length * pW + (payers.length - 1) * pGap;
+  const pStartX = (W - pTotalW) / 2;
+  const pY = 3.05;
+
+  payers.forEach((p, i) => {
+    const x = pStartX + i * (pW + pGap);
+    s.addShape(pres.shapes.RECTANGLE, { x, y: pY, w: pW, h: pH, fill: { color: GREY_DARK }, line: { color: YELLOW, width: 1 } });
+    s.addShape(pres.shapes.RECTANGLE, { x, y: pY, w: pW, h: 0.08, fill: { color: YELLOW }, line: { type: "none" } });
+    s.addText(p.who, { x, y: pY + 0.25, w: pW, h: 0.45, fontFace: HEADER_FONT, fontSize: 18, color: WHITE, align: "center", valign: "middle", charSpacing: 4, margin: 0 });
+    s.addText(p.note, { x: x + 0.2, y: pY + 0.75, w: pW - 0.4, h: 0.4, fontFace: BODY_FONT, fontSize: 11, color: GREY_LIGHT, align: "center", valign: "middle", margin: 0 });
+  });
+
+  s.addText("Rework is logged with a cause. Cost lands on the right cost-centre automatically.", {
+    x: 0.6, y: 4.5, w: 9, h: 0.5,
+    fontFace: BODY_FONT, fontSize: 13, color: GREY_LIGHT,
+    align: "center", valign: "top", margin: 0
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 12 — INVOICING FLOW
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "11 / INVOICING");
+  addCornerBracket(s);
+
+  s.addText("SITE LOGS →", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("PROGRESS CLAIMS.", {
+    x: 0.6, y: 1.8, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  // Flow: phone icon → arrow → claim doc → arrow → Xero
+  const flowY = 3.2, nodeH = 1.2;
+  // Phone node
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.0, y: flowY, w: 1.8, h: nodeH, fill: { color: GREY_DARK }, line: { color: YELLOW, width: 1 }, rectRadius: 0.08 });
+  s.addText("SUPERVISOR\nMOBILE CLAIM", { x: 1.0, y: flowY, w: 1.8, h: nodeH, fontFace: HEADER_FONT, fontSize: 12, color: WHITE, align: "center", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // Arrow
+  s.addShape(pres.shapes.RIGHT_TRIANGLE, { x: 3.0, y: flowY + nodeH / 2 - 0.12, w: 0.3, h: 0.24, rotate: 90, fill: { color: YELLOW }, line: { type: "none" } });
+
+  // Claim doc node
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 3.6, y: flowY, w: 2.8, h: nodeH, fill: { color: YELLOW }, line: { type: "none" }, rectRadius: 0.08 });
+  s.addText("PROGRESS\nCLAIM LINE ITEM", { x: 3.6, y: flowY, w: 2.8, h: nodeH, fontFace: HEADER_FONT, fontSize: 14, color: BLACK, align: "center", valign: "middle", charSpacing: 2, margin: 0 });
+
+  // Arrow
+  s.addShape(pres.shapes.RIGHT_TRIANGLE, { x: 6.6, y: flowY + nodeH / 2 - 0.12, w: 0.3, h: 0.24, rotate: 90, fill: { color: YELLOW }, line: { type: "none" } });
+
+  // Xero node
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 7.2, y: flowY, w: 1.8, h: nodeH, fill: { color: GREY_DARK }, line: { color: YELLOW, width: 1 }, rectRadius: 0.08 });
+  s.addText("XERO\nDRAFT INVOICE", { x: 7.2, y: flowY, w: 1.8, h: nodeH, fontFace: HEADER_FONT, fontSize: 12, color: WHITE, align: "center", valign: "middle", charSpacing: 2, margin: 0 });
+
+  s.addText("Zero re-typing. Zero missed variations. Every site log feeds the invoice line.", {
+    x: 0.6, y: 4.6, w: 9, h: 0.5,
+    fontFace: BODY_FONT, fontSize: 13, color: GREY_LIGHT,
+    align: "center", valign: "top", margin: 0
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 13 — XERO INTEGRATION
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "12 / XERO");
+  addCornerBracket(s);
+
+  s.addText("DRAFT INVOICES.", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+  s.addText("AUTO-CREATED.", {
+    x: 0.6, y: 1.8, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: YELLOW,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  const benefits = [
+    { label: "NO DOUBLE ENTRY",   sub: "Claim data flows straight to Xero" },
+    { label: "NO MISSED VARIATIONS", sub: "Every approved change lands on an invoice" },
+    { label: "FINANCE STAYS FINANCE", sub: "Accounts reviews drafts, doesn't type them" }
+  ];
+  const bX = 0.8, bStartY = 3.0, bRowH = 0.6;
+  benefits.forEach((b, i) => {
+    const y = bStartY + i * (bRowH + 0.15);
+    // Yellow dot
+    s.addShape(pres.shapes.OVAL, { x: bX, y: y + 0.17, w: 0.22, h: 0.22, fill: { color: YELLOW }, line: { type: "none" } });
+    s.addText(b.label, { x: bX + 0.4, y, w: 4.5, h: 0.32, fontFace: HEADER_FONT, fontSize: 16, color: WHITE, align: "left", valign: "middle", charSpacing: 3, margin: 0 });
+    s.addText(b.sub, { x: bX + 0.4, y: y + 0.3, w: 8.5, h: 0.3, fontFace: BODY_FONT, fontSize: 12, color: GREY_LIGHT, align: "left", valign: "middle", margin: 0 });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 14 — THE PROOF (big stats)
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "13 / THE PROOF");
+  addCornerBracket(s);
+
+  s.addText("THE PROOF.", {
+    x: 0.6, y: 0.7, w: 9, h: 0.8,
+    fontFace: HEADER_FONT, fontSize: 48, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  // 2x2 grid of big stats
+  const stats = [
+    { num: "5", label: "APPS DEPLOYED" },
+    { num: "94", label: "TESTS GREEN" },
+    { num: "78", label: "LIVE JOBS" },
+    { num: "1", label: "SOURCE OF TRUTH" }
+  ];
+  const gX = 0.6, gY = 1.75, gW = 4.4, gH = 1.65, gPad = 0.2;
+  stats.forEach((st, i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = gX + col * (gW + gPad);
+    const y = gY + row * (gH + gPad);
+    s.addShape(pres.shapes.RECTANGLE, { x, y, w: gW, h: gH, fill: { color: GREY_DARK }, line: { type: "none" } });
+    // Left accent
+    s.addShape(pres.shapes.RECTANGLE, { x, y, w: 0.08, h: gH, fill: { color: YELLOW }, line: { type: "none" } });
+    s.addText(st.num, {
+      x: x + 0.3, y, w: 1.7, h: gH,
+      fontFace: HEADER_FONT, fontSize: 96, color: YELLOW,
+      align: "left", valign: "middle", margin: 0
+    });
+    s.addText(st.label, {
+      x: x + 2.1, y, w: gW - 2.3, h: gH,
+      fontFace: HEADER_FONT, fontSize: 16, color: WHITE,
+      align: "left", valign: "middle", charSpacing: 4, margin: 0
+    });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 15 — WHAT'S NEXT
+// ============================================================
+{
+  const s = pres.addSlide();
+  darkBg(s, BLACK);
+  addChip(s, "14 / NEXT");
+  addCornerBracket(s);
+
+  s.addText("NEXT 30 DAYS.", {
+    x: 0.6, y: 0.9, w: 9, h: 0.9,
+    fontFace: HEADER_FONT, fontSize: 54, color: WHITE,
+    align: "left", valign: "middle", charSpacing: 3, margin: 0
+  });
+
+  const items = [
+    { title: "CONTRACTOR PINs",    sub: "External crews log progress the same way supervisors do" },
+    { title: "CUSTOMER SIGN-OFF",  sub: "Site supervisors on the client side tick off deliveries on their phone" },
+    { title: "PHOTO EVIDENCE",     sub: "Every claim backed by a dated, GPS-tagged photo" }
+  ];
+  const iX = 0.6, iStartY = 2.05, iRowH = 0.85;
+  items.forEach((it, i) => {
+    const y = iStartY + i * (iRowH + 0.15);
+    // Number circle
+    s.addShape(pres.shapes.OVAL, { x: iX, y: y + 0.1, w: 0.6, h: 0.6, fill: { color: YELLOW }, line: { type: "none" } });
+    s.addText(String(i + 1), { x: iX, y: y + 0.1, w: 0.6, h: 0.6, fontFace: HEADER_FONT, fontSize: 24, color: BLACK, align: "center", valign: "middle", margin: 0 });
+    s.addText(it.title, { x: iX + 0.85, y: y, w: 8, h: 0.38, fontFace: HEADER_FONT, fontSize: 22, color: YELLOW, align: "left", valign: "middle", charSpacing: 3, margin: 0 });
+    s.addText(it.sub, { x: iX + 0.85, y: y + 0.4, w: 8, h: 0.4, fontFace: BODY_FONT, fontSize: 13, color: GREY_LIGHT, align: "left", valign: "middle", margin: 0 });
+  });
+
+  addFooter(s);
+}
+
+// ============================================================
+// SLIDE 16 — CLOSE
+// ============================================================
+{
+  const s = pres.addSlide();
+  s.background = { color: YELLOW };
+
+  // Black accent strip down left side (mirror of title)
+  s.addShape(pres.shapes.RECTANGLE, {
+    x: 0, y: 0, w: 0.15, h: H,
+    fill: { color: BLACK }, line: { type: "none" }
+  });
+
+  s.addText("HYTEK.", {
+    x: 0.8, y: 1.5, w: 8.5, h: 1.6,
+    fontFace: HEADER_FONT, fontSize: 180, color: BLACK,
+    align: "left", valign: "middle", charSpacing: 10, margin: 0
+  });
+
+  s.addShape(pres.shapes.RECTANGLE, {
+    x: 0.85, y: 3.25, w: 1.2, h: 0.04,
+    fill: { color: BLACK }, line: { type: "none" }
+  });
+
+  s.addText("BUILT FOR BUILDERS.", {
+    x: 0.8, y: 3.4, w: 8.5, h: 0.6,
+    fontFace: HEADER_FONT, fontSize: 32, color: BLACK,
+    align: "left", valign: "middle", charSpacing: 10, margin: 0
+  });
+
+  s.addText("SCOTT TEXTOR  ·  APRIL 2026", {
+    x: 0.8, y: 4.1, w: 8.5, h: 0.35,
+    fontFace: BODY_FONT, fontSize: 11, color: BLACK,
+    align: "left", valign: "middle", charSpacing: 6, margin: 0
+  });
+}
+
+// Write the file
+const outFile = "hytek-ops-platform-2026.pptx";
+pres.writeFile({ fileName: outFile }).then(name => {
+  console.log("Wrote: " + name);
+});

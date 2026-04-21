@@ -1,0 +1,26 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "mockups",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "mockups", "-p", "4400", "--cors", "-c-1"],
+      "port": 4400,
+      "autoPort": false
+    },
+    {
+      "name": "hytek-install-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../hytek-install", "run", "dev"],
+      "port": 3001,
+      "autoPort": true
+    }
+  ]
+}

@@ -1,0 +1,2833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HYTEK Install App — Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'hytek-yellow': '#FFCB05',
+          'hytek-black': '#231F20',
+        },
+        fontFamily: {
+          sans: ['Jost', 'system-ui', '-apple-system', 'sans-serif'],
+        },
+      },
+    },
+  }
+</script>
+<style>
+  :root { --hytek-yellow:#FFCB05; --hytek-black:#231F20; }
+  html, body { font-family: 'Jost', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  body { background:#f5f5f5; color:#231F20; }
+  .device-frame { box-shadow: 0 30px 60px -20px rgba(0,0,0,.3), 0 0 0 8px #1f2937, 0 0 0 9px #4b5563; border-radius: 36px; }
+  .scroll-section { scroll-margin-top: 80px; }
+  .grid-bg { background-image: linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px); background-size: 8px 8px; }
+  .skeleton { background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .hytek-card { background:#fff; border:1px solid #e5e7eb; }
+</style>
+</head>
+<body class="text-gray-900">
+
+<!-- TOP NAV / TOC -->
+<nav class="sticky top-0 z-50 bg-hytek-black text-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4 flex-wrap">
+    <div class="flex items-center gap-3">
+      <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+      <span class="text-sm text-gray-400">Install App — Mockups</span>
+    </div>
+    <div class="text-xs text-gray-400 ml-auto flex gap-3 flex-wrap">
+      <a href="#desktop" class="hover:text-hytek-yellow">Desktop</a>
+      <a href="#dashboard" class="hover:text-hytek-yellow">Dashboard</a>
+      <a href="#job-overview" class="hover:text-hytek-yellow">Job Overview</a>
+      <a href="#job-units" class="hover:text-hytek-yellow">Units</a>
+      <a href="#unit-type-setup" class="hover:text-hytek-yellow">Type Setup</a>
+      <a href="#standalone" class="hover:text-hytek-yellow">Stand-alone</a>
+      <a href="#job-flagged" class="hover:text-hytek-yellow">Flagged</a>
+      <a href="#flagged-inbox" class="hover:text-hytek-yellow">Inbox</a>
+      <a href="#progress" class="hover:text-hytek-yellow">Progress</a>
+      <a href="#reports" class="hover:text-hytek-yellow">Reports</a>
+      <a href="#setup" class="hover:text-hytek-yellow">Setup</a>
+      <a href="#cmdk" class="hover:text-hytek-yellow">⌘K Palette</a>
+      <span class="text-gray-600">|</span>
+      <a href="#pill" class="hover:text-hytek-yellow">①Pill</a>
+      <a href="#endofday" class="hover:text-hytek-yellow">④EoD</a>
+      <a href="#whatchanged" class="hover:text-hytek-yellow">⑤What's New</a>
+      <a href="#voice" class="hover:text-hytek-yellow">⑥Voice</a>
+      <a href="#daytemplates" class="hover:text-hytek-yellow">⑦Day-Templates</a>
+      <a href="#notifications" class="hover:text-hytek-yellow">⑧Notifs</a>
+      <span class="text-gray-600">|</span>
+      <a href="#mobile" class="hover:text-hytek-yellow">Mobile</a>
+      <a href="#form12" class="hover:text-hytek-yellow">Form 12</a>
+      <a href="#offline" class="hover:text-hytek-yellow">Offline</a>
+    </div>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<section class="max-w-5xl mx-auto px-4 py-12">
+  <h1 class="text-4xl font-bold text-[#231F20]">Install App — Functional Mockups</h1>
+  <p class="text-gray-600 mt-3 text-lg">Every screen + every flow from your brief, smooth + logical, no features lost. Scroll through, screenshot whatever you want to discuss.</p>
+  <div class="mt-6 grid grid-cols-3 gap-3 text-sm">
+    <div class="bg-white rounded-lg p-3 border"><span class="text-[#FFCB05] font-bold">●</span> Yellow = primary action</div>
+    <div class="bg-white rounded-lg p-3 border"><span class="text-gray-400 font-bold">●</span> Grey = secondary</div>
+    <div class="bg-white rounded-lg p-3 border"><span class="text-red-600 font-bold">●</span> Red = destructive / over budget</div>
+  </div>
+</section>
+
+<!-- ============================================================ DESKTOP ============================================================ -->
+<section id="desktop" class="bg-gray-200 py-10 scroll-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-1">Desktop (PC version — Install Manager / Office)</h2>
+    <p class="text-gray-600 mb-6">Job setup, budget management, reporting, settings.</p>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/dashboard</div>
+  <h3 class="text-xl font-bold mb-3">1. Job List Dashboard</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <!-- App shell header (matches real /detailing /install /dispatch shell) -->
+    <header class="bg-hytek-black text-white">
+      <div class="px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+          <span class="text-sm text-gray-400">Install Tracker</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5 text-xs"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+          <div class="text-right">
+            <p class="text-sm font-medium">Scott Textor</p>
+            <p class="text-xs text-gray-400">Admin</p>
+          </div>
+          <button class="text-xs text-gray-400 hover:text-white border border-gray-600 px-3 py-1.5 rounded hover:border-gray-400">Sign Out</button>
+        </div>
+      </div>
+      <nav class="px-6">
+        <div class="flex gap-1 flex-wrap">
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg bg-gray-50 text-hytek-black">Jobs</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Progress</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Reports</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Setup</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-hytek-black bg-hytek-yellow flex items-center gap-2">Flagged <span class="text-xs font-bold tabular-nums px-1.5 py-0.5 rounded-full bg-hytek-black text-hytek-yellow">5</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page header -->
+    <div class="px-6 py-4 border-b">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-2xl font-bold">Install — Jobs</h2>
+        <button class="bg-[#FFCB05] text-black font-bold px-4 py-2 rounded hover:brightness-95">+ New Job</button>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex bg-gray-100 rounded p-1 text-sm">
+          <button class="px-3 py-1 bg-white shadow rounded font-medium">Active <span class="text-gray-400 ml-1">12</span></button>
+          <button class="px-3 py-1 text-gray-600">Complete <span class="text-gray-400 ml-1">38</span></button>
+          <button class="px-3 py-1 text-gray-600">All <span class="text-gray-400 ml-1">50</span></button>
+        </div>
+        <div class="flex-1 max-w-md relative">
+          <input class="w-full border rounded px-3 py-2 pl-9 text-sm" placeholder="Search jobs by name or client..." />
+          <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job grid -->
+    <div class="p-6 grid grid-cols-3 gap-4">
+      <!-- Card 1 -->
+      <div class="bg-white border-2 border-gray-200 hover:border-[#FFCB05] rounded-lg p-4 cursor-pointer transition">
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <div class="font-bold text-lg">Acme Towers Stage 2</div>
+            <div class="text-xs text-gray-500">Acme Construction · Brisbane</div>
+          </div>
+          <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded font-medium">ACTIVE</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600 mb-3">
+          <span class="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">🚩 3 flagged</span>
+          <span>24 budget items</span>
+        </div>
+        <div class="text-sm">
+          <div class="flex justify-between mb-1"><span class="text-gray-600">$284k claimed</span><span class="font-medium">$420k budget</span></div>
+          <div class="bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:67%"></div></div>
+          <div class="text-xs text-gray-500 mt-1">67% used</div>
+        </div>
+      </div>
+
+      <!-- Card 2 OVER BUDGET -->
+      <div class="bg-white border-2 border-red-300 rounded-lg p-4 cursor-pointer">
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <div class="font-bold text-lg">Riverside Apartments</div>
+            <div class="text-xs text-gray-500">Walker Group · Gold Coast</div>
+          </div>
+          <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded font-bold">OVER BUDGET</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600 mb-3">
+          <span class="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">🚩 1 flagged</span>
+          <span>32 budget items</span>
+        </div>
+        <div class="text-sm">
+          <div class="flex justify-between mb-1"><span class="text-red-700 font-medium">$612k claimed</span><span class="font-medium">$580k budget</span></div>
+          <div class="bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width:100%"></div></div>
+          <div class="text-xs text-red-600 mt-1">105% — over by $32k</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white border-2 border-gray-200 rounded-lg p-4 cursor-pointer">
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <div class="font-bold text-lg">Henderson Townhouses</div>
+            <div class="text-xs text-gray-500">PrivateOwner · Toowoomba</div>
+          </div>
+          <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded font-medium">ACTIVE</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600 mb-3">
+          <span class="text-gray-400">No flagged items</span>
+          <span>18 budget items</span>
+        </div>
+        <div class="text-sm">
+          <div class="flex justify-between mb-1"><span class="text-gray-600">$48k claimed</span><span class="font-medium">$210k budget</span></div>
+          <div class="bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:23%"></div></div>
+          <div class="text-xs text-gray-500 mt-1">23% used · 8 units</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB OVERVIEW -->
+<section id="job-overview" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/job?id=...</div>
+  <h3 class="text-xl font-bold mb-3">2. Per-Job Page — Overview Tab</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+
+    <!-- Breadcrumb + header -->
+    <div class="px-6 pt-4 pb-3 border-b bg-gray-50">
+      <div class="text-xs text-gray-500 mb-1">Jobs › <span class="text-gray-700">Acme Towers Stage 2</span></div>
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Acme Towers Stage 2</h2>
+          <div class="text-sm text-gray-500">Acme Construction · Brisbane · Quote #Q-2026-0142</div>
+        </div>
+        <div class="flex gap-2">
+          <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Detailing: complete</span>
+          <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">Install: active</span>
+          <button class="bg-gray-200 text-sm px-3 py-1 rounded hover:bg-gray-300">⋯ Actions</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Black budget bar -->
+    <div class="bg-[#231F20] text-white px-6 py-4 grid grid-cols-5 gap-4 text-center">
+      <div><div class="text-xs text-gray-400">BUDGET</div><div class="text-xl font-bold">$420,000</div></div>
+      <div><div class="text-xs text-gray-400">CLAIMED</div><div class="text-xl font-bold">$284,120</div></div>
+      <div><div class="text-xs text-red-400">REWORK</div><div class="text-xl font-bold text-red-400">−$3,200</div></div>
+      <div><div class="text-xs text-orange-400">VARIATIONS</div><div class="text-xl font-bold text-orange-400">+$12,400</div></div>
+      <div><div class="text-xs text-gray-400">REMAINING</div><div class="text-xl font-bold text-green-400">$145,080</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Overview</button>
+      <button class="px-4 py-3 border-b-2 border-transparent text-gray-600 text-sm">Units <span class="text-gray-400">(8)</span></button>
+      <button class="px-4 py-3 border-b-2 border-transparent text-gray-600 text-sm">Flagged <span class="bg-red-500 text-white text-xs px-1.5 rounded-full">3</span></button>
+    </div>
+
+    <!-- V&R triggered alert -->
+    <div class="mx-6 mt-4 bg-orange-50 border border-orange-200 rounded p-3 flex items-center justify-between text-sm">
+      <div class="flex items-center gap-2">
+        <span class="text-orange-600">⚠</span>
+        <span><strong>2 variations awaiting cost assignment</strong> · 1 rework awaiting completion</span>
+      </div>
+      <button class="text-orange-700 underline text-xs">Review →</button>
+    </div>
+
+    <!-- Add budget item form (collapsed look) -->
+    <div class="mx-6 my-4 border-2 border-dashed border-[#FFCB05] rounded-lg p-3 hover:bg-yellow-50 cursor-pointer text-sm flex items-center gap-2">
+      <span class="text-[#FFCB05] font-bold text-lg">+</span>
+      <span class="font-medium">Add Budget Item</span>
+      <span class="text-gray-500 text-xs ml-auto">Pick group → sub-type → auto-files into right section</span>
+    </div>
+
+    <!-- ENGINEERING group -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Engineering</div>
+        <div class="text-gray-600">$8,400 / $9,000 <span class="text-xs text-gray-400 ml-1">(93%)</span></div>
+      </div>
+      <div class="border border-t-0 rounded-b">
+        <div class="px-3 py-2 flex items-center gap-3 hover:bg-gray-50 text-sm border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Form 12 Inspection</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">form_12</span>
+          <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">📋 Booked 22/04</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:93%"></div></div>
+          <span class="text-xs w-24 text-right">$8,400 / $9,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTALL group EXPANDED with claim form -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Install</div>
+        <div class="text-gray-600">$142,800 / $185,000 <span class="text-xs text-gray-400 ml-1">(77%)</span></div>
+      </div>
+      <div class="border border-t-0 rounded-b">
+        <!-- Item 1 expanded -->
+        <div class="border-b">
+          <div class="px-3 py-2 flex items-center gap-3 bg-yellow-50 text-sm">
+            <span class="text-gray-700">▼</span>
+            <span class="flex-1 font-medium">Structural Steel Install</span>
+            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">structural_install</span>
+            <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">⚠ Scope change</span>
+            <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:62%"></div></div>
+            <span class="text-xs w-24 text-right">$48,200 / $78,000</span>
+          </div>
+
+          <!-- Expanded panel -->
+          <div class="bg-white px-6 py-4 border-t">
+            <!-- Claims list -->
+            <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Claims (8)</div>
+            <div class="space-y-1 mb-4">
+              <div class="flex items-center gap-3 text-sm py-1.5 px-2 hover:bg-gray-50 rounded">
+                <span class="text-xs text-gray-500 w-20">17/04/2026</span>
+                <span class="flex-1">Riggers United · 50T Franna · 6.0 hrs</span>
+                <span class="text-xs bg-gray-100 px-1.5 rounded">Unit A03</span>
+                <span class="text-xs">📷 2</span>
+                <span class="font-medium w-20 text-right">$1,500.00</span>
+                <button class="text-gray-400 hover:text-red-500 text-xs">✕</button>
+              </div>
+              <div class="flex items-center gap-3 text-sm py-1.5 px-2 hover:bg-gray-50 rounded">
+                <span class="text-xs text-gray-500 w-20">16/04/2026</span>
+                <span class="flex-1">Riggers United · Extra Rigger · 8.0 hrs</span>
+                <span class="text-xs bg-gray-100 px-1.5 rounded">Unit A02</span>
+                <span class="font-medium w-20 text-right">$640.00</span>
+                <button class="text-gray-400 hover:text-red-500 text-xs">✕</button>
+              </div>
+            </div>
+
+            <!-- Add claim form -->
+            <div class="bg-gray-50 rounded p-3 border">
+              <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Add Claim</div>
+              <div class="grid grid-cols-6 gap-2 text-sm">
+                <input type="date" value="2026-04-20" class="border rounded px-2 py-1.5 col-span-1" />
+                <select class="border rounded px-2 py-1.5 col-span-2"><option>Riggers United (last used)</option><option>Cranes R Us</option></select>
+                <select class="border rounded px-2 py-1.5 col-span-2"><option>Wet Crane Hire — $250/hr</option></select>
+                <select class="border rounded px-2 py-1.5 col-span-1"><option>Unit A03 (last)</option></select>
+                <input placeholder="Hours" type="number" class="border rounded px-2 py-1.5" />
+                <input placeholder="Auto $" disabled class="border rounded px-2 py-1.5 bg-gray-100" />
+                <input placeholder="Notes (optional)" class="border rounded px-2 py-1.5 col-span-3" />
+                <button class="bg-gray-200 px-2 py-1.5 rounded text-xs">📷 Photo</button>
+                <button class="bg-[#FFCB05] text-black font-bold rounded px-3 py-1.5">Save Claim</button>
+              </div>
+              <details class="mt-2 text-xs">
+                <summary class="cursor-pointer text-gray-600 hover:text-gray-900">+ Accounting (optional) — PO, invoice no, payment status</summary>
+                <div class="grid grid-cols-3 gap-2 mt-2">
+                  <input placeholder="PO ref" class="border rounded px-2 py-1.5" />
+                  <input placeholder="Supplier invoice #" class="border rounded px-2 py-1.5" />
+                  <select class="border rounded px-2 py-1.5"><option>Pending</option><option>Paid</option><option>Disputed</option></select>
+                </div>
+              </details>
+            </div>
+
+            <div class="flex gap-2 mt-3">
+              <button class="text-xs px-2 py-1 bg-gray-100 rounded">📋 Apply Template</button>
+              <button class="text-xs px-2 py-1 bg-gray-100 rounded">↔ Divide across units</button>
+              <button class="text-xs px-2 py-1 bg-gray-100 rounded">📝 Notes (2)</button>
+              <button class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded ml-auto">✓ Mark Complete</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-3 py-2 flex items-center gap-3 hover:bg-gray-50 text-sm border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Subfloor Install</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">subfloor_install</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:88%"></div></div>
+          <span class="text-xs w-24 text-right">$94,600 / $107,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRANAGE group -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Cranage <span class="text-orange-600 font-normal text-xs ml-2">⚠ 1 scope change</span></div>
+        <div class="text-gray-600">$24,800 / $32,000 <span class="text-xs text-gray-400 ml-1">(78%)</span></div>
+      </div>
+      <div class="border border-t-0 rounded-b text-sm">
+        <div class="px-3 py-2 flex items-center gap-3 border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Wet Crane Hire</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:75%"></div></div>
+          <span class="text-xs w-24 text-right">$15,000 / $20,000</span>
+        </div>
+        <div class="px-3 py-2 flex items-center gap-3 border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Crane Travel</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:90%"></div></div>
+          <span class="text-xs w-24 text-right">$5,400 / $6,000</span>
+        </div>
+        <div class="px-3 py-2 flex items-center gap-3">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Extra Rigger</span>
+          <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">⚠ Scope change</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-yellow-500 h-full" style="width:73%"></div></div>
+          <span class="text-xs w-24 text-right">$4,400 / $6,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other groups collapsed -->
+    <div class="mx-6 mb-4 space-y-1 text-sm">
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between hover:bg-gray-200 cursor-pointer">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Supervisor</div>
+        <div class="text-gray-600">$22,400 / $30,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between hover:bg-gray-200 cursor-pointer">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Shaftliner</div>
+        <div class="text-gray-600">$18,000 / $24,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between hover:bg-gray-200 cursor-pointer">
+        <div class="font-bold uppercase tracking-wide text-gray-700">EWP</div>
+        <div class="text-gray-600">$12,800 / $18,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between hover:bg-gray-200 cursor-pointer">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Accom / Food / Travel</div>
+        <div class="text-gray-600">$31,400 / $42,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between hover:bg-gray-200 cursor-pointer">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Install Breakdown</div>
+        <div class="text-gray-600">$24,320 / $80,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB UNITS -->
+<section id="job-units" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/job — Units tab</div>
+  <h3 class="text-xl font-bold mb-3">3. Per-Job Page — Units Tab (with Blocks)</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 text-gray-600 text-sm">Overview</button>
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Units (8)</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Flagged <span class="bg-red-500 text-white text-xs px-1.5 rounded-full">3</span></button>
+    </div>
+
+    <div class="p-6 space-y-4">
+      <!-- Block A -->
+      <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between cursor-pointer">
+          <div>
+            <div class="font-bold">Block A</div>
+            <div class="text-xs text-gray-500">6 units · 3× Type 1, 2× Type 2, 1× Type 3</div>
+          </div>
+          <div class="flex items-center gap-4 text-sm">
+            <div class="text-right"><div class="text-xs text-gray-500">Budget</div><div class="font-bold">$215,000</div></div>
+            <div class="text-right"><div class="text-xs text-gray-500">Claimed</div><div class="font-bold text-green-700">$148,400</div></div>
+            <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:69%"></div></div>
+            <span class="text-gray-400">▼</span>
+          </div>
+        </div>
+        <!-- Units -->
+        <div class="divide-y text-sm">
+          <div class="px-4 py-2 flex items-center gap-4 hover:bg-yellow-50 cursor-pointer">
+            <span class="font-medium w-20">Unit A01</span>
+            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">Type 1</span>
+            <span class="text-xs text-gray-500">7 budget items</span>
+            <div class="flex-1"></div>
+            <span class="text-gray-600">$28,400 claimed / $35,000 budget</span>
+            <div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:81%"></div></div>
+            <span class="text-xs text-gray-500 w-12 text-right">81%</span>
+          </div>
+          <div class="px-4 py-2 flex items-center gap-4 hover:bg-yellow-50 cursor-pointer">
+            <span class="font-medium w-20">Unit A02</span>
+            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">Type 1</span>
+            <span class="text-xs text-gray-500">7 budget items</span>
+            <div class="flex-1"></div>
+            <span class="text-gray-600">$22,800 claimed / $35,000 budget</span>
+            <div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:65%"></div></div>
+            <span class="text-xs text-gray-500 w-12 text-right">65%</span>
+          </div>
+          <div class="px-4 py-2 flex items-center gap-4 bg-yellow-50 cursor-pointer">
+            <span class="font-medium w-20">Unit A03</span>
+            <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">Type 2</span>
+            <span class="text-xs text-gray-500">7 budget items · drawer open ▾</span>
+            <div class="flex-1"></div>
+            <span class="text-red-700 font-medium">$42,800 claimed / $40,000 budget</span>
+            <div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width:100%"></div></div>
+            <span class="text-xs text-red-600 w-12 text-right">107%</span>
+          </div>
+          <!-- Drawer for unit A03 -->
+          <div class="bg-yellow-50/50 px-8 py-3 border-l-4 border-[#FFCB05] text-xs">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-1">
+              <div class="flex justify-between"><span>Install Type 2</span><span class="font-medium">$18,400 / $16,000 ⚠</span></div>
+              <div class="flex justify-between"><span>Install Struct Type 2</span><span>$8,400 / $10,000</span></div>
+              <div class="flex justify-between"><span>Subfloor</span><span>$3,200 / $3,500</span></div>
+              <div class="flex justify-between"><span>Shaftliner</span><span>$2,800 / $4,000</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">Cranage (job-share)</span><span class="text-gray-500">$5,400 / $4,800</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">Supervisor (job-share)</span><span class="text-gray-500">$4,600 / $4,200</span></div>
+            </div>
+            <div class="mt-2 flex gap-2">
+              <button class="bg-white border px-2 py-1 rounded text-xs">+ Log claim against this unit</button>
+              <button class="bg-white border px-2 py-1 rounded text-xs">🚩 Flag issue on this unit</button>
+            </div>
+          </div>
+          <div class="px-4 py-2 flex items-center gap-4 hover:bg-yellow-50 cursor-pointer">
+            <span class="font-medium w-20">Unit A04</span>
+            <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">Type 2</span>
+            <span class="text-xs text-gray-500">7 budget items</span>
+            <div class="flex-1"></div>
+            <span class="text-gray-600">$18,200 claimed / $40,000 budget</span>
+            <div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:46%"></div></div>
+            <span class="text-xs text-gray-500 w-12 text-right">46%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block B collapsed -->
+      <div class="border rounded-lg">
+        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between cursor-pointer">
+          <div>
+            <div class="font-bold">Block B</div>
+            <div class="text-xs text-gray-500">2 units · 2× Type 3</div>
+          </div>
+          <div class="flex items-center gap-4 text-sm">
+            <span class="text-gray-600">$98,400 / $120,000</span>
+            <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:82%"></div></div>
+            <span class="text-gray-400">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standalone -->
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Standalone Units</div>
+        <div class="border rounded">
+          <div class="px-4 py-2 flex items-center gap-4 hover:bg-yellow-50 cursor-pointer text-sm">
+            <span class="font-medium w-20">Unit 15</span>
+            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">Type 1</span>
+            <div class="flex-1"></div>
+            <span class="text-gray-600">$12,400 / $35,000</span>
+            <div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:35%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TYPE SETUP (configure once → apply to all units) -->
+<section id="unit-type-setup" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/job — Setup mode (multi-unit jobs)</div>
+  <h3 class="text-xl font-bold mb-3">3a. Unit-Type Setup — Configure Once, Apply to All Units</h3>
+  <div class="text-xs text-gray-600 mb-3 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>Setup workflow rethink:</strong> Install manager configures Type 1 once, Type 2 once, Type 3 once — then taps "Apply to all units of this type" and the system creates per-unit budget items in bulk. Later additions get an "Apply to same type" checkbox so the manager isn't rebuilding 8 units one-by-one.
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <!-- Breadcrumb + header -->
+    <div class="px-6 pt-4 pb-3 border-b bg-gray-50">
+      <div class="text-xs text-gray-500 mb-1">Jobs › <span class="text-gray-700">Acme Towers Stage 2</span> › <span class="text-gray-900 font-medium">Setup</span></div>
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Acme Towers Stage 2</h2>
+          <div class="text-sm text-gray-500">Acme Construction · Brisbane · Multi-unit · 8 units across 3 types</div>
+        </div>
+        <div class="flex gap-2">
+          <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-medium">SETUP MODE</span>
+          <button class="bg-gray-200 text-sm px-3 py-1 rounded">Switch to operational view</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs (Setup mode adds a Type Setup tab on the left) -->
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Unit Types <span class="text-gray-400">(3)</span></button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Overview</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Units (8)</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Flagged</button>
+    </div>
+
+    <!-- Setup checklist banner -->
+    <div class="mx-6 mt-4 bg-blue-50 border border-blue-200 rounded p-3 text-sm">
+      <div class="font-medium text-blue-900 mb-1">Setup Checklist · 2 of 3 types configured</div>
+      <div class="flex gap-2 text-xs">
+        <span class="bg-green-100 text-green-700 px-2 py-1 rounded">✓ Type 1 configured · 3 units</span>
+        <span class="bg-green-100 text-green-700 px-2 py-1 rounded">✓ Type 2 configured · 3 units</span>
+        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">⏳ Type 3 — 0 items configured · 2 units</span>
+      </div>
+    </div>
+
+    <!-- Type cards -->
+    <div class="p-6 space-y-4">
+
+      <!-- TYPE 1 - configured + applied -->
+      <div class="border-2 border-green-200 rounded-lg overflow-hidden">
+        <div class="bg-green-50 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-gray-700">▼</span>
+            <div>
+              <div class="font-bold flex items-center gap-2">Type 1 <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">3 units</span></div>
+              <div class="text-xs text-gray-500">Units A01 · A02 · 15 (standalone) · 7 budget items configured · ✓ applied to all 3 units</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <div class="text-right"><div class="text-xs text-gray-500">Per-unit budget</div><div class="font-bold">$35,000</div></div>
+            <button class="text-xs bg-white border px-2 py-1 rounded">Duplicate type →</button>
+          </div>
+        </div>
+        <!-- Items configured for this type -->
+        <div class="divide-y text-sm">
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Install Type 1 (LGS labour)</span>
+            <span class="col-span-3 text-xs text-gray-500">Install · per-unit</span>
+            <span class="col-span-2 text-right">$14,000</span>
+            <span class="col-span-2 text-xs text-green-700">✓ applied · 3 units</span>
+            <span class="col-span-1 text-xs text-gray-400 text-right">edit</span>
+          </div>
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Install Struct Type 1</span>
+            <span class="col-span-3 text-xs text-gray-500">Install Breakdown · per-unit</span>
+            <span class="col-span-2 text-right">$8,000</span>
+            <span class="col-span-2 text-xs text-green-700">✓ applied · 3 units</span>
+            <span class="col-span-1 text-xs text-gray-400 text-right">edit</span>
+          </div>
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Subfloor Install</span>
+            <span class="col-span-3 text-xs text-gray-500">Install · per-unit</span>
+            <span class="col-span-2 text-right">$3,500</span>
+            <span class="col-span-2 text-xs text-green-700">✓ applied · 3 units</span>
+            <span class="col-span-1 text-xs text-gray-400 text-right">edit</span>
+          </div>
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Shaftliner</span>
+            <span class="col-span-3 text-xs text-gray-500">Shaftliner · per-unit</span>
+            <span class="col-span-2 text-right">$4,000</span>
+            <span class="col-span-2 text-xs text-green-700">✓ applied · 3 units</span>
+            <span class="col-span-1 text-xs text-gray-400 text-right">edit</span>
+          </div>
+          <!-- NEW item just added — apply prompt -->
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center bg-yellow-50 border-l-4 border-[#FFCB05]">
+            <span class="col-span-4 font-medium">Extra ceiling batten <span class="text-xs text-yellow-700">(just added)</span></span>
+            <span class="col-span-3 text-xs text-gray-500">Install · per-unit</span>
+            <span class="col-span-2 text-right">$850</span>
+            <span class="col-span-3 text-xs flex items-center gap-2">
+              <input type="checkbox" checked class="accent-[#FFCB05]" />
+              <span>Apply to all 3 Type 1 units</span>
+            </span>
+          </div>
+        </div>
+        <div class="px-4 py-3 bg-gray-50 border-t flex items-center gap-2 text-xs">
+          <button class="bg-white border px-3 py-1.5 rounded">+ Add item to Type 1</button>
+          <button class="bg-white border px-3 py-1.5 rounded">📋 Apply template</button>
+          <span class="ml-auto text-gray-500">Last applied 2 hours ago · synced to Units A01, A02, 15</span>
+        </div>
+      </div>
+
+      <!-- TYPE 2 - configured -->
+      <div class="border-2 border-green-200 rounded-lg overflow-hidden">
+        <div class="bg-green-50 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-gray-700">▶</span>
+            <div>
+              <div class="font-bold flex items-center gap-2">Type 2 <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">3 units</span></div>
+              <div class="text-xs text-gray-500">Units A03 · A04 · A05 · 7 budget items · ✓ applied to all 3 units</div>
+            </div>
+          </div>
+          <div class="text-right text-sm"><div class="text-xs text-gray-500">Per-unit budget</div><div class="font-bold">$40,000</div></div>
+        </div>
+      </div>
+
+      <!-- TYPE 3 - NOT configured yet -->
+      <div class="border-2 border-yellow-300 rounded-lg overflow-hidden">
+        <div class="bg-yellow-50 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-gray-700">▼</span>
+            <div>
+              <div class="font-bold flex items-center gap-2">Type 3 <span class="bg-pink-100 text-pink-700 text-xs px-2 py-0.5 rounded">2 units</span> <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded">⏳ NEEDS SETUP</span></div>
+              <div class="text-xs text-gray-500">Units B01 · B02 · 0 items configured</div>
+            </div>
+          </div>
+          <button class="bg-[#FFCB05] text-black font-bold rounded px-3 py-1.5 text-sm">📋 Copy from Type 2</button>
+        </div>
+        <div class="p-4 text-sm text-center text-gray-500 italic">
+          No budget items yet. Add items below, then click <strong>"Apply to all 2 Type 3 units"</strong> to push them out.
+        </div>
+        <div class="px-4 pb-4 flex gap-2">
+          <button class="bg-white border px-3 py-2 rounded text-sm flex-1">+ Add first item</button>
+          <button class="bg-white border px-3 py-2 rounded text-sm flex-1">📋 Apply template</button>
+          <button class="bg-white border px-3 py-2 rounded text-sm flex-1">📂 Copy from Type 1</button>
+        </div>
+      </div>
+
+      <!-- JOB-LEVEL items (don't get unit-type-applied) -->
+      <div class="border rounded-lg overflow-hidden">
+        <div class="bg-gray-100 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-gray-700">▼</span>
+            <div>
+              <div class="font-bold">Job-level items <span class="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded ml-1">whole job</span></div>
+              <div class="text-xs text-gray-500">Don't break down per-unit · Cranage, Supervisor, EWP, Form 12, Accom/Food/Travel</div>
+            </div>
+          </div>
+          <div class="text-right text-sm"><div class="text-xs text-gray-500">Job-level budget</div><div class="font-bold">$152,000</div></div>
+        </div>
+        <div class="divide-y text-sm">
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Wet Crane Hire</span>
+            <span class="col-span-3 text-xs text-gray-500">Cranage · whole job</span>
+            <span class="col-span-2 text-right">$20,000</span>
+            <span class="col-span-3 text-xs text-gray-400">↔ can divide across units later</span>
+          </div>
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Supervisor</span>
+            <span class="col-span-3 text-xs text-gray-500">Supervisor · whole job</span>
+            <span class="col-span-2 text-right">$30,000</span>
+            <span class="col-span-3 text-xs text-gray-400">↔ can divide across units later</span>
+          </div>
+          <div class="px-4 py-2 grid grid-cols-12 gap-2 items-center">
+            <span class="col-span-4">Form 12 Inspection</span>
+            <span class="col-span-3 text-xs text-gray-500">Engineering · whole job</span>
+            <span class="col-span-2 text-right">$9,000</span>
+            <span class="col-span-3 text-xs text-gray-400">↔ can divide across units later</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom action bar -->
+    <div class="px-6 py-4 bg-gray-50 border-t flex items-center justify-between">
+      <div class="text-sm">
+        <div class="font-medium">Setup progress</div>
+        <div class="text-xs text-gray-500">2 of 3 types configured · 8 of 8 units have at least 1 item · 1 type still needs setup</div>
+      </div>
+      <div class="flex gap-2">
+        <button class="bg-gray-200 text-sm px-4 py-2 rounded">Save & finish later</button>
+        <button class="bg-[#FFCB05] text-black font-bold text-sm px-4 py-2 rounded">Finish setup → switch to operational view</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Draft claims sub-mockup -->
+  <div class="mt-6 bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="px-6 py-4 border-b">
+      <h3 class="font-bold">Bonus: Drafts in the Multi-Unit Logger</h3>
+      <p class="text-xs text-gray-500 mt-1">Site supervisor pre-logs planned crane work across 4 units before the work happens. Each appears as a DRAFT claim until confirmed.</p>
+    </div>
+    <div class="p-6">
+      <div class="bg-gray-50 rounded p-4 border">
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Log to Multiple Units</div>
+        <div class="grid grid-cols-3 gap-2 text-sm mb-3">
+          <select class="border rounded px-2 py-1.5 col-span-1"><option>Wet Crane Hire</option></select>
+          <select class="border rounded px-2 py-1.5 col-span-1"><option>Cranes R Us · 50T Franna · $250/hr</option></select>
+          <input value="6 hrs · auto $1,500" class="border rounded px-2 py-1.5 col-span-1" />
+        </div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Apply to which units</div>
+        <div class="grid grid-cols-4 gap-2 text-sm mb-3">
+          <label class="flex items-center gap-2 p-2 border rounded bg-white"><input type="checkbox" class="accent-[#FFCB05]" /><span>Unit A01</span></label>
+          <label class="flex items-center gap-2 p-2 border rounded bg-yellow-50"><input type="checkbox" checked class="accent-[#FFCB05]" /><span>Unit A04</span></label>
+          <label class="flex items-center gap-2 p-2 border rounded bg-yellow-50"><input type="checkbox" checked class="accent-[#FFCB05]" /><span>Unit A05</span></label>
+          <label class="flex items-center gap-2 p-2 border rounded bg-yellow-50"><input type="checkbox" checked class="accent-[#FFCB05]" /><span>Unit A06</span></label>
+          <label class="flex items-center gap-2 p-2 border rounded bg-yellow-50"><input type="checkbox" checked class="accent-[#FFCB05]" /><span>Unit A07</span></label>
+          <label class="flex items-center gap-2 p-2 border rounded bg-white"><input type="checkbox" class="accent-[#FFCB05]" /><span>Unit B01</span></label>
+          <button class="text-xs text-blue-600 col-span-2 text-left">Select all Type 2 units (3) · Select all 8 · Clear</button>
+        </div>
+        <div class="flex items-center gap-3 text-sm">
+          <label class="flex items-center gap-2"><input type="checkbox" checked class="accent-[#FFCB05]" /><span class="font-medium">Save as DRAFT (work not done yet)</span></label>
+          <span class="text-xs text-gray-500">Drafts appear with a ⏳ DRAFT badge · tap to confirm/edit/delete when work happens</span>
+        </div>
+        <div class="mt-3 flex justify-end gap-2">
+          <button class="bg-gray-200 px-3 py-2 rounded text-sm">Cancel</button>
+          <button class="bg-[#FFCB05] text-black font-bold rounded px-4 py-2 text-sm">Save 4 draft claims · $6,000 planned</button>
+        </div>
+      </div>
+
+      <!-- Result preview -->
+      <div class="mt-4 border-l-4 border-[#FFCB05] bg-yellow-50/50 px-4 py-3">
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">After save — appears in claims list</div>
+        <div class="space-y-1 text-sm">
+          <div class="bg-white border rounded px-3 py-2 flex items-center gap-3">
+            <span class="text-xs bg-yellow-200 text-yellow-900 px-2 py-0.5 rounded font-bold">⏳ DRAFT</span>
+            <span class="flex-1">Unit A04 · Wet Crane Hire · 6h</span>
+            <span class="text-gray-500">$1,500</span>
+            <button class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">✓ Confirm done</button>
+            <button class="text-xs text-gray-400">edit · delete</button>
+          </div>
+          <div class="bg-white border rounded px-3 py-2 flex items-center gap-3">
+            <span class="text-xs bg-yellow-200 text-yellow-900 px-2 py-0.5 rounded font-bold">⏳ DRAFT</span>
+            <span class="flex-1">Unit A05 · Wet Crane Hire · 6h</span>
+            <span class="text-gray-500">$1,500</span>
+            <button class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">✓ Confirm done</button>
+            <button class="text-xs text-gray-400">edit · delete</button>
+          </div>
+          <div class="bg-white border rounded px-3 py-2 flex items-center gap-3">
+            <span class="text-xs bg-yellow-200 text-yellow-900 px-2 py-0.5 rounded font-bold">⏳ DRAFT</span>
+            <span class="flex-1">Unit A06 · Wet Crane Hire · 6h</span>
+            <span class="text-gray-500">$1,500</span>
+            <button class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">✓ Confirm done</button>
+            <button class="text-xs text-gray-400">edit · delete</button>
+          </div>
+          <div class="bg-white border rounded px-3 py-2 flex items-center gap-3">
+            <span class="text-xs bg-yellow-200 text-yellow-900 px-2 py-0.5 rounded font-bold">⏳ DRAFT</span>
+            <span class="flex-1">Unit A07 · Wet Crane Hire · 6h</span>
+            <span class="text-gray-500">$1,500</span>
+            <button class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">✓ Confirm done</button>
+            <button class="text-xs text-gray-400">edit · delete</button>
+          </div>
+        </div>
+        <div class="text-xs text-gray-500 mt-2">Budget bar shows planned spend separately from confirmed: <strong>$6,000 planned · $0 confirmed · $14,000 remaining of $20,000</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAND-ALONE BUILDING JOB -->
+<section id="standalone" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/job — single-building job</div>
+  <h3 class="text-xl font-bold mb-3">3b. Stand-Alone Building Job (House, Hospital, Single Structure)</h3>
+  <div class="text-xs text-gray-600 mb-3 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>No units, no breakdown.</strong> A single-building job has no Units tab — just Overview + Flagged. Budgets sit at the building level. The "single-building" data model already exists in the live app (commit <code>3c0dd5b</code>: "Single-building jobs: dedicated routes + data model — no units anywhere").
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <!-- Breadcrumb + header -->
+    <div class="px-6 pt-4 pb-3 border-b bg-gray-50">
+      <div class="text-xs text-gray-500 mb-1">Jobs › <span class="text-gray-700">Henderson Family Home</span></div>
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Henderson Family Home</h2>
+          <div class="text-sm text-gray-500">Henderson Family · Toowoomba · Quote #Q-2026-0166</div>
+        </div>
+        <div class="flex gap-2">
+          <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded font-medium">🏠 SINGLE BUILDING</span>
+          <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">Install: active</span>
+          <button class="bg-gray-200 text-sm px-3 py-1 rounded">⋯ Actions</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Black budget bar -->
+    <div class="bg-[#231F20] text-white px-6 py-4 grid grid-cols-5 gap-4 text-center">
+      <div><div class="text-xs text-gray-400">BUDGET</div><div class="text-xl font-bold">$78,000</div></div>
+      <div><div class="text-xs text-gray-400">CLAIMED</div><div class="text-xl font-bold">$32,400</div></div>
+      <div><div class="text-xs text-red-400">REWORK</div><div class="text-xl font-bold text-red-400">$0</div></div>
+      <div><div class="text-xs text-orange-400">VARIATIONS</div><div class="text-xl font-bold text-orange-400">+$2,200</div></div>
+      <div><div class="text-xs text-gray-400">REMAINING</div><div class="text-xl font-bold text-green-400">$47,800</div></div>
+    </div>
+
+    <!-- Tabs — NO UNITS TAB -->
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Overview</button>
+      <button class="px-4 py-3 border-b-2 border-transparent text-gray-600 text-sm">Flagged <span class="bg-gray-300 text-gray-700 text-xs px-1.5 rounded-full">1</span></button>
+      <span class="px-4 py-3 text-xs text-gray-300 italic self-center">No Units tab — single building</span>
+    </div>
+
+    <!-- Add budget item form (same as multi-unit) -->
+    <div class="mx-6 my-4 border-2 border-dashed border-[#FFCB05] rounded-lg p-3 hover:bg-yellow-50 cursor-pointer text-sm flex items-center gap-2">
+      <span class="text-[#FFCB05] font-bold text-lg">+</span>
+      <span class="font-medium">Add Budget Item</span>
+      <span class="text-gray-500 text-xs ml-auto">Pick group → sub-type · no per-unit logic</span>
+    </div>
+
+    <!-- Budget items grouped (same shape as multi-unit but no per-unit indicators) -->
+    <!-- ENGINEERING -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Engineering</div>
+        <div class="text-gray-600">$2,800 / $3,000</div>
+      </div>
+      <div class="border border-t-0 rounded-b">
+        <div class="px-3 py-2 flex items-center gap-3 text-sm">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Form 12 Inspection</span>
+          <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">📋 Booked 24/04</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:93%"></div></div>
+          <span class="text-xs w-24 text-right">$2,800 / $3,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTALL -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Install</div>
+        <div class="text-gray-600">$18,400 / $34,000</div>
+      </div>
+      <div class="border border-t-0 rounded-b text-sm">
+        <div class="px-3 py-2 flex items-center gap-3 border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Structural Steel Install</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:62%"></div></div>
+          <span class="text-xs w-24 text-right">$11,200 / $18,000</span>
+        </div>
+        <div class="px-3 py-2 flex items-center gap-3 border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">LGS Install</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:55%"></div></div>
+          <span class="text-xs w-24 text-right">$5,500 / $10,000</span>
+        </div>
+        <div class="px-3 py-2 flex items-center gap-3">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Subfloor</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:28%"></div></div>
+          <span class="text-xs w-24 text-right">$1,700 / $6,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRANAGE -->
+    <div class="mx-6 mb-2">
+      <div class="bg-gray-100 rounded-t px-3 py-2 flex items-center justify-between text-sm">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Cranage</div>
+        <div class="text-gray-600">$5,200 / $8,000</div>
+      </div>
+      <div class="border border-t-0 rounded-b text-sm">
+        <div class="px-3 py-2 flex items-center gap-3 border-b">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Wet Crane Hire</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:65%"></div></div>
+          <span class="text-xs w-24 text-right">$3,900 / $6,000</span>
+        </div>
+        <div class="px-3 py-2 flex items-center gap-3">
+          <span class="text-gray-400">▶</span>
+          <span class="flex-1">Crane Travel</span>
+          <div class="w-32 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:65%"></div></div>
+          <span class="text-xs w-24 text-right">$1,300 / $2,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other groups condensed -->
+    <div class="mx-6 mb-4 space-y-1 text-sm">
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Supervisor</div>
+        <div class="text-gray-600">$3,200 / $6,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Shaftliner</div>
+        <div class="text-gray-600">$0 / $0 <span class="text-gray-400 text-xs">(N/A this job)</span></div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between">
+        <div class="font-bold uppercase tracking-wide text-gray-700">EWP</div>
+        <div class="text-gray-600">$0 / $4,000</div>
+      </div>
+      <div class="bg-gray-100 rounded px-3 py-2 flex justify-between">
+        <div class="font-bold uppercase tracking-wide text-gray-700">Accom / Food / Travel</div>
+        <div class="text-gray-600">$2,800 / $5,000</div>
+      </div>
+    </div>
+
+    <!-- Building info card (replaces Units tab) -->
+    <div class="mx-6 mb-6 bg-gray-50 border rounded-lg p-4">
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Building Details</div>
+      <div class="grid grid-cols-4 gap-4 text-sm">
+        <div><div class="text-xs text-gray-500">Type</div><div class="font-medium">Detached house</div></div>
+        <div><div class="text-xs text-gray-500">Floor area</div><div class="font-medium">214 m²</div></div>
+        <div><div class="text-xs text-gray-500">Storeys</div><div class="font-medium">2</div></div>
+        <div><div class="text-xs text-gray-500">Site address</div><div class="font-medium">14 Ridge St, Toowoomba</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGGED ISSUES -->
+<section id="job-flagged" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/job — Flagged tab</div>
+  <h3 class="text-xl font-bold mb-3">4. Per-Job Page — Flagged Issues Tab</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 text-gray-600 text-sm">Overview</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Units (8)</button>
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Flagged <span class="bg-red-500 text-white text-xs px-1.5 rounded-full">3</span></button>
+    </div>
+
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex gap-2 text-sm">
+          <button class="px-3 py-1 bg-[#231F20] text-white rounded">All (5)</button>
+          <button class="px-3 py-1 bg-gray-100 rounded">Open (3)</button>
+          <button class="px-3 py-1 bg-gray-100 rounded">In Progress (1)</button>
+          <button class="px-3 py-1 bg-gray-100 rounded">Resolved (1)</button>
+        </div>
+        <button class="bg-[#FFCB05] text-black font-bold px-4 py-2 rounded text-sm">+ Flag Item</button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Flag card -->
+        <div class="border rounded-lg overflow-hidden hover:border-[#FFCB05] cursor-pointer">
+          <div class="h-32 bg-gray-200 grid-bg flex items-center justify-center text-gray-400">📷 Photo · 2 more</div>
+          <div class="p-3">
+            <div class="flex items-start justify-between">
+              <div class="font-bold">Wall studs out of plumb — A03 east wall</div>
+              <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded">OPEN</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Unit A03 · Structural Steel Install · 2 days ago · 1 comment</div>
+          </div>
+        </div>
+
+        <div class="border rounded-lg overflow-hidden hover:border-[#FFCB05] cursor-pointer">
+          <div class="h-32 bg-gray-200 grid-bg flex items-center justify-center text-gray-400">📷 Photo · 4 more</div>
+          <div class="p-3">
+            <div class="flex items-start justify-between">
+              <div class="font-bold">Damaged sheet on delivery</div>
+              <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">IN PROGRESS</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Unit A01 · Shaftliner · 1 day ago · 3 comments · → promoted to Rework</div>
+          </div>
+        </div>
+
+        <div class="border rounded-lg overflow-hidden hover:border-[#FFCB05] cursor-pointer">
+          <div class="h-32 bg-gray-200 grid-bg flex items-center justify-center text-gray-400">📷 Photo</div>
+          <div class="p-3">
+            <div class="flex items-start justify-between">
+              <div class="font-bold">Site access blocked by builder</div>
+              <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded">OPEN</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Job-wide · 5 hours ago</div>
+          </div>
+        </div>
+
+        <div class="border rounded-lg overflow-hidden opacity-60 hover:opacity-100 cursor-pointer">
+          <div class="h-32 bg-gray-200 grid-bg flex items-center justify-center text-gray-400">📷 Photo</div>
+          <div class="p-3">
+            <div class="flex items-start justify-between">
+              <div class="font-bold">Extra dogman needed for crane lift</div>
+              <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">RESOLVED</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Unit A02 · → promoted to Variation #V-0042</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGGED INBOX (cross-job triage) -->
+<section id="flagged-inbox" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/flagged · cross-job triage</div>
+  <h3 class="text-xl font-bold mb-3">4b. Flagged Inbox — opens when you click "Flagged 5" in the nav</h3>
+  <div class="text-xs text-gray-600 mb-3 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>One screen, every open issue across the jobs you can see.</strong> Triage from here — view, resolve, or promote to Variation/Rework — without opening each job individually. Counts are scoped to the user (admin = all jobs · supervisor = assigned jobs).
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <!-- App shell header -->
+    <header class="bg-hytek-black text-white">
+      <div class="px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+          <span class="text-sm text-gray-400">Install Tracker</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5 text-xs"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+          <div class="text-right">
+            <p class="text-sm font-medium">Scott Textor</p>
+            <p class="text-xs text-gray-400">Admin</p>
+          </div>
+          <button class="text-xs text-gray-400 hover:text-white border border-gray-600 px-3 py-1.5 rounded hover:border-gray-400">Sign Out</button>
+        </div>
+      </div>
+      <nav class="px-6">
+        <div class="flex gap-1 flex-wrap">
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Jobs</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Progress</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Reports</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400 hover:text-white hover:bg-gray-800">Setup</a>
+          <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg bg-gray-50 text-hytek-black flex items-center gap-2">Flagged <span class="text-xs font-bold tabular-nums px-1.5 py-0.5 rounded-full bg-hytek-yellow text-hytek-black">5</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page header + controls -->
+    <div class="px-6 py-4 border-b">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h2 class="text-2xl font-bold">Flagged Inbox</h2>
+          <p class="text-xs text-gray-500 mt-1">5 open issues · oldest first · across 4 active jobs</p>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <select class="border rounded px-2 py-1 text-sm">
+            <option>Sort: Oldest first</option>
+            <option>Sort: Newest first</option>
+            <option>Sort: By job</option>
+            <option>Sort: By severity</option>
+          </select>
+          <select class="border rounded px-2 py-1 text-sm">
+            <option>Group: None</option>
+            <option>Group by job</option>
+            <option>Group by supervisor</option>
+            <option>Group by unit</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filter chips -->
+      <div class="flex items-center gap-2 flex-wrap text-xs">
+        <button class="px-3 py-1 bg-hytek-black text-white rounded">All Open <span class="ml-1 text-hytek-yellow">5</span></button>
+        <button class="px-3 py-1 bg-gray-100 rounded">Open only <span class="ml-1 text-gray-500">3</span></button>
+        <button class="px-3 py-1 bg-gray-100 rounded">In Progress <span class="ml-1 text-gray-500">2</span></button>
+        <button class="px-3 py-1 bg-gray-100 rounded">Mine <span class="ml-1 text-gray-500">2</span></button>
+        <button class="px-3 py-1 bg-gray-100 rounded">Has photos <span class="ml-1 text-gray-500">5</span></button>
+        <button class="px-3 py-1 bg-gray-100 rounded">No comments <span class="ml-1 text-gray-500">2</span></button>
+        <span class="text-gray-400 mx-1">·</span>
+        <button class="px-3 py-1 bg-white border rounded text-gray-500">Resolved (12)</button>
+        <button class="px-3 py-1 bg-white border rounded text-gray-500">Dismissed (3)</button>
+        <button class="px-3 py-1 bg-white border rounded text-gray-500">Promoted (8)</button>
+        <input class="ml-auto border rounded px-2 py-1 text-sm w-56" placeholder="Search title, job, unit..." />
+      </div>
+    </div>
+
+    <!-- Inbox list -->
+    <div class="divide-y">
+
+      <!-- Row 1 — oldest, urgent -->
+      <div class="px-6 py-3 hover:bg-yellow-50 cursor-pointer flex items-start gap-4">
+        <div class="w-20 h-20 bg-gray-200 grid-bg rounded flex-shrink-0 flex items-center justify-center text-gray-400 text-xs relative">
+          📷
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <div class="font-bold">Site access blocked by builder</div>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded font-bold">OPEN · URGENT</span>
+          </div>
+          <div class="text-sm text-gray-700 mt-1 truncate">Builder put a temp fence across the loading bay, can't get the crane in tomorrow. Need to contact site manager...</div>
+          <div class="text-xs text-gray-500 mt-2 flex items-center gap-3 flex-wrap">
+            <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">Riverside Apartments</span>
+            <span>Job-wide</span>
+            <span>·</span>
+            <span>Mark Stevens</span>
+            <span>·</span>
+            <span class="text-red-600 font-medium">5 hours ago</span>
+            <span>·</span>
+            <span>0 comments</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 text-xs flex-shrink-0">
+          <button class="bg-white border px-2 py-1 rounded hover:bg-gray-50 text-left">View →</button>
+          <button class="bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 text-left">+ Variation</button>
+          <button class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 text-left">+ Rework</button>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="px-6 py-3 hover:bg-yellow-50 cursor-pointer flex items-start gap-4">
+        <div class="w-20 h-20 bg-gray-200 grid-bg rounded flex-shrink-0 flex items-center justify-center text-gray-400 text-xs relative">
+          📷
+          <span class="absolute -top-1 -right-1 bg-gray-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">2</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <div class="font-bold">Wall studs out of plumb — A03 east wall</div>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded">OPEN</span>
+          </div>
+          <div class="text-sm text-gray-700 mt-1 truncate">Three studs are 12mm out at the top, looks like the bottom plate isn't square. Photos attached, need supervisor eyes...</div>
+          <div class="text-xs text-gray-500 mt-2 flex items-center gap-3 flex-wrap">
+            <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">Acme Towers Stage 2</span>
+            <span>Unit A03</span>
+            <span>·</span>
+            <span>Structural Steel Install</span>
+            <span>·</span>
+            <span>Mark Stevens</span>
+            <span>·</span>
+            <span>2 days ago</span>
+            <span>·</span>
+            <span>1 comment</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 text-xs flex-shrink-0">
+          <button class="bg-white border px-2 py-1 rounded hover:bg-gray-50 text-left">View →</button>
+          <button class="bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 text-left">+ Variation</button>
+          <button class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 text-left">+ Rework</button>
+        </div>
+      </div>
+
+      <!-- Row 3 — In Progress -->
+      <div class="px-6 py-3 hover:bg-yellow-50 cursor-pointer flex items-start gap-4">
+        <div class="w-20 h-20 bg-gray-200 grid-bg rounded flex-shrink-0 flex items-center justify-center text-gray-400 text-xs relative">
+          📷
+          <span class="absolute -top-1 -right-1 bg-gray-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">4</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <div class="font-bold">Damaged sheet on delivery</div>
+            <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">IN PROGRESS</span>
+          </div>
+          <div class="text-sm text-gray-700 mt-1 truncate">3× shaftliner sheets arrived with corner damage, supplier notified, replacements due Tue. Ongoing — keep open until replacements logged...</div>
+          <div class="text-xs text-gray-500 mt-2 flex items-center gap-3 flex-wrap">
+            <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">Acme Towers Stage 2</span>
+            <span>Unit A01</span>
+            <span>·</span>
+            <span>Shaftliner</span>
+            <span>·</span>
+            <span>Pete Fielding</span>
+            <span>·</span>
+            <span>1 day ago</span>
+            <span>·</span>
+            <span>3 comments</span>
+            <span>·</span>
+            <span class="text-orange-600">→ supplier notified</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 text-xs flex-shrink-0">
+          <button class="bg-white border px-2 py-1 rounded hover:bg-gray-50 text-left">View →</button>
+          <button class="bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 text-left">+ Variation</button>
+          <button class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 text-left">+ Rework</button>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="px-6 py-3 hover:bg-yellow-50 cursor-pointer flex items-start gap-4">
+        <div class="w-20 h-20 bg-gray-200 grid-bg rounded flex-shrink-0 flex items-center justify-center text-gray-400 text-xs relative">
+          📷
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <div class="font-bold">Form 12 inspector no-show</div>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded">OPEN</span>
+          </div>
+          <div class="text-sm text-gray-700 mt-1 truncate">Pete Wilson didn't turn up for the 9am Form 12 inspection on Unit A02, need to rebook...</div>
+          <div class="text-xs text-gray-500 mt-2 flex items-center gap-3 flex-wrap">
+            <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">Acme Towers Stage 2</span>
+            <span>Unit A02</span>
+            <span>·</span>
+            <span>Form 12 Inspection</span>
+            <span>·</span>
+            <span>Mark Stevens</span>
+            <span>·</span>
+            <span>6 hours ago</span>
+            <span>·</span>
+            <span>0 comments</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 text-xs flex-shrink-0">
+          <button class="bg-white border px-2 py-1 rounded hover:bg-gray-50 text-left">View →</button>
+          <button class="bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 text-left">+ Variation</button>
+          <button class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 text-left">+ Rework</button>
+        </div>
+      </div>
+
+      <!-- Row 5 — In Progress -->
+      <div class="px-6 py-3 hover:bg-yellow-50 cursor-pointer flex items-start gap-4">
+        <div class="w-20 h-20 bg-gray-200 grid-bg rounded flex-shrink-0 flex items-center justify-center text-gray-400 text-xs relative">
+          📷
+          <span class="absolute -top-1 -right-1 bg-gray-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">2</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-3">
+            <div class="font-bold">Crane track soft, may need ground mats</div>
+            <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">IN PROGRESS</span>
+          </div>
+          <div class="text-sm text-gray-700 mt-1 truncate">Recent rain has softened the crane track on the south side, getting quotes for ground protection mats. Likely scope addition...</div>
+          <div class="text-xs text-gray-500 mt-2 flex items-center gap-3 flex-wrap">
+            <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">Marina Towers</span>
+            <span>Job-wide</span>
+            <span>·</span>
+            <span>Cranage</span>
+            <span>·</span>
+            <span>Pete Fielding</span>
+            <span>·</span>
+            <span>3 hours ago</span>
+            <span>·</span>
+            <span>2 comments</span>
+            <span>·</span>
+            <span class="text-orange-600">→ likely Variation</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 text-xs flex-shrink-0">
+          <button class="bg-white border px-2 py-1 rounded hover:bg-gray-50 text-left">View →</button>
+          <button class="bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 text-left">+ Variation</button>
+          <button class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 text-left">+ Rework</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-3 bg-gray-50 border-t text-xs text-gray-500 flex justify-between items-center">
+      <span>Showing 5 of 5 open · 12 resolved this month · 8 promoted to Variation/Rework this month</span>
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Live — new flags appear instantly</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/progress</div>
+  <h3 class="text-xl font-bold mb-3">5. Per-Unit Install % Tracker (feeds invoicing webhook)</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="border-b px-6 py-4 flex items-center gap-4">
+      <span class="text-sm font-medium">Job:</span>
+      <select class="border rounded px-3 py-1.5 text-sm w-80"><option>Acme Towers Stage 2</option></select>
+      <button class="text-xs bg-gray-100 px-2 py-1 rounded">+ Add Line Item</button>
+      <span class="ml-auto text-xs text-gray-500 flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Auto-syncs to invoicing</span>
+    </div>
+
+    <div class="p-6 space-y-3">
+      <!-- Unit row -->
+      <div class="border rounded-lg">
+        <div class="bg-gray-50 px-4 py-2 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="font-bold">Unit A01</span>
+            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">Type 1</span>
+          </div>
+          <span class="text-xs text-gray-500">Average 78% complete</span>
+        </div>
+        <div class="divide-y text-sm">
+          <div class="px-4 py-3 grid grid-cols-12 gap-3 items-center">
+            <span class="col-span-3">Structural Steel</span>
+            <div class="col-span-6 flex items-center gap-2"><div class="flex-1 bg-gray-200 h-3 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:100%"></div></div></div>
+            <input type="number" value="100" class="col-span-1 border rounded px-2 py-1 text-right" />
+            <span class="col-span-1 text-xs text-gray-500">%</span>
+            <span class="col-span-1 text-xs text-green-600">✓ Synced</span>
+          </div>
+          <div class="px-4 py-3 grid grid-cols-12 gap-3 items-center">
+            <span class="col-span-3">L2 Walls</span>
+            <div class="col-span-6 flex items-center gap-2"><div class="flex-1 bg-gray-200 h-3 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:85%"></div></div></div>
+            <input type="number" value="85" class="col-span-1 border rounded px-2 py-1 text-right" />
+            <span class="col-span-1 text-xs text-gray-500">%</span>
+            <span class="col-span-1 text-xs text-green-600">✓ Synced</span>
+          </div>
+          <div class="px-4 py-3 grid grid-cols-12 gap-3 items-center bg-yellow-50">
+            <span class="col-span-3">L3 Walls</span>
+            <div class="col-span-6 flex items-center gap-2"><div class="flex-1 bg-gray-200 h-3 rounded overflow-hidden"><div class="bg-yellow-500 h-full" style="width:50%"></div></div></div>
+            <input type="number" value="50" class="col-span-1 border rounded px-2 py-1 text-right border-[#FFCB05]" />
+            <span class="col-span-1 text-xs text-gray-500">%</span>
+            <button class="col-span-1 text-xs bg-[#FFCB05] text-black font-bold rounded px-2 py-1">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-lg opacity-60">
+        <div class="bg-gray-50 px-4 py-2 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-3"><span class="font-bold">Unit A02</span><span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded">Type 1</span></div>
+          <span class="text-xs text-gray-500">▶ Average 62% complete</span>
+        </div>
+      </div>
+      <div class="border rounded-lg opacity-60">
+        <div class="bg-gray-50 px-4 py-2 flex items-center justify-between cursor-pointer">
+          <div class="flex items-center gap-3"><span class="font-bold">Unit A03</span><span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">Type 2</span></div>
+          <span class="text-xs text-gray-500">▶ Average 91% complete</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTS -->
+<section id="reports" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/reports</div>
+  <h3 class="text-xl font-bold mb-3">6. Job List — Per-Job View Only</h3>
+  <div class="text-xs text-gray-600 mb-3 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>Staff view = per-job only.</strong> No cross-job dollar totals — staff seeing the company's combined committed budget can misread it as profit. Owner-level cross-job reporting lives in a separate <em>Owner Reports</em> tab (admin-only, built later when needed).
+  </div>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <!-- Page header (no cross-job totals) -->
+    <div class="px-6 py-4 border-b flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold">Jobs</h2>
+        <p class="text-xs text-gray-500 mt-1">Click any row to drill into that job's budget breakdown.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <input class="border rounded px-3 py-1.5 text-sm w-64" placeholder="Search by job or client..." />
+        <div class="flex bg-gray-100 rounded p-1 text-xs">
+          <button class="px-3 py-1 bg-white shadow rounded font-medium">Active</button>
+          <button class="px-3 py-1 text-gray-600">Complete</button>
+          <button class="px-3 py-1 text-gray-600">All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Per-job table -->
+    <div class="p-6">
+      <table class="w-full text-sm">
+        <thead class="text-xs uppercase text-gray-500 border-b">
+          <tr>
+            <th class="text-left py-2">Job</th>
+            <th class="text-left">Client</th>
+            <th class="text-left">Status</th>
+            <th class="text-right">Budget</th>
+            <th class="text-right">Claimed</th>
+            <th class="text-right">Remaining</th>
+            <th class="text-left pl-4">% Used</th>
+            <th class="text-right">Items</th>
+            <th class="text-right pr-2">Last Entry</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr class="hover:bg-yellow-50 cursor-pointer">
+            <td class="py-2 font-medium">Acme Towers Stage 2</td>
+            <td class="text-gray-600">Acme Construction</td>
+            <td><span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">active</span></td>
+            <td class="text-right">$420k</td>
+            <td class="text-right">$284k</td>
+            <td class="text-right text-green-700">$136k</td>
+            <td class="pl-4"><div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:67%"></div></div></td>
+            <td class="text-right">24</td>
+            <td class="text-right pr-2 text-xs">17/04/2026</td>
+            <td class="text-blue-600 text-xs">Open →</td>
+          </tr>
+          <tr class="hover:bg-yellow-50 cursor-pointer bg-red-50">
+            <td class="py-2 font-medium">Riverside Apartments <span class="ml-1 bg-red-100 text-red-700 text-xs px-1.5 rounded">⚠ over</span></td>
+            <td class="text-gray-600">Walker Group</td>
+            <td><span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">active</span></td>
+            <td class="text-right">$580k</td>
+            <td class="text-right text-red-700 font-medium">$612k</td>
+            <td class="text-right text-red-700">−$32k</td>
+            <td class="pl-4"><div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width:100%"></div></div></td>
+            <td class="text-right">32</td>
+            <td class="text-right pr-2 text-xs">19/04/2026</td>
+            <td class="text-blue-600 text-xs">Open →</td>
+          </tr>
+          <tr class="hover:bg-yellow-50 cursor-pointer">
+            <td class="py-2 font-medium">Henderson Townhouses</td>
+            <td class="text-gray-600">PrivateOwner</td>
+            <td><span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">active</span></td>
+            <td class="text-right">$210k</td>
+            <td class="text-right">$48k</td>
+            <td class="text-right text-green-700">$162k</td>
+            <td class="pl-4"><div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width:23%"></div></div></td>
+            <td class="text-right">18</td>
+            <td class="text-right pr-2 text-xs">15/04/2026</td>
+            <td class="text-blue-600 text-xs">Open →</td>
+          </tr>
+          <tr class="hover:bg-yellow-50 cursor-pointer">
+            <td class="py-2 font-medium">Marina Towers</td>
+            <td class="text-gray-600">Coastal Builders</td>
+            <td><span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">active</span></td>
+            <td class="text-right">$880k</td>
+            <td class="text-right text-red-700 font-medium">$890k</td>
+            <td class="text-right text-red-700">−$10k</td>
+            <td class="pl-4"><div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width:100%"></div></div></td>
+            <td class="text-right">41</td>
+            <td class="text-right pr-2 text-xs">19/04/2026</td>
+            <td class="text-blue-600 text-xs">Open →</td>
+          </tr>
+          <tr class="hover:bg-yellow-50 cursor-pointer">
+            <td class="py-2 font-medium">Hilltop Block C</td>
+            <td class="text-gray-600">Greenfield Dev</td>
+            <td><span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">active</span></td>
+            <td class="text-right">$120k</td>
+            <td class="text-right">$118k</td>
+            <td class="text-right text-yellow-700">$2k</td>
+            <td class="pl-4"><div class="w-24 bg-gray-200 h-2 rounded overflow-hidden"><div class="bg-yellow-500 h-full" style="width:98%"></div></div></td>
+            <td class="text-right">14</td>
+            <td class="text-right pr-2 text-xs">18/04/2026</td>
+            <td class="text-blue-600 text-xs">Open →</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Drill-down preview row -->
+      <div class="mt-4 border-2 border-yellow-200 bg-yellow-50/50 rounded-lg p-4">
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Click a job → expands to show that job's group breakdown only</div>
+        <div class="text-sm font-bold mb-2">Acme Towers Stage 2 — by group</div>
+        <div class="grid grid-cols-4 gap-2 text-xs">
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Engineering</div><div class="font-bold">$8,400 / $9,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Install</div><div class="font-bold">$142,800 / $185,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Cranage</div><div class="font-bold">$24,800 / $32,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Supervisor</div><div class="font-bold">$22,400 / $30,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Shaftliner</div><div class="font-bold">$18,000 / $24,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">EWP</div><div class="font-bold">$12,800 / $18,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Accom/Food/Travel</div><div class="font-bold">$31,400 / $42,000</div></div>
+          <div class="bg-white border rounded p-2"><div class="text-gray-500">Install Breakdown</div><div class="font-bold">$24,320 / $80,000</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNER REPORTS PLACEHOLDER -->
+<section class="max-w-7xl mx-auto px-4 mb-12">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">future · admin-only</div>
+  <h3 class="text-xl font-bold mb-3">6b. Owner Reports Tab — built later, separate access</h3>
+  <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+    <div class="text-gray-500 text-sm mb-2">📊 Owner / Director Reports</div>
+    <div class="text-xs text-gray-500 max-w-2xl mx-auto">When you want it, this is where cross-job financial roll-ups live — total committed budget, total claimed, margin trends, contractor spend breakdowns, etc. Gated to admin/owner role only so site staff and supervisors never see company-wide dollar figures.</div>
+    <div class="mt-4 text-xs text-gray-400">Not built in this phase. Add when needed without touching the per-job view.</div>
+  </div>
+</section>
+
+<!-- SETUP -->
+<section id="setup" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">/install/setup</div>
+  <h3 class="text-xl font-bold mb-3">7. Settings — Companies & Supervisors</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 border-b-2 border-[#FFCB05] font-bold text-sm">Companies</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Dropdown Options</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Supervisors</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Task Library</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Templates</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Groups</button>
+    </div>
+
+    <div class="p-6">
+      <!-- Add company -->
+      <div class="bg-yellow-50 border border-[#FFCB05] rounded p-3 mb-4 flex gap-2 text-sm">
+        <input placeholder="Company name" class="border rounded px-2 py-1.5 flex-1" />
+        <select class="border rounded px-2 py-1.5"><option>Cranage</option><option>Supervisor</option><option>Install</option><option>EWP</option></select>
+        <button class="bg-[#FFCB05] text-black font-bold rounded px-4">+ Add Company</button>
+      </div>
+
+      <!-- Company card expanded -->
+      <div class="border-2 border-[#FFCB05] rounded-lg mb-3">
+        <div class="bg-yellow-50 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-gray-700">▼</span>
+            <div>
+              <div class="font-bold">Cranes R Us</div>
+              <div class="text-xs text-gray-500">Cranage · 3 contacts · 4 services · ✓ active</div>
+            </div>
+          </div>
+          <button class="text-xs text-gray-500">Edit · Deactivate</button>
+        </div>
+        <div class="p-4 grid grid-cols-2 gap-6 text-sm">
+          <div>
+            <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Contacts</div>
+            <div class="space-y-1">
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Mark Davies</strong> · Owner</span><span class="text-xs text-gray-500">0414 222 333</span></div>
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Sarah Lee</strong> · Operations</span><span class="text-xs text-gray-500">07 3333 4444</span></div>
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Tony Mac</strong> · Driver</span><span class="text-xs text-gray-500">0419 555 666</span></div>
+              <button class="text-xs text-blue-600 mt-1">+ Add Contact</button>
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Services / Rate Card</div>
+            <div class="space-y-1">
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>50T Franna</strong></span><span class="text-xs">$250 / per hour · Cranage</span></div>
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Crane Travel</strong></span><span class="text-xs">$120 / per trip · Cranage</span></div>
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Extra Rigger</strong></span><span class="text-xs">$80 / per hour · Cranage</span></div>
+              <div class="flex justify-between p-2 bg-gray-50 rounded"><span><strong>Extra Dogman</strong></span><span class="text-xs">$75 / per hour · Cranage</span></div>
+              <button class="text-xs text-blue-600 mt-1">+ Add Service</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Companies collapsed -->
+      <div class="border rounded mb-2 px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer text-sm">
+        <span class="text-gray-400">▶ <strong class="text-gray-900">Riggers United</strong> · Cranage · 2 contacts · 3 services</span>
+        <span class="text-xs text-gray-500">edit</span>
+      </div>
+      <div class="border rounded mb-2 px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer text-sm">
+        <span class="text-gray-400">▶ <strong class="text-gray-900">SteelFix Installers</strong> · Install · 5 contacts · 6 services</span>
+        <span class="text-xs text-gray-500">edit</span>
+      </div>
+      <div class="border rounded mb-2 px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer text-sm">
+        <span class="text-gray-400">▶ <strong class="text-gray-900">SkyHigh EWP</strong> · EWP · 1 contact · 2 services</span>
+        <span class="text-xs text-gray-500">edit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMAND PALETTE (Ctrl+K) -->
+<section id="cmdk" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Ctrl+K · Cmd+K · global keyboard shortcut</div>
+  <h3 class="text-xl font-bold mb-3">8. Command Palette — Search Anything, Jump Anywhere</h3>
+  <div class="text-xs text-gray-600 mb-3 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>Press Ctrl+K (or Cmd+K on Mac) from anywhere in the app.</strong> A floating search box opens — type a job, person, claim, flag, setting, or action. Live results filter as you type. Enter jumps you straight there. Esc closes it. Office staff save real minutes a day.
+  </div>
+
+  <!-- TWO STATES SIDE BY SIDE -->
+  <div class="grid grid-cols-2 gap-4">
+
+    <!-- STATE 1 — JUST OPENED (no typing yet) -->
+    <div>
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2 font-medium">State 1 — Just opened (no typing)</div>
+      <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border-4 border-gray-700 relative" style="min-height:560px">
+        <!-- Background app shell (dimmed) -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+          <div class="bg-hytek-black h-14 flex items-center px-4">
+            <div class="bg-hytek-yellow w-12 h-6 rounded"></div>
+            <div class="ml-3 text-white text-xs">Install Tracker</div>
+          </div>
+          <div class="bg-hytek-black px-4 py-2 flex gap-1">
+            <span class="bg-gray-50 text-hytek-black px-3 py-1 rounded-t text-xs">Jobs</span>
+            <span class="text-gray-400 px-3 py-1 text-xs">Progress</span>
+            <span class="text-gray-400 px-3 py-1 text-xs">Reports</span>
+          </div>
+          <div class="p-4 grid grid-cols-3 gap-2">
+            <div class="h-20 bg-white rounded"></div>
+            <div class="h-20 bg-white rounded"></div>
+            <div class="h-20 bg-white rounded"></div>
+          </div>
+        </div>
+
+        <!-- Backdrop dim -->
+        <div class="absolute inset-0 bg-black/70"></div>
+
+        <!-- Floating palette -->
+        <div class="absolute left-1/2 top-16 -translate-x-1/2 w-[90%] max-w-md bg-white rounded-lg shadow-2xl overflow-hidden">
+          <!-- Search input -->
+          <div class="px-4 py-3 border-b flex items-center gap-3 bg-white">
+            <span class="text-gray-400 text-lg">🔍</span>
+            <input class="flex-1 outline-none text-base placeholder-gray-400" placeholder="Search jobs, claims, flags, settings..." />
+            <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500 font-mono">ESC</span>
+          </div>
+
+          <!-- Recent section -->
+          <div class="max-h-96 overflow-y-auto">
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Recent</div>
+            <div class="px-2 pb-1">
+              <div class="px-3 py-2 rounded bg-yellow-50 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💼</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Acme Towers Stage 2</div>
+                  <div class="text-xs text-gray-500">Job · opened 5 min ago</div>
+                </div>
+                <span class="text-xs text-gray-400">↵</span>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💰</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">New Claim — Cranage / Wet Crane Hire</div>
+                  <div class="text-xs text-gray-500">Acme Towers · 12 min ago</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">🚩</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Flagged Inbox</div>
+                  <div class="text-xs text-gray-500">Cross-job triage · 1 hr ago</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Quick Actions</div>
+            <div class="px-2 pb-2">
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">＋</span>
+                <span class="font-medium text-sm flex-1">New Job</span>
+                <span class="text-xs text-gray-400 font-mono">N</span>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">🏢</span>
+                <span class="font-medium text-sm flex-1">Add Company</span>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">🚩</span>
+                <span class="font-medium text-sm flex-1">Flag an issue</span>
+                <span class="text-xs text-gray-400 font-mono">F</span>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">⚙</span>
+                <span class="font-medium text-sm flex-1">Settings</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer hints -->
+          <div class="px-4 py-2 border-t bg-gray-50 flex items-center justify-between text-xs text-gray-500">
+            <span class="flex items-center gap-2">
+              <span class="bg-white border px-1.5 rounded font-mono">↑↓</span> navigate ·
+              <span class="bg-white border px-1.5 rounded font-mono">↵</span> open ·
+              <span class="bg-white border px-1.5 rounded font-mono">⌘K</span> close
+            </span>
+            <span>4 sources · 0 results filtered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 2 — TYPED "wet crane" -->
+    <div>
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2 font-medium">State 2 — Typed "wet crane" → live results</div>
+      <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border-4 border-gray-700 relative" style="min-height:560px">
+        <!-- Background app shell (dimmed) -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+          <div class="bg-hytek-black h-14 flex items-center px-4">
+            <div class="bg-hytek-yellow w-12 h-6 rounded"></div>
+          </div>
+          <div class="bg-hytek-black px-4 py-2 flex gap-1">
+            <span class="bg-gray-50 text-hytek-black px-3 py-1 rounded-t text-xs">Jobs</span>
+            <span class="text-gray-400 px-3 py-1 text-xs">Progress</span>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-black/70"></div>
+
+        <!-- Floating palette -->
+        <div class="absolute left-1/2 top-16 -translate-x-1/2 w-[90%] max-w-md bg-white rounded-lg shadow-2xl overflow-hidden">
+          <!-- Search input WITH text -->
+          <div class="px-4 py-3 border-b flex items-center gap-3 bg-white">
+            <span class="text-gray-400 text-lg">🔍</span>
+            <div class="flex-1 text-base font-medium">wet crane<span class="inline-block w-0.5 h-4 bg-hytek-yellow animate-pulse ml-0.5"></span></div>
+            <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500">12 results</span>
+          </div>
+
+          <div class="max-h-96 overflow-y-auto">
+            <!-- BUDGET ITEMS group -->
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Budget Items <span class="text-gray-300">· 4</span></div>
+            <div class="px-2 pb-1">
+              <div class="px-3 py-2 rounded bg-yellow-50 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💰</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Wet Crane Hire — Acme Towers Stage 2</div>
+                  <div class="text-xs text-gray-500">Cranage · $15k / $20k · 75% used</div>
+                </div>
+                <span class="text-xs text-gray-400">↵</span>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💰</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Wet Crane Hire — Riverside Apartments</div>
+                  <div class="text-xs text-gray-500">Cranage · $32k / $28k · OVER</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💰</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Wet Crane Hire — Marina Towers</div>
+                  <div class="text-xs text-gray-500">Cranage · $42k / $50k · 84%</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">💰</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Wet Crane Hire — Henderson Family Home</div>
+                  <div class="text-xs text-gray-500">Cranage · $3.9k / $6k · 65%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CLAIMS group -->
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Recent Claims <span class="text-gray-300">· 5 of 24</span></div>
+            <div class="px-2 pb-1">
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">📋</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">6h · $1,500 — Cranes R Us · 17/04/2026</div>
+                  <div class="text-xs text-gray-500">Acme Towers · Unit A03 · Mark Stevens</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">📋</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">8h · $2,000 — Cranes R Us · 15/04/2026</div>
+                  <div class="text-xs text-gray-500">Riverside Apartments · Pete Fielding</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer text-gray-500">
+                <span class="text-base">…</span>
+                <div class="flex-1 text-sm italic">+ 22 more claims · press ↵ to see all</div>
+              </div>
+            </div>
+
+            <!-- COMPANIES + SERVICES group -->
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Companies & Services <span class="text-gray-300">· 2</span></div>
+            <div class="px-2 pb-1">
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">🏢</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Cranes R Us · Wet Crane Hire ($250/hr)</div>
+                  <div class="text-xs text-gray-500">Service · Settings → Companies</div>
+                </div>
+              </div>
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">🏢</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Riggers United · Wet Crane Hire ($230/hr)</div>
+                  <div class="text-xs text-gray-500">Service · Settings → Companies</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTIONS group -->
+            <div class="px-4 pt-3 pb-1 text-xs uppercase tracking-wider text-gray-400 font-medium">Actions <span class="text-gray-300">· 1</span></div>
+            <div class="px-2 pb-2">
+              <div class="px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-3 cursor-pointer">
+                <span class="text-base">＋</span>
+                <div class="flex-1">
+                  <div class="font-medium text-sm">Log new Wet Crane Hire claim</div>
+                  <div class="text-xs text-gray-500">Pre-fills service · pick job + unit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-4 py-2 border-t bg-gray-50 flex items-center justify-between text-xs text-gray-500">
+            <span class="flex items-center gap-2">
+              <span class="bg-white border px-1.5 rounded font-mono">↑↓</span> navigate ·
+              <span class="bg-white border px-1.5 rounded font-mono">↵</span> open ·
+              <span class="bg-white border px-1.5 rounded font-mono">ESC</span> close
+            </span>
+            <span>12 results · 4 sources</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- More search examples grid -->
+  <div class="mt-6 bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="px-6 py-4 border-b">
+      <h3 class="font-bold">More examples — what you can type</h3>
+      <p class="text-xs text-gray-500 mt-1">Anything in the database is searchable. Results auto-grouped by source.</p>
+    </div>
+    <table class="w-full text-sm">
+      <thead class="text-xs uppercase text-gray-500 border-b bg-gray-50">
+        <tr><th class="text-left py-2 px-4">You type</th><th class="text-left">Top result</th><th class="text-left">Press ↵ →</th></tr>
+      </thead>
+      <tbody class="divide-y">
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">acme</td>
+          <td>💼 Acme Towers Stage 2 (job)</td>
+          <td class="text-gray-600">Jumps to job page</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">walker</td>
+          <td>👤 Walker Group (client) · 2 active jobs</td>
+          <td class="text-gray-600">Filters jobs to this client</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">pete wilson</td>
+          <td>👷 Pete Wilson — Form 12 inspector · 3 bookings</td>
+          <td class="text-gray-600">Opens his upcoming inspection list</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">cranes r us</td>
+          <td>🏢 Cranes R Us — 4 services · 12 claims</td>
+          <td class="text-gray-600">Opens company page in Settings</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">flag plumb</td>
+          <td>🚩 Wall studs out of plumb — A03 east wall</td>
+          <td class="text-gray-600">Opens flag drawer</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">unit a03</td>
+          <td>🏠 Unit A03 — Acme Towers · Type 2 · 107% (over)</td>
+          <td class="text-gray-600">Opens that unit's drawer</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">form 12</td>
+          <td>📋 Form 12 budget items · 4 active · 2 booked · 1 awaiting</td>
+          <td class="text-gray-600">Cross-job Form 12 view</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">setup companies</td>
+          <td>⚙ Settings → Companies tab</td>
+          <td class="text-gray-600">Opens that tab directly</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">add supervisor</td>
+          <td>＋ Settings → Supervisors → Add new</td>
+          <td class="text-gray-600">Opens add-supervisor form</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">over budget</td>
+          <td>⚠ 3 jobs over budget</td>
+          <td class="text-gray-600">Filters job list to over-budget jobs</td>
+        </tr>
+        <tr class="hover:bg-yellow-50">
+          <td class="py-2 px-4 font-mono text-xs">offline queue</td>
+          <td>📡 Sync queue · 8 pending</td>
+          <td class="text-gray-600">Opens queue drawer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Implementation note -->
+  <div class="mt-4 bg-gray-100 border rounded p-3 text-xs text-gray-700">
+    <strong>Implementation note:</strong> Built with <code class="bg-white px-1 rounded">cmdk</code> (the React library used by Linear, Vercel, GitHub) + a single Supabase RPC <code class="bg-white px-1 rounded">search_install(query)</code> that returns ranked rows from jobs / claims / flags / companies / services / settings in one round-trip. Keystroke debounced at 80ms · results cached for the session. Mobile users get a full-screen variant on tap of the search icon (no keyboard shortcut needed).
+  </div>
+</section>
+
+<!-- ============================================================ POLISH FEATURES ============================================================ -->
+<section id="polish" class="bg-gray-200 py-10 scroll-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-1">Polish Features (8 locked-in ease-of-use additions)</h2>
+    <p class="text-gray-600 mb-6">All additive — zero functions removed. ① Job pill · ② ⌘K palette (built above) · ③ Multi-unit / duplicate (built above) · ④ End-of-day summary · ⑤ What-changed banner · ⑥ Voice-to-text · ⑦ Day templates · ⑧ Smart notifications</p>
+  </div>
+</section>
+
+<!-- 1. CURRENT JOB PILL -->
+<section id="pill" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">① Persistent Current-Job Pill</div>
+  <h3 class="text-xl font-bold mb-3">Header Pill — Switch Jobs From Any Screen</h3>
+  <div class="grid grid-cols-2 gap-4">
+    <!-- Pill in header (closed) -->
+    <div>
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2 font-medium">Pill in header (collapsed)</div>
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+        <header class="bg-hytek-black text-white">
+          <div class="px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+              <span class="text-sm text-gray-400">Install Tracker</span>
+              <button class="bg-hytek-yellow text-hytek-black text-sm font-bold px-3 py-1.5 rounded-full flex items-center gap-2 hover:brightness-95">
+                📌 Acme Towers Stage 2 <span class="text-xs">▾</span>
+              </button>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="flex items-center gap-1.5 text-xs"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+              <div class="text-right">
+                <p class="text-sm font-medium">Scott Textor</p>
+                <p class="text-xs text-gray-400">Admin</p>
+              </div>
+            </div>
+          </div>
+          <nav class="px-6">
+            <div class="flex gap-1">
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg bg-gray-50 text-hytek-black">Jobs</a>
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400">Progress</a>
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400">Reports</a>
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400">Setup</a>
+            </div>
+          </nav>
+        </header>
+        <div class="p-6 text-sm text-gray-500 italic">… current page (any page) …</div>
+      </div>
+    </div>
+
+    <!-- Pill open -->
+    <div>
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2 font-medium">Pill clicked → mini job switcher dropdown</div>
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden border relative">
+        <header class="bg-hytek-black text-white">
+          <div class="px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+              <span class="text-sm text-gray-400">Install Tracker</span>
+              <button class="bg-hytek-yellow text-hytek-black text-sm font-bold px-3 py-1.5 rounded-full flex items-center gap-2 ring-4 ring-hytek-yellow/30">
+                📌 Acme Towers Stage 2 <span class="text-xs">▴</span>
+              </button>
+            </div>
+          </div>
+          <nav class="px-6">
+            <div class="flex gap-1">
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg bg-gray-50 text-hytek-black">Jobs</a>
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400">Progress</a>
+              <a class="px-4 py-2.5 text-sm font-medium rounded-t-lg text-gray-400">Reports</a>
+            </div>
+          </nav>
+        </header>
+        <!-- Dropdown overlay -->
+        <div class="absolute left-[18rem] top-14 w-80 bg-white rounded-lg shadow-2xl border z-10 overflow-hidden">
+          <div class="px-3 py-2 border-b bg-gray-50">
+            <input class="w-full text-sm border rounded px-2 py-1" placeholder="Search jobs..." />
+          </div>
+          <div class="px-3 pt-2 pb-1 text-xs uppercase text-gray-400 font-medium">Currently on</div>
+          <div class="px-3 py-2 bg-yellow-50 border-l-4 border-hytek-yellow flex items-center justify-between">
+            <div>
+              <div class="font-medium text-sm">Acme Towers Stage 2</div>
+              <div class="text-xs text-gray-500">Acme Construction · 67% used</div>
+            </div>
+            <span class="text-xs text-green-600">✓</span>
+          </div>
+          <div class="px-3 pt-3 pb-1 text-xs uppercase text-gray-400 font-medium">Recent</div>
+          <div class="px-2 pb-1">
+            <div class="px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+              <span class="text-sm">Riverside Apartments</span>
+              <span class="text-xs bg-red-100 text-red-700 px-1.5 rounded">⚠ over</span>
+            </div>
+            <div class="px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+              <span class="text-sm">Henderson Family Home</span>
+              <span class="text-xs text-gray-500">42%</span>
+            </div>
+            <div class="px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+              <span class="text-sm">Marina Towers</span>
+              <span class="text-xs bg-red-100 text-red-700 px-1.5 rounded">⚠ over</span>
+            </div>
+          </div>
+          <div class="px-3 py-2 border-t bg-gray-50 text-xs flex justify-between">
+            <a class="text-blue-600">All jobs →</a>
+            <a class="text-blue-600">+ New Job</a>
+          </div>
+        </div>
+        <div class="p-6 text-sm text-gray-500 italic opacity-30">… current page (dimmed while pill is open) …</div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 text-xs text-gray-600 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>Mobile:</strong> Same pill appears under the header on phone/tablet. Tap → full-screen job picker (no fiddly dropdowns on touch). Recent jobs at top, search at top, "All Jobs →" at bottom.
+  </div>
+</section>
+
+<!-- 4. END-OF-DAY SUMMARY -->
+<section id="endofday" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">④ End-of-Day Summary on PIN App</div>
+  <h3 class="text-xl font-bold mb-3">"Today on Acme Towers" — Confirms Done, Prompts Missing</h3>
+  <div class="grid grid-cols-2 gap-6">
+    <!-- Phone -->
+    <div class="device-frame bg-black rounded-[36px] p-2 max-w-xs">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-hytek-black text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>4:32 PM</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-hytek-black text-white px-4 py-3">
+          <div class="text-xs text-gray-400">← Logout</div>
+          <div class="font-bold text-lg">Mark Stevens · Today</div>
+        </div>
+
+        <!-- Today summary banner -->
+        <div class="m-3 bg-emerald-50 border-2 border-emerald-200 rounded-xl p-3">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-emerald-600 text-lg">✓</span>
+            <span class="font-bold text-emerald-900">Today on Acme Towers</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs text-emerald-800 mb-2">
+            <div class="bg-white rounded p-2"><div class="text-emerald-600 font-bold text-lg">8</div>claims logged</div>
+            <div class="bg-white rounded p-2"><div class="text-emerald-600 font-bold text-lg">$4,200</div>logged today</div>
+            <div class="bg-white rounded p-2"><div class="text-orange-600 font-bold text-lg">2</div>flags raised</div>
+            <div class="bg-white rounded p-2"><div class="text-emerald-600 font-bold text-lg">A02</div>hit 100% ✓</div>
+          </div>
+        </div>
+
+        <!-- Missing prompt -->
+        <div class="mx-3 mb-3 bg-yellow-50 border-2 border-yellow-300 rounded-xl p-3">
+          <div class="flex items-start gap-2">
+            <span class="text-yellow-600 text-lg">⚠</span>
+            <div class="flex-1">
+              <div class="font-bold text-yellow-900 text-sm">No progress logged for Unit A04 today</div>
+              <div class="text-xs text-yellow-700 mt-0.5">Was that intentional, or did you forget?</div>
+              <div class="flex gap-2 mt-2">
+                <button class="bg-hytek-yellow text-black font-bold rounded px-3 py-1.5 text-xs">Log now</button>
+                <button class="bg-white border rounded px-3 py-1.5 text-xs">Intentional · dismiss</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job list -->
+        <div class="flex-1 px-3 space-y-2 overflow-auto text-sm">
+          <div class="text-xs uppercase text-gray-400 mt-2 mb-1">Your jobs</div>
+          <div class="border rounded p-2 flex items-center justify-between">
+            <div>
+              <div class="font-medium">Acme Towers Stage 2</div>
+              <div class="text-xs text-gray-500">8 today · 67% budget used</div>
+            </div>
+            <span class="text-xs">→</span>
+          </div>
+          <div class="border rounded p-2 flex items-center justify-between">
+            <div>
+              <div class="font-medium">Marina Towers</div>
+              <div class="text-xs text-gray-500">0 today · 84% budget used</div>
+            </div>
+            <span class="text-xs">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-sm space-y-3">
+      <div class="bg-white border rounded-lg p-4">
+        <div class="font-bold mb-2">When it appears</div>
+        <ul class="text-xs text-gray-600 space-y-1 list-disc pl-4">
+          <li>Only when there's been activity today (no banner if it's a new day with no logs)</li>
+          <li>Top of the supervisor's home screen on the PIN app</li>
+          <li>Updates live as more is logged</li>
+        </ul>
+      </div>
+      <div class="bg-white border rounded-lg p-4">
+        <div class="font-bold mb-2">What it counts</div>
+        <ul class="text-xs text-gray-600 space-y-1 list-disc pl-4">
+          <li>Claims logged today (count + dollar total)</li>
+          <li>Flags raised today</li>
+          <li>Units that hit 100% complete today</li>
+          <li>What's MISSING — units the supervisor usually logs against but didn't today</li>
+        </ul>
+      </div>
+      <div class="bg-white border rounded-lg p-4">
+        <div class="font-bold mb-2">"Missing" smart logic</div>
+        <ul class="text-xs text-gray-600 space-y-1 list-disc pl-4">
+          <li>Looks at last 7 days of activity per unit</li>
+          <li>If a unit was logged against 5 of the last 7 days but not today → prompt</li>
+          <li>"Dismiss as intentional" remembers for the day, doesn't nag again</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. WHAT CHANGED BANNER -->
+<section id="whatchanged" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">⑤ What-Changed-Since-Last-Looked Banner</div>
+  <h3 class="text-xl font-bold mb-3">"Since your last visit…" — Like Email's New-Messages Line</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="bg-hytek-black text-white px-6 py-3 flex items-center gap-4">
+      <img src="hytek-group-logo.png" alt="HYTEK GROUP" class="h-9" />
+      <span class="text-sm text-gray-400">Install Tracker</span>
+      <button class="bg-hytek-yellow text-hytek-black text-sm font-bold px-3 py-1.5 rounded-full flex items-center gap-2">📌 Acme Towers Stage 2 <span class="text-xs">▾</span></button>
+    </div>
+
+    <!-- The banner -->
+    <div class="bg-yellow-100 border-b-2 border-yellow-300 px-6 py-3 flex items-center gap-3">
+      <span class="text-2xl">🟡</span>
+      <div class="flex-1 text-sm">
+        <span class="font-bold">Since your last visit</span>
+        <span class="text-gray-700">(yesterday 3:42pm):</span>
+        <span class="ml-2 bg-white border border-yellow-300 px-2 py-0.5 rounded text-xs">3 new claims</span>
+        <span class="ml-1 bg-white border border-yellow-300 px-2 py-0.5 rounded text-xs">1 new flag</span>
+        <span class="ml-1 bg-white border border-yellow-300 px-2 py-0.5 rounded text-xs">📋 Form 12 booked for Unit A02</span>
+        <span class="ml-1 bg-white border border-yellow-300 px-2 py-0.5 rounded text-xs">Unit A03 hit 80% used</span>
+      </div>
+      <button class="text-xs bg-yellow-300 text-yellow-900 font-bold px-3 py-1 rounded">Show me →</button>
+      <button class="text-xs text-yellow-700">Dismiss</button>
+    </div>
+
+    <div class="px-6 py-4">
+      <h2 class="text-2xl font-bold mb-3">Acme Towers Stage 2 — Overview</h2>
+
+      <!-- INSTALL group with NEW rows highlighted -->
+      <div class="border rounded-lg overflow-hidden text-sm">
+        <div class="bg-gray-100 px-3 py-2 font-bold uppercase tracking-wide text-gray-700">Install</div>
+        <div class="divide-y">
+          <div class="px-3 py-2 flex items-center gap-3 bg-yellow-100/50 transition-colors">
+            <span class="text-xs bg-yellow-300 text-yellow-900 font-bold px-1.5 rounded">NEW</span>
+            <span class="flex-1">Structural Steel Install · claim added by Mark Stevens</span>
+            <span class="text-xs text-gray-500">$1,500 · 17/04 9:42am</span>
+          </div>
+          <div class="px-3 py-2 flex items-center gap-3 bg-yellow-100/50">
+            <span class="text-xs bg-yellow-300 text-yellow-900 font-bold px-1.5 rounded">NEW</span>
+            <span class="flex-1">Subfloor Install · claim added by Pete Fielding</span>
+            <span class="text-xs text-gray-500">$840 · 17/04 11:15am</span>
+          </div>
+          <div class="px-3 py-2 flex items-center gap-3">
+            <span class="text-gray-400">▶</span>
+            <span class="flex-1">LGS Install</span>
+            <span class="text-xs text-gray-500">$5,500 / $14,000</span>
+          </div>
+          <div class="px-3 py-2 flex items-center gap-3 bg-yellow-100/50">
+            <span class="text-xs bg-yellow-300 text-yellow-900 font-bold px-1.5 rounded">NEW</span>
+            <span class="flex-1">Wet Crane Hire · claim added by Mark Stevens</span>
+            <span class="text-xs text-gray-500">$1,500 · 17/04 2:18pm</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-3 italic">Highlight fades after 5 seconds · banner can be dismissed · stores <code class="bg-gray-100 px-1 rounded">last_viewed_at</code> per user per job</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. VOICE-TO-TEXT -->
+<section id="voice" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">⑥ Voice-to-Text on Mobile Notes</div>
+  <h3 class="text-xl font-bold mb-3">🎤 Mic Button on Every Notes Field — Gloves On, On a Roof</h3>
+  <div class="grid grid-cols-3 gap-6">
+
+    <!-- Phone 1 — empty state -->
+    <div class="device-frame bg-black rounded-[36px] p-2 max-w-xs">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[560px] flex flex-col">
+        <div class="bg-hytek-black text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>2:14 PM</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-red-500 text-white px-4 py-3"><div class="text-xs">←</div><div class="font-bold">🚩 Flag Issue</div></div>
+        <div class="flex-1 p-4 space-y-3 text-sm">
+          <div class="grid grid-cols-3 gap-2">
+            <div class="aspect-square bg-gray-200 grid-bg rounded flex items-center justify-center">📷</div>
+            <button class="aspect-square border-2 border-dashed rounded flex items-center justify-center text-3xl text-gray-400">+</button>
+          </div>
+          <input placeholder="Title" class="w-full border rounded p-3 text-base" />
+          <div class="relative">
+            <textarea placeholder="Describe the issue..." class="w-full border rounded p-3 text-base h-32 pr-12"></textarea>
+            <button class="absolute right-2 bottom-2 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-xl">🎤</button>
+          </div>
+        </div>
+        <div class="text-xs text-center text-gray-500 pb-3">Tap mic → speak → text appears</div>
+      </div>
+    </div>
+
+    <!-- Phone 2 — recording -->
+    <div class="device-frame bg-black rounded-[36px] p-2 max-w-xs">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[560px] flex flex-col">
+        <div class="bg-hytek-black text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>2:14 PM</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-red-500 text-white px-4 py-3"><div class="text-xs">←</div><div class="font-bold">🚩 Flag Issue</div></div>
+        <div class="flex-1 p-4 space-y-3 text-sm">
+          <div class="grid grid-cols-3 gap-2">
+            <div class="aspect-square bg-gray-200 grid-bg rounded flex items-center justify-center">📷</div>
+            <button class="aspect-square border-2 border-dashed rounded flex items-center justify-center text-3xl text-gray-400">+</button>
+          </div>
+          <input value="Wall studs out of plumb — A03 east wall" class="w-full border rounded p-3 text-base font-medium" />
+          <div class="relative border-2 border-red-400 rounded bg-red-50">
+            <div class="p-3 text-base h-32 italic text-gray-700">Three studs are 12mm out at the top, looks like the bottom plate isn't sq<span class="inline-block w-0.5 h-4 bg-red-500 animate-pulse"></span></div>
+            <button class="absolute right-2 bottom-2 w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center text-xl ring-4 ring-red-300 animate-pulse">🎤</button>
+          </div>
+          <div class="bg-red-100 text-red-800 rounded px-3 py-2 text-xs flex items-center gap-2">
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span class="font-medium">Listening · 0:08</span>
+            <span class="text-red-600 ml-auto">tap mic to stop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3 — done -->
+    <div class="device-frame bg-black rounded-[36px] p-2 max-w-xs">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[560px] flex flex-col">
+        <div class="bg-hytek-black text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>2:14 PM</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-red-500 text-white px-4 py-3"><div class="text-xs">←</div><div class="font-bold">🚩 Flag Issue</div></div>
+        <div class="flex-1 p-4 space-y-3 text-sm">
+          <div class="grid grid-cols-3 gap-2">
+            <div class="aspect-square bg-gray-200 grid-bg rounded flex items-center justify-center">📷</div>
+            <button class="aspect-square border-2 border-dashed rounded flex items-center justify-center text-3xl text-gray-400">+</button>
+          </div>
+          <input value="Wall studs out of plumb — A03 east wall" class="w-full border rounded p-3 text-base font-medium" />
+          <div class="relative">
+            <textarea class="w-full border rounded p-3 text-base h-32 pr-12">Three studs are 12mm out at the top, looks like the bottom plate isn't square. Need supervisor eyes before we sheet over.</textarea>
+            <button class="absolute right-2 bottom-2 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-xl">🎤</button>
+          </div>
+          <div class="bg-green-100 text-green-800 rounded px-3 py-1.5 text-xs flex items-center gap-2">
+            <span>✓</span><span class="font-medium">Captured 18 words in 12 seconds — edit if needed</span>
+          </div>
+        </div>
+        <button class="bg-red-500 text-white font-bold p-4 text-base">Create Flag</button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 text-xs text-gray-600 bg-yellow-50 border border-yellow-200 rounded px-3 py-2">
+    <strong>Browser-native</strong> — uses Web Speech API (free, on iOS Safari + Android Chrome). No external service. Mic button appears on every notes / description / comment textarea on mobile. Falls back to keyboard if device doesn't support it.
+  </div>
+</section>
+
+<!-- 7. DAY TEMPLATES -->
+<section id="daytemplates" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">⑦ Day Templates · Settings → Templates → Day Templates tab</div>
+  <h3 class="text-xl font-bold mb-3">"Crane Lift Day" One-Tap → 3 Claims Pre-Created</h3>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+    <div class="border-b px-6 flex gap-1">
+      <button class="px-4 py-3 text-gray-600 text-sm">Companies</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Dropdown Options</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Supervisors</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Task Library</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Breakdown Templates</button>
+      <button class="px-4 py-3 border-b-2 border-hytek-yellow font-bold text-sm">Day Templates</button>
+      <button class="px-4 py-3 text-gray-600 text-sm">Groups</button>
+    </div>
+    <div class="p-6 grid grid-cols-3 gap-4">
+      <!-- Crane lift day -->
+      <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-hytek-yellow cursor-pointer">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🏗</span>
+          <span class="font-bold">Crane Lift Day</span>
+        </div>
+        <div class="text-xs text-gray-500 mb-3">3 claims pre-created · supervisor only enters hours</div>
+        <div class="text-xs space-y-1">
+          <div class="bg-gray-50 px-2 py-1 rounded">CRANAGE › Wet Crane Hire · 8h · pick company</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">CRANAGE › Extra Rigger · 8h · pick company</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">CRANAGE › Extra Dogman · 8h · pick company</div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button class="bg-hytek-yellow text-black font-bold rounded px-3 py-1.5 text-xs flex-1">Use template</button>
+          <button class="text-xs text-gray-500">edit</button>
+        </div>
+      </div>
+
+      <!-- Form 12 day -->
+      <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-hytek-yellow cursor-pointer">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">📋</span>
+          <span class="font-bold">Form 12 Inspection Day</span>
+        </div>
+        <div class="text-xs text-gray-500 mb-3">2 claims · books inspection automatically</div>
+        <div class="text-xs space-y-1">
+          <div class="bg-gray-50 px-2 py-1 rounded">ENGINEERING › Form 12 Inspection · per unit</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">ACCOM/FOOD/TRAVEL › Travel · auto-calc kms</div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button class="bg-hytek-yellow text-black font-bold rounded px-3 py-1.5 text-xs flex-1">Use template</button>
+          <button class="text-xs text-gray-500">edit</button>
+        </div>
+      </div>
+
+      <!-- Travel day -->
+      <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-hytek-yellow cursor-pointer">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🚗</span>
+          <span class="font-bold">Overnight Travel Day</span>
+        </div>
+        <div class="text-xs text-gray-500 mb-3">3 claims · for jobs > 2 hrs from home</div>
+        <div class="text-xs space-y-1">
+          <div class="bg-gray-50 px-2 py-1 rounded">ACCOM › Accommodation · 1 night</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">ACCOM › Food allowance · 1 day</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">ACCOM › Travel · pick kms</div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button class="bg-hytek-yellow text-black font-bold rounded px-3 py-1.5 text-xs flex-1">Use template</button>
+          <button class="text-xs text-gray-500">edit</button>
+        </div>
+      </div>
+
+      <!-- Shaftliner day -->
+      <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-hytek-yellow cursor-pointer">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🪚</span>
+          <span class="font-bold">Shaftliner Install Day</span>
+        </div>
+        <div class="text-xs text-gray-500 mb-3">Per-unit · pick which units</div>
+        <div class="text-xs space-y-1">
+          <div class="bg-gray-50 px-2 py-1 rounded">SHAFTLINER › Shaftliner Install · sqm</div>
+          <div class="bg-gray-50 px-2 py-1 rounded">EWP › EWP + Travel · half day</div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button class="bg-hytek-yellow text-black font-bold rounded px-3 py-1.5 text-xs flex-1">Use template</button>
+          <button class="text-xs text-gray-500">edit</button>
+        </div>
+      </div>
+
+      <!-- Add new -->
+      <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-hytek-yellow cursor-pointer flex flex-col items-center justify-center text-gray-500">
+        <span class="text-3xl mb-1">+</span>
+        <span class="text-sm font-medium">Create Day Template</span>
+        <span class="text-xs mt-1 text-center">Bundle the claims you log together every day</span>
+      </div>
+    </div>
+
+    <!-- Mobile preview -->
+    <div class="border-t bg-gray-50 px-6 py-4">
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">On mobile (PIN app) — appears as 5th tile on the job menu</div>
+      <div class="flex gap-2 text-xs">
+        <button class="bg-emerald-500 text-white font-bold rounded px-3 py-2">📋 Day Templates ▾</button>
+        <span class="text-gray-500 self-center">→ pick template → fill hours/qty for each → save · 3 claims created in one go</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. SMART NOTIFICATIONS -->
+<section id="notifications" class="max-w-7xl mx-auto px-4 mb-12 scroll-section">
+  <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">⑧ Smart Notifications · opt-in only, never noise</div>
+  <h3 class="text-xl font-bold mb-3">2-3 Meaningful Pings a Day, Not 50 Noise</h3>
+  <div class="grid grid-cols-2 gap-4">
+    <!-- Settings panel -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+      <div class="px-6 py-4 border-b bg-gray-50">
+        <h4 class="font-bold">Settings → Notifications</h4>
+        <p class="text-xs text-gray-500 mt-1">Each user toggles which signals reach them. Defaults are off — opt in only.</p>
+      </div>
+      <div class="p-4 space-y-3 text-sm">
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>🟡</span><span class="font-medium">Budget item hits 80% used</span></div>
+            <div class="text-xs text-gray-500 ml-6">Early warning before over-budget</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>🟠</span><span class="font-medium">Budget item hits 100% used</span></div>
+            <div class="text-xs text-gray-500 ml-6">Item is now exhausted</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded bg-red-50">
+          <div>
+            <div class="flex items-center gap-2"><span>🔴</span><span class="font-medium">Job goes over budget</span></div>
+            <div class="text-xs text-gray-500 ml-6">Whole-job claimed > whole-job budget</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>🚩</span><span class="font-medium">Flag open > 24 hrs without comment</span></div>
+            <div class="text-xs text-gray-500 ml-6">Stale flag — needs attention</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>📋</span><span class="font-medium">Form 12 inspection booked for tomorrow</span></div>
+            <div class="text-xs text-gray-500 ml-6">Day-before reminder</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>✅</span><span class="font-medium">Job hit 100% on all line items</span></div>
+            <div class="text-xs text-gray-500 ml-6">Ready to mark Install Complete</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+          <div>
+            <div class="flex items-center gap-2"><span>📊</span><span class="font-medium">Daily morning digest (8:00 AM)</span></div>
+            <div class="text-xs text-gray-500 ml-6">One email summarising yesterday across all jobs</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-11 h-6 bg-gray-200 peer-checked:bg-hytek-yellow rounded-full relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition peer-checked:after:translate-x-5"></div></label>
+        </div>
+
+        <div class="border-t pt-3 mt-3 flex gap-2 text-xs">
+          <span class="text-gray-500 mr-auto">Delivery:</span>
+          <label class="flex items-center gap-1"><input type="checkbox" checked class="accent-hytek-yellow" /> In-app</label>
+          <label class="flex items-center gap-1"><input type="checkbox" checked class="accent-hytek-yellow" /> Push (mobile)</label>
+          <label class="flex items-center gap-1"><input type="checkbox" class="accent-hytek-yellow" /> Email</label>
+          <label class="flex items-center gap-1"><input type="checkbox" class="accent-hytek-yellow" /> SMS</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample notifications -->
+    <div>
+      <div class="text-xs uppercase tracking-wider text-gray-500 mb-2 font-medium">What you actually receive</div>
+      <div class="space-y-2">
+        <div class="bg-white rounded-lg shadow border p-3 text-sm flex items-start gap-3">
+          <span class="text-2xl">🔴</span>
+          <div class="flex-1">
+            <div class="font-bold">Riverside Apartments — over budget by $32k</div>
+            <div class="text-xs text-gray-500 mt-0.5">Claimed $612k vs $580k budget · Cranage line driving it</div>
+            <div class="flex gap-2 mt-2">
+              <button class="text-xs bg-hytek-yellow text-black font-bold px-2 py-1 rounded">Open job</button>
+              <button class="text-xs text-gray-500">Snooze 24h</button>
+            </div>
+          </div>
+          <span class="text-xs text-gray-400">9:14 AM</span>
+        </div>
+
+        <div class="bg-white rounded-lg shadow border p-3 text-sm flex items-start gap-3">
+          <span class="text-2xl">🚩</span>
+          <div class="flex-1">
+            <div class="font-bold">Flag open 26 hrs without comment</div>
+            <div class="text-xs text-gray-500 mt-0.5">"Wall studs out of plumb — A03" · Acme Towers · Mark Stevens</div>
+            <div class="flex gap-2 mt-2">
+              <button class="text-xs bg-hytek-yellow text-black font-bold px-2 py-1 rounded">Open flag</button>
+              <button class="text-xs text-gray-500">Add comment</button>
+            </div>
+          </div>
+          <span class="text-xs text-gray-400">11:42 AM</span>
+        </div>
+
+        <div class="bg-white rounded-lg shadow border p-3 text-sm flex items-start gap-3">
+          <span class="text-2xl">📋</span>
+          <div class="flex-1">
+            <div class="font-bold">Form 12 inspection tomorrow · Acme Towers Unit A02</div>
+            <div class="text-xs text-gray-500 mt-0.5">Pete Wilson · 9:00 AM · confirm with site</div>
+            <div class="flex gap-2 mt-2">
+              <button class="text-xs bg-hytek-yellow text-black font-bold px-2 py-1 rounded">View booking</button>
+              <button class="text-xs text-gray-500">Reschedule</button>
+            </div>
+          </div>
+          <span class="text-xs text-gray-400">2:00 PM</span>
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm flex items-start gap-3">
+          <span class="text-2xl">✓</span>
+          <div class="flex-1">
+            <div class="font-bold text-emerald-900">That's 3 today</div>
+            <div class="text-xs text-emerald-700 mt-0.5">No more pings unless something changes. The app stays out of your way.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ MOBILE ============================================================ -->
+<section id="mobile" class="bg-gray-200 py-10 scroll-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-1">Mobile (PIN App — Site Supervisors)</h2>
+    <p class="text-gray-600 mb-6">/install/site — no Supabase auth, 4-digit PIN, mirrors /dispatch/drive. Works offline.</p>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 mb-12">
+  <div class="grid grid-cols-4 gap-6">
+
+    <!-- PHONE 1: PIN -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:41</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 3 queued</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+          <img src="hytek-group-logo-inverted.png" alt="HYTEK GROUP" class="h-10 mb-4 brightness-0" />
+          <div class="font-bold text-2xl">Install Site</div>
+          <div class="text-sm text-gray-500 mt-1 mb-8">Enter your 4-digit supervisor PIN</div>
+          <div class="flex gap-3 mb-6">
+            <div class="w-12 h-14 border-2 border-[#FFCB05] rounded text-2xl font-bold flex items-center justify-center">●</div>
+            <div class="w-12 h-14 border-2 border-[#FFCB05] rounded text-2xl font-bold flex items-center justify-center">●</div>
+            <div class="w-12 h-14 border-2 border-[#FFCB05] rounded text-2xl font-bold flex items-center justify-center">●</div>
+            <div class="w-12 h-14 border-2 border-gray-300 rounded text-2xl font-bold flex items-center justify-center"></div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 w-full">
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">1</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">2</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">3</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">4</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">5</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">6</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">7</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">8</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">9</button>
+            <button class="text-gray-400">←</button>
+            <button class="bg-gray-100 rounded py-3 font-bold text-lg">0</button>
+            <button class="text-[#FFCB05] font-bold">→</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">PIN Login</div>
+    </div>
+
+    <!-- PHONE 2: Job menu (4 tiles) -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:41</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-[#231F20] text-white px-4 py-3">
+          <div class="text-xs text-gray-400">← All Jobs</div>
+          <div class="font-bold text-lg">Acme Towers Stage 2</div>
+          <div class="text-xs text-gray-400">Acme Construction · Brisbane</div>
+        </div>
+        <div class="p-4 grid grid-cols-2 gap-3 flex-1">
+          <button class="bg-[#FFCB05] rounded-xl p-4 flex flex-col items-center justify-center font-bold text-black">
+            <span class="text-3xl mb-2">💰</span> Log Cost
+          </button>
+          <button class="bg-blue-500 rounded-xl p-4 flex flex-col items-center justify-center font-bold text-white">
+            <span class="text-3xl mb-2">📊</span> Progress
+          </button>
+          <button class="bg-red-500 rounded-xl p-4 flex flex-col items-center justify-center font-bold text-white">
+            <span class="text-3xl mb-2">🚩</span> Flag Issue
+            <span class="text-xs bg-white text-red-500 mt-1 px-2 rounded-full">3 open</span>
+          </button>
+          <button class="bg-purple-500 rounded-xl p-4 flex flex-col items-center justify-center font-bold text-white">
+            <span class="text-3xl mb-2">📷</span> Photos
+            <span class="text-xs bg-white text-purple-500 mt-1 px-2 rounded-full">42</span>
+          </button>
+          <button class="bg-emerald-500 rounded-xl p-4 flex flex-col items-center justify-center font-bold text-white col-span-2">
+            <span class="text-2xl mb-1">📋</span> Form 12 — Book / Outcome / Cert
+          </button>
+        </div>
+        <div class="border-t p-3 text-xs text-gray-500 flex justify-between">
+          <span>Mark Stevens · Supervisor</span>
+          <span class="underline">Logout</span>
+        </div>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Job Menu</div>
+    </div>
+
+    <!-- PHONE 3: Log Cost -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:42</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 1 queued</span>
+        </div>
+        <div class="bg-[#FFCB05] text-black px-4 py-3 flex items-center gap-2">
+          <span class="text-xs">←</span>
+          <div><div class="font-bold">💰 Log Cost</div><div class="text-xs">Acme Towers · Cranage</div></div>
+        </div>
+        <div class="flex-1 p-4 space-y-3 text-sm overflow-auto">
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Budget Item</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>CRANAGE › Wet Crane Hire</option></select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Company</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>Cranes R Us (last used)</option><option>Riggers United</option></select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Service</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>50T Franna · $250/hr</option></select>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-xs text-gray-500 uppercase">Hours</label>
+              <input inputmode="decimal" value="6" class="w-full border-2 border-[#FFCB05] rounded p-3 mt-1 text-base font-bold text-right" />
+            </div>
+            <div>
+              <label class="text-xs text-gray-500 uppercase">Amount (auto)</label>
+              <input value="$1,500.00" disabled class="w-full border rounded p-3 mt-1 text-base bg-gray-100 text-right" />
+            </div>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Unit (optional)</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>Unit A03 (last)</option></select>
+          </div>
+          <button class="w-full bg-gray-200 rounded p-4 flex items-center justify-center gap-2 font-bold">
+            📷 Take Photo (2 attached)
+          </button>
+        </div>
+        <button class="bg-[#FFCB05] text-black font-bold p-5 text-lg">Save Claim</button>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Log Cost (auto-fills rate)</div>
+    </div>
+
+    <!-- PHONE 4: Progress -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:43</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-blue-500 text-white px-4 py-3 flex items-center gap-2">
+          <span class="text-xs">←</span>
+          <div><div class="font-bold">📊 Progress</div><div class="text-xs">Acme Towers</div></div>
+        </div>
+        <div class="flex-1 p-4 space-y-4 text-sm">
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Unit</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>Unit A01 (last)</option></select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 uppercase">Line Item</label>
+            <select class="w-full border rounded p-3 mt-1 text-base"><option>L3 Walls</option></select>
+          </div>
+          <div>
+            <div class="text-center text-4xl font-bold text-blue-600">75%</div>
+            <div class="text-center text-xs text-gray-500 mb-2">Was 50% → Now 75% (+25)</div>
+            <div class="h-6 bg-gray-200 rounded-full overflow-hidden flex">
+              <div class="bg-yellow-400 h-full" style="width:50%"></div>
+              <div class="bg-green-500 h-full" style="width:25%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-gray-500 mt-1"><span>0%</span><span>25% to go</span><span>100%</span></div>
+          </div>
+          <input type="range" min="0" max="100" step="5" value="75" class="w-full" />
+          <div class="grid grid-cols-5 gap-1">
+            <button class="bg-gray-100 rounded py-2 text-xs font-bold">+5%</button>
+            <button class="bg-gray-100 rounded py-2 text-xs font-bold">+10%</button>
+            <button class="bg-gray-100 rounded py-2 text-xs font-bold">+25%</button>
+            <button class="bg-gray-100 rounded py-2 text-xs font-bold">+50%</button>
+            <button class="bg-green-100 text-green-700 rounded py-2 text-xs font-bold">100%✓</button>
+          </div>
+          <button class="w-full bg-gray-200 rounded p-3 font-bold text-sm">📷 Photo (optional)</button>
+        </div>
+        <button class="bg-blue-500 text-white font-bold p-5 text-lg">Save & Sync to Invoicing</button>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Progress (pushes webhook)</div>
+    </div>
+
+  </div>
+
+  <!-- Phone row 2 -->
+  <div class="grid grid-cols-4 gap-6 mt-8">
+
+    <!-- PHONE 5: Flag issue -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:44</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-red-500 text-white px-4 py-3 flex items-center gap-2">
+          <span class="text-xs">←</span>
+          <div><div class="font-bold">🚩 Flag Issue</div><div class="text-xs">Acme Towers</div></div>
+        </div>
+        <div class="flex-1 p-4 space-y-3 text-sm">
+          <!-- Photos first -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="aspect-square bg-gray-200 grid-bg rounded flex items-center justify-center text-2xl">📷</div>
+            <div class="aspect-square bg-gray-200 grid-bg rounded flex items-center justify-center text-2xl">📷</div>
+            <button class="aspect-square border-2 border-dashed rounded flex items-center justify-center text-3xl text-gray-400">+</button>
+          </div>
+          <input placeholder="Title (e.g. wall studs out of plumb)" class="w-full border rounded p-3 text-base" />
+          <textarea placeholder="Describe the issue..." class="w-full border rounded p-3 text-base h-24"></textarea>
+          <select class="w-full border rounded p-3 text-base"><option>Unit (optional)</option></select>
+          <select class="w-full border rounded p-3 text-base"><option>Budget item (optional)</option></select>
+        </div>
+        <button class="bg-red-500 text-white font-bold p-5 text-lg">Create Flag</button>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Flag Issue (photo-first)</div>
+    </div>
+
+    <!-- PHONE 6: Photos gallery -->
+    <div class="device-frame bg-black rounded-[36px] p-2">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:45</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-purple-500 text-white px-4 py-3 flex items-center gap-2">
+          <span class="text-xs">←</span>
+          <div><div class="font-bold">📷 Photos</div><div class="text-xs">Acme Towers · 42 photos</div></div>
+        </div>
+        <div class="px-3 py-2 flex gap-1 text-xs overflow-x-auto border-b">
+          <button class="bg-[#231F20] text-white px-2 py-1 rounded whitespace-nowrap">All</button>
+          <button class="bg-gray-100 px-2 py-1 rounded whitespace-nowrap">Unit A03</button>
+          <button class="bg-gray-100 px-2 py-1 rounded whitespace-nowrap">Cranage</button>
+          <button class="bg-gray-100 px-2 py-1 rounded whitespace-nowrap">🚩 Flagged</button>
+          <button class="bg-gray-100 px-2 py-1 rounded whitespace-nowrap">This Week</button>
+        </div>
+        <div class="flex-1 grid grid-cols-3 gap-1 p-1 overflow-auto">
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">💰</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">🚩</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">📷</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">💰</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">💰</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">🚩</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">📷</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">💰</span></div>
+          <div class="aspect-square bg-gray-200 grid-bg flex items-center justify-center text-xs relative"><span class="absolute top-1 left-1 text-xs">📷</span></div>
+        </div>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Photo Gallery</div>
+    </div>
+
+    <!-- PHONE 7: Form 12 -->
+    <div class="device-frame bg-black rounded-[36px] p-2" id="form12">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:46</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> Synced</span>
+        </div>
+        <div class="bg-emerald-500 text-white px-4 py-3 flex items-center gap-2">
+          <span class="text-xs">←</span>
+          <div><div class="font-bold">📋 Form 12</div><div class="text-xs">Acme Towers</div></div>
+        </div>
+        <div class="flex-1 p-4 space-y-3 text-sm overflow-auto">
+          <!-- Booked status -->
+          <div class="border rounded-lg p-3 bg-purple-50 border-purple-200">
+            <div class="flex items-center justify-between">
+              <div><strong>Unit A01</strong> · Type 1</div>
+              <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded">📅 Booked</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-1">Inspector: Pete Wilson · 22/04/2026 · 9:00 AM</div>
+            <button class="mt-2 w-full bg-emerald-500 text-white rounded p-2 text-sm font-bold">Record Outcome</button>
+          </div>
+          <!-- Awaiting -->
+          <div class="border rounded-lg p-3 bg-yellow-50 border-yellow-200">
+            <div class="flex items-center justify-between">
+              <div><strong>Unit A02</strong> · Type 1</div>
+              <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded">⏳ Awaiting Outcome</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-1">Inspected 18/04 · awaiting cert</div>
+            <button class="mt-2 w-full bg-gray-200 rounded p-2 text-sm font-bold">Upload Certificate</button>
+          </div>
+          <!-- Certified -->
+          <div class="border rounded-lg p-3 bg-green-50 border-green-200">
+            <div class="flex items-center justify-between">
+              <div><strong>Unit A03</strong> · Type 2</div>
+              <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">✅ Certified</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-1">Pete Wilson · 12/04 · 📎 Form12_A03.pdf</div>
+          </div>
+          <!-- Not booked -->
+          <div class="border rounded-lg p-3">
+            <div class="flex items-center justify-between">
+              <div><strong>Unit A04</strong> · Type 2</div>
+              <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">Not booked</span>
+            </div>
+            <button class="mt-2 w-full bg-emerald-500 text-white rounded p-2 text-sm font-bold">Book Inspection</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Form 12 Workflow</div>
+    </div>
+
+    <!-- PHONE 8: Offline / Sync drawer -->
+    <div class="device-frame bg-black rounded-[36px] p-2" id="offline">
+      <div class="bg-white rounded-[28px] overflow-hidden h-[640px] flex flex-col">
+        <div class="bg-[#231F20] text-white px-4 pt-3 pb-2 flex items-center justify-between text-xs">
+          <span>9:47</span><span class="flex items-center gap-1"><span class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span> Offline · 8 queued</span>
+        </div>
+        <div class="bg-red-50 border-b border-red-200 px-4 py-3 text-sm">
+          <div class="font-bold text-red-700">⚠ No internet connection</div>
+          <div class="text-xs text-red-600">All saves are stored locally and will sync automatically when you're back online. You can keep working.</div>
+        </div>
+        <div class="flex-1 p-4 space-y-2 text-sm overflow-auto">
+          <div class="text-xs uppercase text-gray-500 mb-1">Queued (8)</div>
+          <div class="border rounded p-2 flex items-center gap-2">
+            <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+            <div class="flex-1">
+              <div class="text-xs font-medium">💰 Wet Crane Hire · 6h · $1,500</div>
+              <div class="text-xs text-gray-500">Acme Towers · 9:42 AM · waiting on network</div>
+            </div>
+          </div>
+          <div class="border rounded p-2 flex items-center gap-2">
+            <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+            <div class="flex-1">
+              <div class="text-xs font-medium">📊 Unit A01 · L3 Walls · 75%</div>
+              <div class="text-xs text-gray-500">Acme Towers · 9:43 AM</div>
+            </div>
+          </div>
+          <div class="border rounded p-2 flex items-center gap-2">
+            <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+            <div class="flex-1">
+              <div class="text-xs font-medium">🚩 Wall studs out of plumb (3 photos)</div>
+              <div class="text-xs text-gray-500">Acme Towers · 9:44 AM · 1.2 MB to upload</div>
+            </div>
+          </div>
+          <div class="border rounded p-2 flex items-center gap-2 bg-red-50">
+            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+            <div class="flex-1">
+              <div class="text-xs font-medium">💰 Extra Rigger · 8h · $640</div>
+              <div class="text-xs text-red-600">Failed 3× · will retry · <span class="underline">Tap to fix</span></div>
+            </div>
+          </div>
+          <div class="border rounded p-2 flex items-center gap-2 opacity-60">
+            <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+            <div class="flex-1">
+              <div class="text-xs font-medium">📷 5 photos waiting (8.2 MB)</div>
+            </div>
+          </div>
+        </div>
+        <button class="bg-gray-200 m-3 rounded p-3 font-bold text-sm">Try sync now</button>
+      </div>
+      <div class="text-center text-xs text-gray-600 mt-3">Offline / Sync Queue</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOGICAL FLOW SUMMARY -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <h2 class="text-2xl font-bold mb-3">Logical Flow Summary</h2>
+  <div class="bg-white rounded-xl shadow-lg p-6 border">
+    <div class="grid grid-cols-3 gap-6 text-sm">
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Office Day</div>
+        <ol class="space-y-2 list-decimal pl-4 text-gray-700">
+          <li>Quote uploads via Hub → job appears with all budget items grouped + units expanded</li>
+          <li>Open job → Overview shows the budget bar + grouped items already populated</li>
+          <li>Review Units tab → confirm per-unit budgets, divide any job-level items if needed</li>
+          <li>Assign supervisors to job in Setup → they see it on their phone instantly</li>
+          <li>Watch claims roll in from site app, see budget bars update live</li>
+        </ol>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Site Day</div>
+        <ol class="space-y-2 list-decimal pl-4 text-gray-700">
+          <li>PIN login → only assigned jobs shown</li>
+          <li>Tap job → 4 tiles + Form 12 tile</li>
+          <li>Log Cost → all dropdowns pre-filled with last-used → Save (works offline)</li>
+          <li>Take photos as evidence — geotagged automatically</li>
+          <li>Update progress slider → invoicing webhook fires → office sees % update</li>
+          <li>Flag issues with photos → office can promote to variation/rework</li>
+        </ol>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">End-of-Day</div>
+        <ol class="space-y-2 list-decimal pl-4 text-gray-700">
+          <li>Office checks Reports — sees over-budget alerts immediately</li>
+          <li>Promotes any flagged items into Variations or Rework as needed</li>
+          <li>Adds PO/invoice numbers to claims (in collapsible Accounting section)</li>
+          <li>Form 12 outcomes recorded → certs uploaded</li>
+          <li>Budgets close out, job marked complete, install_status flips</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-[#231F20] text-gray-400 text-xs text-center py-4">
+  HYTEK Install App Mockups · Static visual mockups · Not interactive · Generated to match Scott's brief
+</footer>
+
+</body>
+</html>
