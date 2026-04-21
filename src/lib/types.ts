@@ -2,7 +2,7 @@
 // Duplicated (not imported) per Panel #1 Architect recommendation:
 // cost of duplication is low for solo-dev; cost of drift is caught by type-check at build.
 
-export type UserRole = 'admin' | 'supervisor' | 'detailer' | 'driver' | 'installer'
+export type UserRole = 'admin' | 'supervisor' | 'detailer' | 'driver' | 'installer' | 'contractor'
 
 export interface Profile {
   id: string
