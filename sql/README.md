@@ -20,7 +20,8 @@
 |---|---|---|
 | `01-snapshot-install-tables.sql` | 2026-04-20 | Snapshot of install_*, job_variations, job_rework at `_snapshot_20260420` |
 | `02-budget-migration-v1.sql` | 2026-04-20 | Variation state machine expansion, PO columns, transition log, rate history |
-| `03-phase1-claim-kind.sql` | pending | Discriminated `claim_kind` + `over_budget` flag + GPS columns on `install_claims` |
+| `03-phase1-claim-kind.sql` | 2026-04-20 | Discriminated `claim_kind` + `over_budget` flag + GPS columns on `install_claims` |
+| `04-phase1.5-variations-rework.sql` | pending | captured_at + GPS on job_variations + job_rework, partial CHECK approved⇒po_reference, install-photos storage bucket |
 
 ## If anything looks wrong
 

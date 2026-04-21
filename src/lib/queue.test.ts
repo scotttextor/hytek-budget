@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import {
   enqueueClaim,
+  enqueueMutation,
   loadAllQueued,
   removeQueued,
   updateQueued,
@@ -105,5 +106,49 @@ describe('computeNextRetry', () => {
   it('caps at 1h', () => {
     const delay = computeNextRetry(20, 0)
     expect(delay).toBeLessThanOrEqual(3_600_000 * 1.2)
+  })
+})
+
+describe('enqueueMutation — variation', () => {
+  it('stores a variation payload', async () => {
+    await enqueueMutation({
+      id: 'v-001',
+      kind: 'variation',
+      table: 'job_variations',
+      payload: {
+        id: 'v-001',
+        job_id: 'job-1',
+        variation_number: 'V-20260420-0001',
+        description: 'Extra wall',
+        status: 'raised',
+      },
+    })
+    const all = await loadAllQueued()
+    expect(all).toHaveLength(1)
+    expect(all[0].kind).toBe('variation')
+    expect(all[0].table).toBe('job_variations')
+  })
+})
+
+describe('enqueueMutation — rework', () => {
+  it('stores a rework payload', async () => {
+    await enqueueMutation({
+      id: 'r-001',
+      kind: 'rework',
+      table: 'job_rework',
+      payload: {
+        id: 'r-001',
+        job_id: 'job-1',
+        rework_number: 'R-20260420-0001',
+        description: 'Fix corner',
+        explanation: 'Stud misaligned',
+        responsible_department: 'install',
+        status: 'identified',
+      },
+    })
+    const all = await loadAllQueued()
+    expect(all).toHaveLength(1)
+    expect(all[0].kind).toBe('rework')
+    expect(all[0].table).toBe('job_rework')
   })
 })
