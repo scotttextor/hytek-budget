@@ -7,7 +7,9 @@
 3. Paste `02-budget-migration-v1.sql` → Run → check for "COMMIT" and no errors
 4. Run post-apply verification queries at bottom of `02-budget-migration-v1.sql`
 5. Paste `03-phase1-claim-kind.sql` → Run → check for "COMMIT" and run the 3 verify queries at the bottom
-6. From a terminal:
+6. Paste `04-phase1.5-variations-rework.sql` → Run → check for "COMMIT" and run the verify queries at the bottom
+7. Paste `05-phase2-roles.sql` → Run → check for "COMMIT" and run all 9 verify queries at the bottom
+8. From a terminal:
    ```bash
    cd ../hytek-detailing/app
    node scripts/check-job-lifecycle.js
@@ -22,6 +24,7 @@
 | `02-budget-migration-v1.sql` | 2026-04-20 | Variation state machine expansion, PO columns, transition log, rate history |
 | `03-phase1-claim-kind.sql` | 2026-04-20 | Discriminated `claim_kind` + `over_budget` flag + GPS columns on `install_claims` |
 | `04-phase1.5-variations-rework.sql` | pending | captured_at + GPS on job_variations + job_rework, partial CHECK approved⇒po_reference, install-photos storage bucket |
+| `05-phase2-roles.sql` | pending | contractor role in profiles CHECK; jobs.closed_at set-once trigger; 6 new tables (install_contractor_assignments, customer_super_grants, install_progress_reports, claim_report_links, delivery_sightings, admin_alerts); install_photos.report_id FK; full RLS. Design: hytek-install/docs/superpowers/specs/2026-04-21-contractor-customer-roles-design.md |
 
 ## If anything looks wrong
 
