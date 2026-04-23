@@ -53,12 +53,14 @@ NOTIFY pgrst, 'reload schema';
 COMMIT;
 
 -- =============================================================================
--- VERIFY — expected: the new policy listed against customer_super_grants
+-- VERIFY — expected: the new policy listed against customer_super_grants.
+-- Uses the pg_policies view (not pg_policy table) because the view exposes a
+-- plain `cmd` column as text ('UPDATE' here); the underlying table stores it
+-- as `polcmd` (a char). The view is the supported surface for manual queries.
 -- =============================================================================
-SELECT polname, relname AS table_name, cmd
-FROM pg_policy
-JOIN pg_class ON pg_class.oid = pg_policy.polrelid
-WHERE polname = 'customer super updates own grant';
+SELECT policyname, tablename, cmd
+FROM pg_policies
+WHERE policyname = 'customer super updates own grant';
 
 -- =============================================================================
 -- ROLLBACK (uncomment to undo)
