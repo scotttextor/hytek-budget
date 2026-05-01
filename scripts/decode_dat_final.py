@@ -52,8 +52,6 @@ def encode_dat(plain, add_leading_comma=True):
             line_start = False
         out.append(b ^ KEY[idx % 4])
         idx += 1
-    if line_start and add_leading_comma:
-        out.append(ord(',') ^ KEY[idx % 4])
     return bytes(out)
 
 if __name__ == '__main__':
