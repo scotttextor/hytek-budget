@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><title>Tool explainer</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Segoe UI,Arial,sans-serif;margin:0;padding:24px;background:#1a202c;color:#e2e8f0}
+h1{margin:0 0 12px;color:white}
+.sub{color:#94a3b8;margin-bottom:24px}
+.card{background:white;color:#1a202c;border:1px solid #4a5568;border-radius:6px;margin-bottom:24px;overflow:hidden}
+.card-head{padding:14px 18px;background:#fafaf8;border-bottom:1px solid #e2e8f0}
+.card-head h2{margin:0;font-size:16px}
+.card-head .desc{font-size:12px;color:#4a5568;margin-top:4px}
+iframe{border:0;width:100%;display:block;background:white}
+.h-mid{height:980px}
+.h-tall{height:1130px}
+</style></head><body>
+<h1>Truss tools — what each one DOES</h1>
+<p class="sub">All 6 tools color-coded on a real truss + a junction breakdown showing how they work together.</p>
+<div class="card">
+  <div class="card-head"><h2>1. Overview — every tool color-coded on TN2-1</h2><div class="desc">All members + tools positioned per the actual CSV. Hover/read legend at bottom for each tool's purpose.</div></div>
+  <iframe src="tools_overview.svg" class="h-mid"></iframe>
+</div>
+<div class="card">
+  <div class="card-head"><h2>2. Junction breakdown — WITHOUT / WITH / ASSEMBLED</h2><div class="desc">Shows why each tool exists by comparing a junction with no tools applied (clash) vs with all tools (lays flat) vs final assembled (3 screws through both members).</div></div>
+  <iframe src="tools_junction.svg" class="h-tall"></iframe>
+</div>
+</body></html>
