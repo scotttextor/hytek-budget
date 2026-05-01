@@ -175,7 +175,7 @@ def render(frame_name='TN2-1'):
     svg.append(f'<rect x="0" y="0" width="{PAGE_W}" height="105" fill="white" opacity="0.95"/>')
     svg.append(f'<text x="40" y="42" font-size="26" font-weight="700" fill="#1a202c">Truss frame {frame_name} — matching real assembly</text>')
     svg.append(f'<text x="40" y="68" font-size="14" fill="#4a5568">Galv finish · all lips facing same direction · green-capped self-drilling screws at each junction (3 × Ø3.8mm pattern)</text>')
-    svg.append(f'<text x="40" y="92" font-size="13" fill="#374151">{len(sticks)} members &middot; {len(nodes)} junction nodes &middot; {len(nodes)*3} screws total (down from ~70 in current FrameCAD spec)</text>')
+    svg.append(f'<text x="40" y="92" font-size="13" fill="#374151">{len(sticks)} members · {len(nodes)} junction nodes · {len(nodes)*3} screws total (down from ~70 in current FrameCAD spec)</text>')
 
     # Build each member as a polygon — top-down view
     # In top-down view, looking at the OPEN side of C, you see:
@@ -364,7 +364,7 @@ iframe{border:0;width:100%;height:1240px;display:block;background:white}
 </style></head><body>
 <h1>Real assembly photoreal — matched to your photo</h1>
 <p class="sub">Galv steel tone, all lips facing same direction, green-capped screws at every junction, workshop concrete floor background.</p>
-<div class="card"><div class="card-head"><div><h2>Truss frame TN2-1 - real assembly view</h2><div style="font-size:12px;color:#4a5568">Matches the photographed truss · 3 green screws per junction · 14 nodes</div></div><a href="real_assembly_truss.svg" target="_blank">open standalone &uarr;</a></div><iframe src="real_assembly_truss.svg"></iframe></div>
+<div class="card"><div class="card-head"><div><h2>Truss frame TN2-1 - real assembly view</h2><div style="font-size:12px;color:#4a5568">Matches the photographed truss · 3 green screws per junction · 14 nodes</div></div><a href="real_assembly_truss.svg" target="_blank">open standalone ↑</a></div><iframe src="real_assembly_truss.svg"></iframe></div>
 </body></html>'''
 idx_path = os.path.join(OUT_DIR, 'REAL_ASSEMBLY.html')
 open(idx_path, 'w', encoding='utf-8').write(idx)

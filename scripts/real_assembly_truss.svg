@@ -64,7 +64,7 @@
 <rect x="0" y="0" width="1900" height="105" fill="white" opacity="0.95"/>
 <text x="40" y="42" font-size="26" font-weight="700" fill="#1a202c">Truss frame TN2-1 — matching real assembly</text>
 <text x="40" y="68" font-size="14" fill="#4a5568">Galv finish · all lips facing same direction · green-capped self-drilling screws at each junction (3 × Ø3.8mm pattern)</text>
-<text x="40" y="92" font-size="13" fill="#374151">10 members &middot; 9 junction nodes &middot; 27 screws total (down from ~70 in current FrameCAD spec)</text>
+<text x="40" y="92" font-size="13" fill="#374151">10 members · 9 junction nodes · 27 screws total (down from ~70 in current FrameCAD spec)</text>
 <g opacity="0.55">
 <polygon points="1755.0,289.7 1766.3,262.4 1724.8,245.2 1713.5,272.5" fill="black" opacity="0.4" filter="url(#blur5)"/>
 <polygon points="1736.8,933.2 1766.3,933.2 1766.3,262.4 1736.8,262.4" fill="black" opacity="0.4" filter="url(#blur5)"/>
