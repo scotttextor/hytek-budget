@@ -49,27 +49,30 @@ def parse_csv_ops(frame_name):
             out[short] = {'length':length, 'ops':ops}
     return out
 
-def line_intersection(p1, p2, p3, p4, slack=200):
+def line_intersection(p1, p2, p3, p4, slack_mm=20):
+    """Intersection only if it falls within both sticks' physical lengths
+    (with small slack ~20mm for cut chamfers). No extrapolation into fresh air."""
     x1, z1 = p1; x2, z2 = p2; x3, z3 = p3; x4, z4 = p4
     denom = (x1-x2)*(z3-z4) - (z1-z2)*(x3-x4)
     if abs(denom) < 1e-9: return None
     t = ((x1-x3)*(z3-z4) - (z1-z3)*(x3-x4)) / denom
     u = -((x1-x2)*(z1-z3) - (z1-z2)*(x1-x3)) / denom
     L1 = math.hypot(x2-x1, z2-z1); L2 = math.hypot(x4-x3, z4-z3)
-    st_ = slack/L1 if L1>0 else 0; su = slack/L2 if L2>0 else 0
+    st_ = slack_mm/L1 if L1>0 else 0; su = slack_mm/L2 if L2>0 else 0
     if not (-st_ <= t <= 1+st_): return None
     if not (-su <= u <= 1+su): return None
     return (x1 + t*(x2-x1), z1 + t*(z2-z1))
 
 def all_crossings(sticks):
-    """Every pair of sticks whose centrelines intersect — NO clustering.
-    Each intersection becomes a separate WEB HOLE position."""
+    """Every pair of sticks whose centrelines actually intersect within both
+    sticks' physical bounds (NO extrapolation into fresh air). Each intersection
+    becomes a separate WEB HOLE pattern on EACH of the two sticks involved."""
     out = []
     for i in range(len(sticks)):
         for j in range(i+1, len(sticks)):
             pt = line_intersection(sticks[i]['start'], sticks[i]['end'],
                                    sticks[j]['start'], sticks[j]['end'])
-            if pt: out.append({'pt':pt, 'a':sticks[i]['name'], 'b':sticks[j]['name']})
+            if pt: out.append({'pt':pt, 'a':sticks[i], 'b':sticks[j]})
     return out
 
 WIDTH_MM = 89.0
@@ -189,21 +192,34 @@ def render_overview(sticks, ops, nodes):
                 col = TOOL_COLORS["PARTIALFLANGE"]["fill"] if s['type'] != 'Plate' else TOOL_COLORS["FLANGE"]["fill"]
                 svg.append(f'<polygon points="{pts_str}" fill="{col}" stroke="#7c2d12" stroke-width="0.6"/>')
 
-    # Web holes at EVERY pairwise centreline crossing — no clustering.
-    # Each pair (W↔T, W↔B, W↔C, C↔T, T↔T, T↔B, etc.) gets its own pattern.
-    for n in nodes:
-        cx_mm, cz_mm = n['pt']
-        base_px = to_px(cx_mm, cz_mm)
-        # 3 holes vertically stacked (in screen y), 17mm pitch
+    # Web holes at every centreline crossing — each intersected stick gets
+    # its OWN 3-hole pattern, oriented perpendicular to that stick's length.
+    # Middle hole sits exactly on the stick's centreline at the intersection.
+    def draw_pattern_on_stick(intersection, stick, opacity=1.0):
+        cx_mm, cz_mm = intersection
+        sx, sz = stick['start']; ex, ez = stick['end']
+        dx, dz = ex-sx, ez-sz
+        L = math.hypot(dx, dz)
+        if L == 0: return
+        # Perpendicular unit vector (to stick's length, in mm)
+        perp_x_mm = -dz/L
+        perp_z_mm = dx/L
         for off_mm, is_mid in [(-17, False), (0, True), (17, False)]:
-            cx_px = base_px[0]
-            cz_px = base_px[1] + off_mm * SCALE
+            hx_mm = cx_mm + perp_x_mm * off_mm
+            hz_mm = cz_mm + perp_z_mm * off_mm
+            hx_px, hz_px = to_px(hx_mm, hz_mm)
             r = 2.5
             if is_mid:
-                svg.append(f'<circle cx="{cx_px:.1f}" cy="{cz_px:.1f}" r="{r+1.5:.1f}" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.6"/>')
-                svg.append(f'<circle cx="{cx_px:.1f}" cy="{cz_px:.1f}" r="{r:.1f}" fill="#16a34a" stroke="#14532d" stroke-width="1.2"/>')
+                svg.append(f'<circle cx="{hx_px:.1f}" cy="{hz_px:.1f}" r="{r+1.5:.1f}" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="{opacity*0.6:.2f}"/>')
+                svg.append(f'<circle cx="{hx_px:.1f}" cy="{hz_px:.1f}" r="{r:.1f}" fill="#16a34a" stroke="#14532d" stroke-width="1.2" opacity="{opacity:.2f}"/>')
             else:
-                svg.append(f'<circle cx="{cx_px:.1f}" cy="{cz_px:.1f}" r="{r:.1f}" fill="#16a34a" stroke="#14532d" stroke-width="1"/>')
+                svg.append(f'<circle cx="{hx_px:.1f}" cy="{hz_px:.1f}" r="{r:.1f}" fill="#16a34a" stroke="#14532d" stroke-width="1" opacity="{opacity:.2f}"/>')
+
+    for n in nodes:
+        # Each intersection means BOTH sticks get their own pattern,
+        # oriented perpendicular to their respective lengths.
+        draw_pattern_on_stick(n['pt'], n['a'])
+        draw_pattern_on_stick(n['pt'], n['b'])
 
     # TRUSS CHAMFER markers — small cyan tags at the angled stick-ends
     for s in sticks:
