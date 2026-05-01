@@ -44,13 +44,12 @@ def encode_dat(plain, add_leading_comma=True):
                 out.append(ord(',') ^ KEY[idx % 4])
             out.append(b)
             idx = 0
-            if b == 0x0a:
-                line_start = True
+            line_start = (b == 0x0a)
             continue
         if line_start and add_leading_comma:
             out.append(ord(',') ^ KEY[idx % 4])
             idx += 1
-        line_start = False
+            line_start = False
         out.append(b ^ KEY[idx % 4])
         idx += 1
     if line_start and add_leading_comma:
