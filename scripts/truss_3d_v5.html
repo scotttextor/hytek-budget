@@ -26,12 +26,14 @@
   <p><span class="swage">SWAGE</span> = pressed depression on web (~10×30mm, transverse)</p>
   <p><span class="lip">LIP NOTCH</span> = cut into lip only at end of web (~12mm)</p>
   <p><span class="leg">LEG NOTCH</span> = entire flange+lip removed for 12mm zone</p>
+  <p style="color:#06b6d4">INNER DIMPLE = Ø5.1mm raised bump pressed into web</p>
 </div>
 <div id="stats"></div>
 <div class="controls">
   <span class="toggle active swage-tog" id="t-swages">Swages</span>
   <span class="toggle active lip-tog" id="t-lipnotches">Lip notches</span>
   <span class="toggle active leg-tog" id="t-legmarkers">Leg notch markers</span>
+  <span class="toggle active" id="t-dimples">Inner dimples</span>
   <span class="toggle active" id="t-labels">Labels</span>
   <span class="toggle" id="t-wireframe">Wireframe</span>
   <span class="toggle active" id="t-bench">Bench</span>
@@ -143,13 +145,18 @@ const swageMat = new THREE.MeshStandardMaterial({ color: 0x9333ea, metalness: 0.
   emissive: 0x4c1d95, emissiveIntensity: 0.2 });
 const legMarkerMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
 const lipMarkerMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
+const dimpleMat = new THREE.MeshStandardMaterial({
+  color: 0x06b6d4, metalness: 0.5, roughness: 0.4,
+  emissive: 0x0e7490, emissiveIntensity: 0.3
+});
 
 const sticksGroup = new THREE.Group();
 const swagesGroup = new THREE.Group();
 const lipMarkersGroup = new THREE.Group();
 const legMarkersGroup = new THREE.Group();
+const dimpleGroup = new THREE.Group();
 const labelsGroup = new THREE.Group();
-scene.add(sticksGroup, swagesGroup, lipMarkersGroup, legMarkersGroup, labelsGroup);
+scene.add(sticksGroup, swagesGroup, lipMarkersGroup, legMarkersGroup, dimpleGroup, labelsGroup);
 
 const NOTCH_LEN = 12;
 const LIPNOTCH_LEN = 12;
@@ -239,6 +246,21 @@ DATA.sticks.forEach(stick => {
     }
   });
 
+  // INNER DIMPLE features (cyan raised bumps on web - Ø5.1mm pressed dimples)
+  ops.forEach(([tool, pos]) => {
+    if (tool === 'INNER DIMPLE') {
+      // Small cyan sphere/bump on the web face
+      const dimpleGeom = new THREE.SphereGeometry(2.55, 12, 8, 0, Math.PI*2, 0, Math.PI/2);
+      const dimpleMesh = new THREE.Mesh(dimpleGeom, dimpleMat);
+      dimpleMesh.castShadow = true;
+      // On web face, raised toward open side (+x in profile)
+      dimpleMesh.position.set(1.5, 0, pos);
+      dimpleMesh.rotation.x = -Math.PI/2;
+      stickGroup.add(dimpleMesh);
+      dimpleGroup.add(dimpleMesh);
+    }
+  });
+
   // LIP NOTCH visual markers (yellow boxes on the lip strips)
   ops.forEach(([tool, pos]) => {
     if (tool === 'LIP NOTCH') {
@@ -298,7 +320,8 @@ statsHtml += `<b style="color:#c084fc">SWAGE: ${tc.SWAGE || 0}</b><br>`;
 statsHtml += `<b style="color:#fbbf24">LIP NOTCH: ${tc['LIP NOTCH'] || 0}</b><br>`;
 statsHtml += `<b style="color:#f87171">LEFT LEG NOTCH: ${tc['LEFT LEG NOTCH'] || 0}</b><br>`;
 statsHtml += `<b style="color:#f87171">RIGHT LEG NOTCH: ${tc['RIGHT LEG NOTCH'] || 0}</b><br>`;
-const otherTools = Object.keys(tc).filter(k => !['SWAGE','LIP NOTCH','LEFT LEG NOTCH','RIGHT LEG NOTCH','BOLT HOLES'].includes(k));
+statsHtml += `<b style="color:#06b6d4">INNER DIMPLE: ${tc['INNER DIMPLE'] || 0}</b><br>`;
+const otherTools = Object.keys(tc).filter(k => !['SWAGE','LIP NOTCH','LEFT LEG NOTCH','RIGHT LEG NOTCH','BOLT HOLES','INNER DIMPLE'].includes(k));
 otherTools.forEach(k => { statsHtml += `${k}: ${tc[k]}<br>`; });
 statsHtml += `<hr style="border-color:#4a5568;margin:6px 0">`;
 statsHtml += `<span style="font-size:10px;color:#a8b9c7">Profile: F37008 W089 F41-38<br>Fasteners hidden</span>`;
@@ -314,6 +337,7 @@ function setupToggle(id, group) {
 setupToggle('t-swages', swagesGroup);
 setupToggle('t-lipnotches', lipMarkersGroup);
 setupToggle('t-legmarkers', legMarkersGroup);
+setupToggle('t-dimples', dimpleGroup);
 setupToggle('t-labels', labelsGroup);
 setupToggle('t-bench', bench);
 
