@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>Truss 3D - spin around</title>
+<style>
+  body { margin: 0; overflow: hidden; font-family: Segoe UI, Arial, sans-serif; background: #1a202c; }
+  #info { position: absolute; top: 12px; left: 12px; color: white; padding: 12px 16px; background: rgba(0,0,0,0.55); border-radius: 6px; font-size: 13px; max-width: 360px; pointer-events: none; }
+  #info h1 { margin: 0 0 6px; font-size: 16px; }
+  #info p { margin: 2px 0; }
+  #stats { position: absolute; top: 12px; right: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.55); border-radius: 6px; font-size: 12px; }
+  .controls { position: absolute; bottom: 12px; left: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.55); border-radius: 6px; font-size: 12px; }
+  .toggle { display: inline-block; margin: 4px 6px 4px 0; padding: 4px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; user-select: none; color: white; font-size: 11px; }
+  .toggle.active { background: #16a34a; border-color: #14532d; }
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>Truss frame TN2-1 — 3D model</h1>
+  <p><b>Drag</b> to rotate · <b>Right-drag</b> or <b>Shift+drag</b> to pan · <b>Scroll</b> to zoom</p>
+  <p>Real geometry from F37008 W089 F41-38 spec. C-sections to scale.</p>
+</div>
+<div id="stats"></div>
+<div class="controls">
+  <span class="toggle active" id="t-screws">Screws</span>
+  <span class="toggle active" id="t-swages">Swages</span>
+  <span class="toggle active" id="t-lipnotches">Lip notches</span>
+  <span class="toggle active" id="t-labels">Labels</span>
+  <span class="toggle" id="t-wireframe">Wireframe</span>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const DATA = {"frame": "TN2-1", "sticks": [{"name": "T2", "type": "Plate", "start": [19422.487, 15767.818, 4721.239], "end": [19297.45, 15767.818, 4773.031]}, {"name": "W5", "type": "Stud", "start": [19395.016, 15767.818, 2743.0], "end": [19395.016, 15767.818, 4762.352]}, {"name": "T3", "type": "Plate", "start": [19352.883, 15767.818, 4773.031], "end": [14577.946, 15767.818, 2795.187]}, {"name": "C4", "type": "Plate", "start": [19439.516, 15767.818, 4619.828], "end": [18974.165, 15767.818, 4619.828]}, {"name": "W6", "type": "Stud", "start": [19303.572, 15767.818, 2762.257], "end": [17832.112, 15767.818, 4171.936]}, {"name": "B1", "type": "Plate", "start": [19439.516, 15767.818, 2784.5], "end": [14560.916, 15767.818, 2784.5]}, {"name": "W7", "type": "Stud", "start": [17737.166, 15767.818, 2754.5], "end": [17737.166, 15767.818, 4133.779]}, {"name": "W8", "type": "Stud", "start": [17639.117, 15767.818, 2770.534], "end": [16237.731, 15767.818, 3507.656]}, {"name": "W9", "type": "Stud", "start": [16149.166, 15767.818, 2754.5], "end": [16149.166, 15767.818, 3476.008]}, {"name": "W10", "type": "Stud", "start": [14865.992, 15767.818, 2754.5], "end": [14865.992, 15767.818, 2944.5]}], "csv_ops": {"W5": {"length": 2019.35, "ops": [["SWAGE", 27.5], ["BOLT HOLES", 58.5], ["BOLT HOLES", 77.0], ["SWAGE", 82.5], ["SWAGE", 103.5], ["SWAGE", 1814.83], ["BOLT HOLES", 1841.33], ["BOLT HOLES", 1859.83], ["SWAGE", 1869.83], ["BOLT HOLES", 1912.33], ["SWAGE", 1924.83], ["BOLT HOLES", 1958.23], ["BOLT HOLES", 1971.22], ["SWAGE", 1979.83], ["SWAGE", 1991.85]]}, "B1": {"length": 4878.6, "ops": [["BOLT HOLES", 44.5], ["BOLT HOLES", 176.91], ["BOLT HOLES", 1702.35], ["BOLT HOLES", 1859.27], ["BOLT HOLES", 3290.35], ["BOLT HOLES", 4573.52], ["BOLT HOLES", 4801.91]]}, "C4": {"length": 465.35, "ops": [["BOLT HOLES", 44.5], ["LEFT LEG NOTCH", 251.55], ["LEFT LEG NOTCH", 299.55], ["BOLT HOLES", 322.69], ["LEFT LEG NOTCH", 347.55], ["BOLT HOLES", 371.03], ["LEFT LEG NOTCH", 395.55], ["BOLT HOLES", 404.77], ["LEFT LEG NOTCH", 441.35], ["LIP NOTCH", 441.35]]}, "T2": {"length": 135.34, "ops": [["BOLT HOLES", 22.69], ["BOLT HOLES", 98.3]]}, "T3": {"length": 5168.35, "ops": [["RIGHT LEG NOTCH", 24.0], ["RIGHT LEG NOTCH", 28.01], ["BOLT HOLES", 37.04], ["BOLT HOLES", 314.87], ["BOLT HOLES", 1615.86], ["BOLT HOLES", 1755.88], ["BOLT HOLES", 3328.94], ["BOLT HOLES", 3474.72], ["BOLT HOLES", 4863.62], ["RIGHT LEG NOTCH", 4991.34], ["RIGHT LEG NOTCH", 5039.34], ["BOLT HOLES", 5062.47], ["RIGHT LEG NOTCH", 5087.34], ["BOLT HOLES", 5110.82], ["RIGHT LEG NOTCH", 5135.34], ["LIP NOTCH", 5144.35], ["RIGHT LEG NOTCH", 5144.35], ["BOLT HOLES", 5144.56]]}, "W6": {"length": 2037.74, "ops": [["SWAGE", 27.5], ["LIP NOTCH", 39.36], ["BOLT HOLES", 56.73], ["SWAGE", 82.5], ["BOLT HOLES", 101.21], ["SWAGE", 137.5], ["SWAGE", 160.43], ["SWAGE", 1922.98], ["BOLT HOLES", 1962.4], ["BOLT HOLES", 1977.34], ["SWAGE", 1977.98], ["BOLT HOLES", 1990.08], ["LIP NOTCH", 1997.02], ["SWAGE", 2010.24]]}, "W7": {"length": 1379.28, "ops": [["SWAGE", 27.5], ["BOLT HOLES", 47.0], ["BOLT HOLES", 65.5], ["SWAGE", 82.5], ["SWAGE", 92.0], ["SWAGE", 1265.18], ["BOLT HOLES", 1303.81], ["BOLT HOLES", 1317.9], ["SWAGE", 1320.18], ["BOLT HOLES", 1330.88], ["LIP NOTCH", 1337.24], ["SWAGE", 1351.78]]}, "W8": {"length": 1583.42, "ops": [["SWAGE", 27.5], ["LIP NOTCH", 40.3], ["BOLT HOLES", 66.52], ["SWAGE", 82.5], ["SWAGE", 137.5], ["BOLT HOLES", 138.58], ["SWAGE", 192.5], ["SWAGE", 227.69], ["SWAGE", 1441.02], ["BOLT HOLES", 1493.1], ["SWAGE", 1496.02], ["BOLT HOLES", 1521.39], ["BOLT HOLES", 1531.31], ["LIP NOTCH", 1545.64], ["SWAGE", 1551.02], ["SWAGE", 1555.92]]}, "W9": {"length": 721.51, "ops": [["SWAGE", 27.5], ["BOLT HOLES", 47.0], ["BOLT HOLES", 65.5], ["SWAGE", 82.5], ["SWAGE", 92.0], ["SWAGE", 607.41], ["BOLT HOLES", 646.04], ["BOLT HOLES", 660.12], ["SWAGE", 662.41], ["BOLT HOLES", 673.11], ["LIP NOTCH", 679.47], ["SWAGE", 694.01]]}, "W10": {"length": 190.0, "ops": [["SWAGE", 27.5], ["BOLT HOLES", 47.0], ["BOLT HOLES", 65.5], ["SWAGE", 82.5], ["BOLT HOLES", 114.53], ["BOLT HOLES", 128.62], ["SWAGE", 137.5], ["BOLT HOLES", 141.6], ["LIP NOTCH", 147.96], ["SWAGE", 162.5]]}}, "nodes": [{"pt": [19377.553627005072, 4726.119842567616]}, {"pt": [19356.795390613985, 2747.8841284039886]}, {"pt": [18983.018302273085, 4619.828]}, {"pt": [17775.81765546073, 4172.827897159711]}, {"pt": [14552.14530403055, 2784.5]}, {"pt": [16187.537981222044, 3497.979608673621]}, {"pt": [14865.992, 2849.499790001732]}, {"pt": [17695.632471920977, 2762.6535727596342]}, {"pt": [16149.166, 2784.5]}], "centre": [17000.216, 15767.818, 3758.0155], "extent": 4878.6};
+
+// Three.js setup
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x2a2f37);
+scene.fog = new THREE.Fog(0x2a2f37, DATA.extent*1.5, DATA.extent*5);
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 1, DATA.extent*8);
+camera.position.set(DATA.centre[0] + DATA.extent*0.7, DATA.centre[1] + DATA.extent*0.5, DATA.centre[2] + DATA.extent*0.7);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(...DATA.centre);
+
+// Lighting
+scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+const sun = new THREE.DirectionalLight(0xffffff, 0.85);
+sun.position.set(DATA.centre[0]+DATA.extent, DATA.centre[1]+DATA.extent*1.2, DATA.centre[2]+DATA.extent*0.8);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -DATA.extent;
+sun.shadow.camera.right = DATA.extent;
+sun.shadow.camera.top = DATA.extent;
+sun.shadow.camera.bottom = -DATA.extent;
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = DATA.extent*4;
+scene.add(sun);
+
+const fillLight = new THREE.DirectionalLight(0xa8c0d0, 0.3);
+fillLight.position.set(-DATA.extent, DATA.extent*0.5, -DATA.extent*0.5);
+scene.add(fillLight);
+
+// Floor (assembly bench)
+const floorGeom = new THREE.PlaneGeometry(DATA.extent*4, DATA.extent*4);
+const floorMat = new THREE.MeshStandardMaterial({ color: 0x6a6e75, roughness: 0.85, metalness: 0.05 });
+const floor = new THREE.Mesh(floorGeom, floorMat);
+floor.rotation.x = -Math.PI/2;
+floor.position.y = -50;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// Lipped C-section profile (cross-section in YZ-ish, extruded along X)
+function makeLippedCShape() {
+  const W = 89; // web height
+  const F1 = 41; // top flange
+  const F2 = 38; // bottom flange
+  const L = 12; // lip
+  const T = 0.75; // gauge
+  const shape = new THREE.Shape();
+  // Build the C cross-section in 2D (X horizontal, Y vertical), open side facing +X
+  // Outer perimeter: trace around the C-shape (web + flanges + lips + return)
+  // Y axis = web height direction (W=89 mm)
+  // X axis = flange depth direction
+  // Start at bottom-left (web-bottom), go clockwise
+  shape.moveTo(0, -W/2);                  // web bottom left
+  shape.lineTo(F2, -W/2);                  // bottom flange tip
+  shape.lineTo(F2, -W/2 + L);              // bottom lip up
+  shape.lineTo(F2 - T, -W/2 + L);          // lip back inside
+  shape.lineTo(F2 - T, -W/2 + T);          // back along inside of flange
+  shape.lineTo(T, -W/2 + T);               // inside of web bottom
+  shape.lineTo(T, W/2 - T);                // up the inside web
+  shape.lineTo(F1 - T, W/2 - T);           // inside of top flange
+  shape.lineTo(F1 - T, W/2 - L);           // top lip back
+  shape.lineTo(F1, W/2 - L);               // top lip up
+  shape.lineTo(F1, W/2);                    // top lip top
+  shape.lineTo(0, W/2);                     // top of web
+  shape.lineTo(0, -W/2);                    // back to start (closing)
+  return shape;
+}
+
+const cShape = makeLippedCShape();
+
+const galvMat = new THREE.MeshStandardMaterial({
+  color: 0xb8c8d4,
+  metalness: 0.85,
+  roughness: 0.4,
+  flatShading: false
+});
+const chordMat = new THREE.MeshStandardMaterial({
+  color: 0xa4b6c4,
+  metalness: 0.85,
+  roughness: 0.4
+});
+const swageMat = new THREE.MeshStandardMaterial({
+  color: 0x566270,
+  metalness: 0.7,
+  roughness: 0.6
+});
+const screwHeadMat = new THREE.MeshStandardMaterial({
+  color: 0x65a30d,
+  metalness: 0.3,
+  roughness: 0.5,
+  emissive: 0x1a4a0a,
+  emissiveIntensity: 0.1
+});
+const screwShaftMat = new THREE.MeshStandardMaterial({
+  color: 0x808a90,
+  metalness: 0.9,
+  roughness: 0.3
+});
+const lipNotchMat = new THREE.MeshStandardMaterial({
+  color: 0x2a2a2a,
+  metalness: 0.4,
+  roughness: 0.7
+});
+
+const sticksGroup = new THREE.Group();
+const swagesGroup = new THREE.Group();
+const lipnotchesGroup = new THREE.Group();
+const screwsGroup = new THREE.Group();
+const labelsGroup = new THREE.Group();
+scene.add(sticksGroup, swagesGroup, lipnotchesGroup, screwsGroup, labelsGroup);
+
+// Build each member
+DATA.sticks.forEach(stick => {
+  const sx = stick.start[0], sy = stick.start[1], sz = stick.start[2];
+  const ex = stick.end[0], ey = stick.end[1], ez = stick.end[2];
+  const dx = ex-sx, dy = ey-sy, dz = ez-sz;
+  const L = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+  // Extrude the C profile along the stick length
+  const extrudeSettings = { steps: 1, depth: L, bevelEnabled: false };
+  const geom = new THREE.ExtrudeGeometry(cShape, extrudeSettings);
+  geom.translate(0, 0, -L/2);  // centre on origin
+
+  const mat = stick.type === 'Plate' ? chordMat : galvMat;
+  const mesh = new THREE.Mesh(geom, mat);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+
+  // Position at midpoint
+  mesh.position.set((sx+ex)/2, (sy+ey)/2, (sz+ez)/2);
+  // Orient so that the extrusion direction (Z) points along the stick.
+  // The stick goes from start to end. In Three.js a Vector3.set/setDirection
+  // followed by lookAt-like orientation. Use quaternion from default direction (0,0,1) to actual.
+  const target = new THREE.Vector3(dx, dy, dz).normalize();
+  const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), target);
+  mesh.quaternion.copy(q);
+
+  // All sticks oriented with lip "up" (open side facing +X in profile coords).
+  // The default profile orientation already has open-side facing +X.
+  // We want all lips facing same physical direction (+Y in world).
+  // Rotate around the stick axis to align.
+  // Compute the current "open side" world direction:
+  const openDir = new THREE.Vector3(1, 0, 0).applyQuaternion(q);
+  // We want it to face +Y in world (lips up)
+  const desiredDir = new THREE.Vector3(0, 1, 0);
+  // Project both onto plane perpendicular to stick axis
+  const stickAxis = target.clone();
+  const op = openDir.clone().sub(stickAxis.clone().multiplyScalar(openDir.dot(stickAxis))).normalize();
+  const dp = desiredDir.clone().sub(stickAxis.clone().multiplyScalar(desiredDir.dot(stickAxis))).normalize();
+  // If dp is degenerate (stick is along Y), skip rotation
+  if (dp.lengthSq() > 0.01) {
+    const angle = Math.acos(Math.max(-1, Math.min(1, op.dot(dp))));
+    const cross = new THREE.Vector3().crossVectors(op, dp);
+    const sign = cross.dot(stickAxis) > 0 ? 1 : -1;
+    const roll = new THREE.Quaternion().setFromAxisAngle(stickAxis, angle * sign);
+    mesh.quaternion.premultiply(roll);
+  }
+
+  mesh.userData = { stick: stick.name };
+  sticksGroup.add(mesh);
+
+  // Stick label
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.fillRect(0,0,256,64);
+  ctx.fillStyle = '#1a202c';
+  ctx.font = 'bold 38px Segoe UI, Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(stick.name, 128, 32);
+  const tex = new THREE.CanvasTexture(canvas);
+  const labelMat = new THREE.SpriteMaterial({ map: tex, transparent: true });
+  const label = new THREE.Sprite(labelMat);
+  label.position.set((sx+ex)/2, (sy+ey)/2 + 60, (sz+ez)/2);
+  label.scale.set(180, 45, 1);
+  labelsGroup.add(label);
+
+  // Add SWAGE features at CSV positions
+  const opsForStick = DATA.csv_ops[stick.name];
+  if (opsForStick && stick.type !== 'Plate') {
+    opsForStick.ops.forEach(([tool, pos]) => {
+      if (tool === 'SWAGE') {
+        // Swage is a small rectangular pressed depression in the web
+        // Web is at the +X face of the profile (the back of the C)
+        // Wait - actually the WEB is the FLAT BACK at x=0.
+        // Swage is on the web face (x ≈ 0). Position along stick = pos from start.
+        // We make a small box and position it on the web face, recessed slightly into web.
+        const swageGeom = new THREE.BoxGeometry(2, 30, 10); // small/in-web × 30mm tall × 10mm long
+        const swageMesh = new THREE.Mesh(swageGeom, swageMat);
+        swageMesh.castShadow = true;
+        // Position along stick (in stick's local Z)
+        const tFrac = pos / L; // 0 to 1
+        const localZ = -L/2 + pos;
+        swageMesh.position.set(0.5, 0, localZ); // on web face (x=0), slightly into web
+        // Convert to world by applying member transform
+        swageMesh.applyMatrix4(mesh.matrixWorld);
+        swageMesh.position.add(new THREE.Vector3()); // already in mesh local
+        // Actually simpler: parent to the stick mesh (so it inherits transforms)
+        // But we need to recreate the mesh hierarchy. Let me just apply the mesh's matrix.
+        // Use a child of the stick mesh:
+        const swageChild = new THREE.Mesh(swageGeom, swageMat);
+        swageChild.castShadow = true;
+        swageChild.position.set(0.5, 0, localZ);
+        mesh.add(swageChild);
+        swagesGroup.add(swageChild); // for visibility toggling
+      } else if (tool === 'LIP NOTCH') {
+        // Cut into both lips at the given position - approximate as a small dark box
+        // Top lip at (F1 - L, W/2 - L) to (F1, W/2)
+        const localZ = -L/2 + pos;
+        // Top lip notch
+        const tn = new THREE.Mesh(new THREE.BoxGeometry(2, 12, 12), lipNotchMat);
+        tn.position.set(40, 89/2 - 6, localZ);
+        mesh.add(tn);
+        lipnotchesGroup.add(tn);
+        // Bottom lip notch
+        const bn = new THREE.Mesh(new THREE.BoxGeometry(2, 12, 12), lipNotchMat);
+        bn.position.set(37, -(89/2 - 6), localZ);
+        mesh.add(bn);
+        lipnotchesGroup.add(bn);
+      }
+    });
+  }
+});
+
+// WEB HOLES + screws at every centreline crossing
+DATA.nodes.forEach(node => {
+  const cx = node.pt[0], cz = node.pt[1];
+  const cy = DATA.centre[1]; // assume planar truss
+
+  // Find which web is at this node to get axis direction
+  let webStick = null;
+  for (const s of DATA.sticks) {
+    if (s.type === 'Plate') continue;
+    const dx = s.end[0]-s.start[0], dz = s.end[2]-s.start[2];
+    const dn = Math.hypot(dx, dz);
+    if (dn === 0) continue;
+    const t = ((cx-s.start[0])*dx + (cz-s.start[2])*dz) / (dn*dn);
+    if (t < -0.1 || t > 1.1) continue;
+    const px = s.start[0] + t*dx, pz = s.start[2] + t*dz;
+    if (Math.hypot(cx-px, cz-pz) < 50) {
+      webStick = s; break;
+    }
+  }
+  let axisX = 1, axisZ = 0;
+  if (webStick) {
+    const dx = webStick.end[0]-webStick.start[0], dz = webStick.end[2]-webStick.start[2];
+    const dn = Math.hypot(dx, dz);
+    axisX = dx/dn; axisZ = dz/dn;
+  }
+  // Perpendicular (in horizontal plane)
+  const perpX = -axisZ, perpZ = axisX;
+
+  // 3 screws at -17, 0, +17 along the perpendicular
+  for (const off of [-17, 0, 17]) {
+    const sx = cx + perpX*off;
+    const sz = cz + perpZ*off;
+
+    // Drill hole (small dark cylinder going through, but we can't subtract from
+    // existing geometry easily; approximate as a small ring)
+    const ringGeom = new THREE.RingGeometry(1.6, 1.9, 16);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
+    const ring = new THREE.Mesh(ringGeom, ringMat);
+    ring.position.set(sx, cy + 1, sz);
+    ring.rotation.x = -Math.PI/2; // lay flat
+    sticksGroup.add(ring);
+
+    // Screw - small cylinder for shaft + bigger for head
+    const headGeom = new THREE.CylinderGeometry(3.5, 3.5, 1.8, 16);
+    const head = new THREE.Mesh(headGeom, screwHeadMat);
+    head.position.set(sx, cy + 5, sz);
+    head.castShadow = true;
+    screwsGroup.add(head);
+
+    const shaftGeom = new THREE.CylinderGeometry(1.5, 1.5, 8, 12);
+    const shaft = new THREE.Mesh(shaftGeom, screwShaftMat);
+    shaft.position.set(sx, cy + 0.5, sz);
+    screwsGroup.add(shaft);
+
+    // Phillips head detail (cross)
+    const xLineGeom = new THREE.BoxGeometry(4.5, 0.3, 0.6);
+    const xLine = new THREE.Mesh(xLineGeom, new THREE.MeshBasicMaterial({ color: 0x1a2e0a }));
+    xLine.position.set(sx, cy + 5.95, sz);
+    screwsGroup.add(xLine);
+    const yLineGeom = new THREE.BoxGeometry(0.6, 0.3, 4.5);
+    const yLine = new THREE.Mesh(yLineGeom, new THREE.MeshBasicMaterial({ color: 0x1a2e0a }));
+    yLine.position.set(sx, cy + 5.95, sz);
+    screwsGroup.add(yLine);
+  }
+});
+
+// Stats
+document.getElementById('stats').innerHTML = `
+  Members: ${DATA.sticks.length}<br>
+  Junction nodes: ${DATA.nodes.length}<br>
+  Screws: ${DATA.nodes.length * 3}<br>
+  Profile: F37008 W089 F41-38<br>
+  89 × 41 lipped C, 0.75mm AZ150
+`;
+
+// Toggles
+function setupToggle(id, group) {
+  const btn = document.getElementById(id);
+  btn.addEventListener('click', () => {
+    group.visible = !group.visible;
+    btn.classList.toggle('active', group.visible);
+  });
+}
+setupToggle('t-screws', screwsGroup);
+setupToggle('t-swages', swagesGroup);
+setupToggle('t-lipnotches', lipnotchesGroup);
+setupToggle('t-labels', labelsGroup);
+
+document.getElementById('t-wireframe').addEventListener('click', (e) => {
+  const isWire = !e.target.classList.contains('active');
+  e.target.classList.toggle('active', isWire);
+  [galvMat, chordMat, swageMat].forEach(m => m.wireframe = isWire);
+});
+
+// Animation
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body></html>
