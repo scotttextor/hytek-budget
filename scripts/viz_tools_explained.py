@@ -62,6 +62,8 @@ def line_intersection(p1, p2, p3, p4, slack=200):
     return (x1 + t*(x2-x1), z1 + t*(z2-z1))
 
 def all_crossings(sticks):
+    """Every pair of sticks whose centrelines intersect — NO clustering.
+    Each intersection becomes a separate WEB HOLE position."""
     out = []
     for i in range(len(sticks)):
         for j in range(i+1, len(sticks)):
@@ -69,27 +71,6 @@ def all_crossings(sticks):
                                    sticks[j]['start'], sticks[j]['end'])
             if pt: out.append({'pt':pt, 'a':sticks[i]['name'], 'b':sticks[j]['name']})
     return out
-
-def cluster(crossings, tol=180):
-    if not crossings: return []
-    n = len(crossings)
-    parent = list(range(n))
-    def find(i):
-        while parent[i] != i: parent[i] = parent[parent[i]]; i = parent[i]
-        return i
-    def union(i,j):
-        ri,rj = find(i),find(j)
-        if ri != rj: parent[ri] = rj
-    for i in range(n):
-        for j in range(i+1, n):
-            d = math.hypot(crossings[i]['pt'][0]-crossings[j]['pt'][0],
-                           crossings[i]['pt'][1]-crossings[j]['pt'][1])
-            if d <= tol: union(i,j)
-    cl = {}
-    for i,c in enumerate(crossings):
-        cl.setdefault(find(i), []).append(c)
-    return [{'pt':(sum(g['pt'][0] for g in grp)/len(grp),
-                   sum(g['pt'][1] for g in grp)/len(grp))} for grp in cl.values()]
 
 WIDTH_MM = 89.0
 
@@ -208,18 +189,17 @@ def render_overview(sticks, ops, nodes):
                 col = TOOL_COLORS["PARTIALFLANGE"]["fill"] if s['type'] != 'Plate' else TOOL_COLORS["FLANGE"]["fill"]
                 svg.append(f'<polygon points="{pts_str}" fill="{col}" stroke="#7c2d12" stroke-width="0.6"/>')
 
-    # Web holes at every centreline crossing — middle hole highlighted
+    # Web holes at EVERY pairwise centreline crossing — no clustering.
+    # Each pair (W↔T, W↔B, W↔C, C↔T, T↔T, T↔B, etc.) gets its own pattern.
     for n in nodes:
         cx_mm, cz_mm = n['pt']
-        # 3 holes vertically stacked (in screen y)
+        base_px = to_px(cx_mm, cz_mm)
+        # 3 holes vertically stacked (in screen y), 17mm pitch
         for off_mm, is_mid in [(-17, False), (0, True), (17, False)]:
-            cx_px, cz_px = to_px(cx_mm, cz_mm + off_mm/SCALE * 0)  # vertical in screen
-            # Actually offset in screen coords directly
-            base_px = to_px(cx_mm, cz_mm)
-            cx_px, cz_px = base_px[0], base_px[1] + off_mm * SCALE
+            cx_px = base_px[0]
+            cz_px = base_px[1] + off_mm * SCALE
             r = 2.5
             if is_mid:
-                # Highlighted middle hole
                 svg.append(f'<circle cx="{cx_px:.1f}" cy="{cz_px:.1f}" r="{r+1.5:.1f}" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.6"/>')
                 svg.append(f'<circle cx="{cx_px:.1f}" cy="{cz_px:.1f}" r="{r:.1f}" fill="#16a34a" stroke="#14532d" stroke-width="1.2"/>')
             else:
@@ -411,7 +391,8 @@ def render_junction_explainer():
 # ============= BUILD ALL =============
 sticks = parse_frame('TN2-1')
 csv_ops = parse_csv_ops('TN2-1')
-nodes = cluster(all_crossings(sticks), 180)
+# No clustering - every pairwise centreline intersection is its own WEB HOLE
+nodes = all_crossings(sticks)
 
 print('Rendering overview...')
 overview = render_overview(sticks, csv_ops, nodes)
