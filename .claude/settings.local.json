@@ -45,7 +45,8 @@
       "PowerShell($ErrorActionPreference = \"Stop\"; $pptx = \"C:\\\\Users\\\\ScottTextor\\\\CLAUDE CODE\\\\hytek-budget\\\\presentations\\\\hytek-ops-platform-2026.pptx\"; $outDir = \"C:\\\\Users\\\\ScottTextor\\\\CLAUDE CODE\\\\hytek-budget\\\\presentations\\\\qa-images\"; if \\(Test-Path $outDir\\) { Remove-Item $outDir -Recurse -Force }; New-Item -Path $outDir -ItemType Directory | Out-Null; $ppt = New-Object -ComObject PowerPoint.Application; $pres = $ppt.Presentations.Open\\($pptx, $true, $true, $false\\); $count = $pres.Slides.Count; for \\($i = 1; $i -le $count; $i++\\) { $out = Join-Path $outDir \\(\"slide-{0:D2}.png\" -f $i\\); $pres.Slides.Item\\($i\\).Export\\($out, \"PNG\", 1920, 1080\\) }; $pres.Close\\(\\); $ppt.Quit\\(\\); [System.Runtime.Interopservices.Marshal]::ReleaseComObject\\($ppt\\) | Out-Null; \"Exported $count slides\")",
       "mcp__Claude_in_Chrome__resize_window",
       "PowerShell(Get-Process chrome -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -ne \"\" } | Select-Object Id, MainWindowTitle, @{N=\"Handle\";E={[int64]$_.MainWindowHandle}} | Format-Table -AutoSize -Wrap)",
-      "PowerShell($out = & \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\find-pairs.ps1\"; $out | Out-File \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\pairs.json\" -Encoding utf8; Write-Host \"Written. Length: $\\($out.Length\\) bytes\")"
+      "PowerShell($out = & \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\find-pairs.ps1\"; $out | Out-File \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\pairs.json\" -Encoding utf8; Write-Host \"Written. Length: $\\($out.Length\\) bytes\")",
+      "PowerShell(& \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\cache-corpus.ps1\")"
     ]
   }
 }
