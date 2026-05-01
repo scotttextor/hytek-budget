@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FrameCAD bolt-rule visualizations</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0; padding: 24px;
+    background: #f1f5f9;
+    color: #1a202c;
+  }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  .sub { color: #4a5568; font-size: 14px; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .card {
+    background: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card-head {
+    padding: 12px 18px;
+    background: #fafaf8;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-head h2 { margin: 0; font-size: 16px; }
+  .card-head .meta { color: #4a5568; font-size: 12px; }
+  .card-head a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid #93c5fd;
+    border-radius: 3px;
+  }
+  .card-head a:hover { background: #dbeafe; }
+  iframe {
+    border: 0; width: 100%;
+    display: block;
+    background: white;
+  }
+  .h-tall { height: 820px; }
+  .h-mid  { height: 720px; }
+  .h-short { height: 600px; }
+  details summary {
+    cursor: pointer;
+    padding: 14px 18px;
+    background: #fafaf8;
+    font-weight: 600;
+  }
+  details[open] summary { border-bottom: 1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+
+<h1>FrameCAD bolt-rule visualizations</h1>
+<p class="sub">All five SVGs embedded below — scroll through and compare. Click "open standalone" to view any one in its own tab at full size.</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>1. All options side-by-side (master comparison)</h2>
+        <div class="meta">5 rules on one page · TN2-1 frame · 70 → 10–22 bolts depending on rule</div>
+      </div>
+      <a href="all_options.svg" target="_blank">open standalone &nbsp;↗</a>
+    </div>
+    <iframe src="all_options.svg" class="h-tall"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>2. Single junction close-up (W5 web meeting B1 chord)</h2>
+        <div class="meta">Realistic planar assembly · web-on-web overlap · 89×89mm contact zone</div>
+      </div>
+      <a href="junction_v2.svg" target="_blank">open standalone &nbsp;↗</a>
+    </div>
+    <iframe src="junction_v2.svg" class="h-mid"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>3. Complex truss frame TN2-1 — current vs centreline only</h2>
+        <div class="meta">10 sticks · 8 different angles · 70 → 22 bolts (69% fewer)</div>
+      </div>
+      <a href="complex_truss.svg" target="_blank">open standalone &nbsp;↗</a>
+    </div>
+    <iframe src="complex_truss.svg" class="h-tall"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>4. Complex truss with 80mm clustering</h2>
+        <div class="meta">Apex and heel zones merge to single bolts · 22 → 14</div>
+      </div>
+      <a href="complex_truss_clustered.svg" target="_blank">open standalone &nbsp;↗</a>
+    </div>
+    <iframe src="complex_truss_clustered.svg" class="h-tall"></iframe>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>5. First overview (frame TN1-1, simpler hip truss)</h2>
+        <div class="meta">8 sticks · current vs centreline-only · 41 → 13</div>
+      </div>
+      <a href="truss_bolts.svg" target="_blank">open standalone &nbsp;↗</a>
+    </div>
+    <iframe src="truss_bolts.svg" class="h-tall"></iframe>
+  </div>
+
+</div>
+
+<p class="sub" style="margin-top: 30px; padding: 14px; background: #fef3c7; border-left: 4px solid #d97706; border-radius: 3px;">
+  <strong>Pick a rule:</strong> compare the 5 panels in <a href="all_options.svg" target="_blank">all_options.svg</a> and tell me which one matches what you want. I'll then write the post-processor that actually generates that bolt pattern from any truss XML.
+</p>
+
+</body>
+</html>
