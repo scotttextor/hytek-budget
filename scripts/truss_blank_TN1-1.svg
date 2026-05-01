@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1100" viewBox="0 0 1700 1100" font-family="Segoe UI, Arial, sans-serif">
+<defs>
+      <pattern id="cf" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-45)">
+        <rect width="6" height="6" fill="#dbeafe"/><line x1="0" y1="0" x2="0" y2="6" stroke="#93c5fd" stroke-width="0.6"/>
+      </pattern>
+      <pattern id="wf" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+        <rect width="6" height="6" fill="#e2e8f0"/><line x1="0" y1="0" x2="0" y2="6" stroke="#94a3b8" stroke-width="0.6"/>
+      </pattern>
+    </defs>
+<rect width="1700" height="1100" fill="white"/>
+<text x="40" y="44" font-size="26" font-weight="700" fill="#1a202c">Truss frame TN1-1 — mark up where you want bolts</text>
+<text x="40" y="72" font-size="15" fill="#4a5568">Small hip truss — 8 members. Hip end of the building.</text>
+<text x="40" y="98" font-size="13" fill="#374151">8 members  ·  blue hatched = chord plates  ·  grey hatched = web studs  ·  dashed = centrelines</text>
+<line x1="40.0" y1="159.5" x2="40.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="200.5" y1="159.5" x2="200.5" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="361.0" y1="159.5" x2="361.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="521.5" y1="159.5" x2="521.5" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="682.0" y1="159.5" x2="682.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="842.5" y1="159.5" x2="842.5" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="1003.0" y1="159.5" x2="1003.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="1163.5" y1="159.5" x2="1163.5" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="1324.0" y1="159.5" x2="1324.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="1484.5" y1="159.5" x2="1484.5" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="1645.0" y1="159.5" x2="1645.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="40.0" y1="960.5" x2="1660.0" y2="960.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="40.0" y1="800.0" x2="1660.0" y2="800.0" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="40.0" y1="639.5" x2="1660.0" y2="639.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="40.0" y1="479.0" x2="1660.0" y2="479.0" stroke="#f1f5f9" stroke-width="0.8"/>
+<line x1="40.0" y1="318.5" x2="1660.0" y2="318.5" stroke="#f1f5f9" stroke-width="0.8"/>
+<polygon points="1552.8,860.6 1563.7,834.2 147.2,247.5 136.3,273.9" fill="url(#cf)" stroke="#1d4ed8" stroke-width="1.6" opacity="0.95"/>
+<polygon points="1563.7,865.2 1563.7,836.6 136.3,836.6 136.3,865.2" fill="url(#cf)" stroke="#1d4ed8" stroke-width="1.6" opacity="0.95"/>
+<polygon points="1451.5,860.5 1480.1,860.5 1480.1,799.5 1451.5,799.5" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<polygon points="1073.6,860.5 1102.1,860.5 1102.1,643.0 1073.6,643.0" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<polygon points="636.8,842.8 650.3,868.0 1066.1,645.4 1052.7,620.2" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<polygon points="597.7,860.5 626.3,860.5 626.3,445.9 597.7,445.9" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<polygon points="159.3,847.8 179.8,867.7 592.0,443.2 571.5,423.3" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<polygon points="136.3,864.2 164.9,864.2 164.9,255.8 136.3,255.8" fill="url(#wf)" stroke="#475569" stroke-width="1.4" opacity="0.85"/>
+<line x1="1558.2" y1="847.4" x2="141.8" y2="260.7" stroke="#1d4ed8" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="1563.7" y1="850.9" x2="136.3" y2="850.9" stroke="#1d4ed8" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="1465.8" y1="860.5" x2="1465.8" y2="799.5" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="1087.9" y1="860.5" x2="1087.9" y2="643.0" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="643.5" y1="855.4" x2="1059.4" y2="632.8" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="612.0" y1="860.5" x2="612.0" y2="445.9" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="169.6" y1="857.8" x2="581.8" y2="433.3" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<line x1="150.6" y1="864.2" x2="150.6" y2="255.8" stroke="#334155" stroke-width="1" stroke-dasharray="5 3" opacity="0.55"/>
+<text x="850.0" y="554.1" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">T2</text>
+<text x="850.0" y="850.9" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">B1</text>
+<text x="1465.8" y="830.0" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W3</text>
+<text x="1087.9" y="751.7" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W4</text>
+<text x="851.5" y="744.1" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W5</text>
+<text x="612.0" y="653.2" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W6</text>
+<text x="375.7" y="645.5" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W7</text>
+<text x="150.6" y="560.0" font-size="14" font-weight="700" text-anchor="middle" fill="#0f172a" stroke="white" stroke-width="3.5" paint-order="stroke">W8</text>
+<rect x="40" y="1053" width="1620" height="38" fill="#fef3c7" stroke="#d97706" rx="3"/>
+<text x="60" y="1073" font-size="13" fill="#7c2d12">Mark each bolt position with a dot or X. Mark direction/quantity if it matters. Save and send back.</text>
+</svg>
