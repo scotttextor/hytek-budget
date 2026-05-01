@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720" font-family="Segoe UI, Arial, sans-serif">
+<defs>
+  <pattern id="diag" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#cbd5e0" stroke-width="1.2"/>
+  </pattern>
+  <pattern id="diag2" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#bee3f8" stroke-width="1.2"/>
+  </pattern>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2d3748"/>
+  </marker>
+  <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#c53030"/>
+  </marker>
+</defs>
+<rect width="1400" height="720" fill="#fafaf8"/>
+<text x="20" y="34" font-size="22" font-weight="700" fill="#1a202c">Single junction close-up — W5 web meets B1 bottom chord</text>
+<text x="20" y="58" font-size="14" fill="#4a5568">89×41 plate chord (horizontal) crossed by 89×41 stud web (vertical). 1mm = ~3.5px.</text>
+<rect x="50" y="110" width="620" height="540" fill="white" stroke="#cbd5e0" stroke-width="1"/>
+<text x="360" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3748">CURRENT — 3 holes per junction, offset from centreline crossing</text>
+<rect x="100" y="224.25" width="520" height="311.5" fill="url(#diag2)" stroke="#2b6cb0" stroke-width="2"/>
+<line x1="100" y1="224.25" x2="620" y2="224.25" stroke="#2b6cb0" stroke-width="3"/>
+<line x1="100" y1="535.75" x2="620" y2="535.75" stroke="#2b6cb0" stroke-width="3"/>
+<line x1="80" y1="380.0" x2="640" y2="380.0" stroke="#2b6cb0" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.7"/>
+<text x="645" y="384.0" font-size="11" fill="#2b6cb0">B1 chord ⊕</text>
+<text x="108" y="242.25" font-size="11" fill="#2b6cb0" font-weight="600">B1 (89mm × 0.75mm chord plate)</text>
+<rect x="204.25" y="140" width="311.5" height="480" fill="url(#diag)" stroke="#4a5568" stroke-width="2"/>
+<line x1="204.25" y1="140" x2="204.25" y2="620" stroke="#4a5568" stroke-width="3"/>
+<line x1="515.75" y1="140" x2="515.75" y2="620" stroke="#4a5568" stroke-width="3"/>
+<line x1="360.0" y1="120" x2="360.0" y2="640" stroke="#4a5568" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.7"/>
+<text x="356.0" y="115" text-anchor="end" font-size="11" fill="#4a5568">W5 web ⊕</text>
+<text x="196.25" y="610" text-anchor="end" font-size="11" fill="#4a5568" font-weight="600">W5</text>
+<text x="196.25" y="625" text-anchor="end" font-size="10" fill="#4a5568">89mm × 0.75mm stud</text>
+<circle cx="360.0" cy="380.0" r="6" fill="none" stroke="#38a169" stroke-width="1.5"/>
+<circle cx="345.0" cy="439.5" r="6" fill="#d53f8c" stroke="#97266d" stroke-width="1.5"/>
+<text x="357.0" y="443.5" font-size="11" fill="#97266d">17 mm below ⊕</text>
+<circle cx="375.0" cy="439.5" r="6" fill="#d53f8c" stroke="#97266d" stroke-width="1.5"/>
+<circle cx="360.0" cy="504.25" r="6" fill="#d53f8c" stroke="#97266d" stroke-width="1.5"/>
+<text x="372.0" y="508.25" font-size="11" fill="#97266d">35.5 mm below ⊕</text>
+<line x1="360.0" y1="388.0" x2="360.0" y2="431.5" stroke="#c53030" stroke-width="1.5" marker-end="url(#arrowred)"/>
+<text x="372.0" y="409.75" font-size="11" fill="#c53030">offset</text>
+<rect x="80" y="572" width="560" height="58" fill="#fdf2f8" stroke="#d53f8c" stroke-width="1"/>
+<text x="95" y="594" font-size="12" fill="#97266d"><tspan font-weight="700">3 holes total</tspan> · positioned by rule:</text>
+<text x="95" y="612" font-size="12" fill="#97266d">  pos = material_offset (44.5) + geom_adjust (~14) = ~58.5 mm from W5 start</text>
+<rect x="450" y="125" width="200" height="68" fill="white" stroke="#e2e8f0" rx="3"/>
+<rect x="460" y="135" width="14" height="8" fill="url(#diag2)" stroke="#2b6cb0"/>
+<text x="480" y="143" font-size="11" fill="#2d3748">chord (plate) — flat</text>
+<rect x="460" y="150" width="14" height="8" fill="url(#diag)" stroke="#4a5568"/>
+<text x="480" y="158" font-size="11" fill="#2d3748">web (stud) — vertical</text>
+<line x1="460" y1="169" x2="474" y2="169" stroke="#666" stroke-dasharray="4 3"/>
+<text x="480" y="173" font-size="11" fill="#2d3748">centreline ⊕</text>
+<circle cx="467" cy="184" r="4" fill="#d53f8c"/>
+<text x="480" y="188" font-size="11" fill="#2d3748">bolt hole</text>
+<rect x="730" y="110" width="620" height="540" fill="white" stroke="#cbd5e0" stroke-width="1"/>
+<text x="1040" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#22543d">PROPOSED — 1 hole, exactly at centreline crossing</text>
+<rect x="780" y="224.25" width="520" height="311.5" fill="url(#diag2)" stroke="#2b6cb0" stroke-width="2"/>
+<line x1="780" y1="224.25" x2="1300" y2="224.25" stroke="#2b6cb0" stroke-width="3"/>
+<line x1="780" y1="535.75" x2="1300" y2="535.75" stroke="#2b6cb0" stroke-width="3"/>
+<line x1="760" y1="380.0" x2="1320" y2="380.0" stroke="#2b6cb0" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.7"/>
+<text x="1325" y="384.0" font-size="11" fill="#2b6cb0">B1 chord ⊕</text>
+<text x="788" y="242.25" font-size="11" fill="#2b6cb0" font-weight="600">B1 (89mm × 0.75mm chord plate)</text>
+<rect x="884.25" y="140" width="311.5" height="480" fill="url(#diag)" stroke="#4a5568" stroke-width="2"/>
+<line x1="884.25" y1="140" x2="884.25" y2="620" stroke="#4a5568" stroke-width="3"/>
+<line x1="1195.75" y1="140" x2="1195.75" y2="620" stroke="#4a5568" stroke-width="3"/>
+<line x1="1040.0" y1="120" x2="1040.0" y2="640" stroke="#4a5568" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.7"/>
+<text x="1036.0" y="115" text-anchor="end" font-size="11" fill="#4a5568">W5 web ⊕</text>
+<text x="876.25" y="610" text-anchor="end" font-size="11" fill="#4a5568" font-weight="600">W5</text>
+<text x="876.25" y="625" text-anchor="end" font-size="10" fill="#4a5568">89mm × 0.75mm stud</text>
+<circle cx="1040.0" cy="380.0" r="6" fill="none" stroke="#38a169" stroke-width="1.5"/>
+<circle cx="1040.0" cy="380.0" r="7" fill="#38a169" stroke="#22543d" stroke-width="2"/>
+<text x="1055.0" y="385.0" font-size="11" fill="#22543d" font-weight="600">at centreline crossing</text>
+<rect x="760" y="572" width="560" height="58" fill="#f0fdf4" stroke="#38a169" stroke-width="1"/>
+<text x="775" y="594" font-size="12" fill="#22543d"><tspan font-weight="700">1 hole total</tspan> · positioned by maths:</text>
+<text x="775" y="612" font-size="12" fill="#22543d">  pos = (chord_centreline_Z − web_start_Z) = exactly 41.5 mm from W5 start</text>
+<rect x="1130" y="125" width="200" height="68" fill="white" stroke="#e2e8f0" rx="3"/>
+<rect x="1140" y="135" width="14" height="8" fill="url(#diag2)" stroke="#2b6cb0"/>
+<text x="1160" y="143" font-size="11" fill="#2d3748">chord (plate) — flat</text>
+<rect x="1140" y="150" width="14" height="8" fill="url(#diag)" stroke="#4a5568"/>
+<text x="1160" y="158" font-size="11" fill="#2d3748">web (stud) — vertical</text>
+<line x1="1140" y1="169" x2="1154" y2="169" stroke="#666" stroke-dasharray="4 3"/>
+<text x="1160" y="173" font-size="11" fill="#2d3748">centreline ⊕</text>
+<circle cx="1147" cy="184" r="4" fill="#38a169"/>
+<text x="1160" y="188" font-size="11" fill="#2d3748">bolt hole</text>
+<text x="20" y="705" font-size="11" fill="#4a5568">Source: 2603191 ROCKVILLE TH-TYPE-A1-LT, frame TN1-1, junction W5×B1. Stick W5: start (19395.016, _, 2743.000), end (19395.016, _, 4762.352). B1 centreline at z=2784.5.</text>
+</svg>
