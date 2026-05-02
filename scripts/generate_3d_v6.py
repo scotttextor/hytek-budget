@@ -594,14 +594,16 @@ function updateStats(frameName) {
   // Each simplified BOLT HOLES op renders 3 physical web holes in the cluster.
   const simpClusters = F.simp_bolt_count;
   const simpHoles = simpClusters * 3;
-  const reduction = orig > 0 ? (100 * (orig - simpHoles) / orig) : 0;
+  const delta = simpHoles - orig;
+  const pct = orig > 0 ? (100 * delta / orig) : 0;
   let h = '<b>Frame ' + frameName + '</b><br>';
   h += 'Members: ' + F.sticks.length + '<br>';
   h += '<hr style="border-color:#4a5568;margin:6px 0">';
   h += '<span style="color:#f87171">Original BOLT HOLES: ' + orig + '</span><br>';
-  h += '<span style="color:#34d399">Simplified clusters:  ' + simpClusters + ' (' + simpHoles + ' holes)</span><br>';
-  const sign = reduction >= 0 ? '' : '+';
-  h += '<b>Reduction: ' + sign + reduction.toFixed(0) + '%</b>';
+  h += '<span style="color:#34d399">Simplified clusters: ' + simpClusters + ' (' + simpHoles + ' holes)</span><br>';
+  const dSign = delta >= 0 ? '+' : '';
+  const dColor = delta >= 0 ? '#fbbf24' : '#34d399';
+  h += '<b style="color:' + dColor + '">Delta: ' + dSign + delta + ' holes (' + dSign + pct.toFixed(0) + '%)</b>';
   h += '<hr style="border-color:#4a5568;margin:6px 0">';
   h += '<span style="font-size:10px;color:#a8b9c7">Profile F37008 W089 F41-38<br>Pitch ' + HOLE_PITCH + 'mm &middot; &Oslash;' + HOLE_DIA + 'mm</span>';
   document.getElementById('stats').innerHTML = h;
