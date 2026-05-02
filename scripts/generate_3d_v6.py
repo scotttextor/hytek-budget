@@ -220,9 +220,10 @@ html = '''<!DOCTYPE html>
   .leg { color: #f87171; }
   .web { color: #34d399; }
   .orig { color: #f87171; }
-  #stats { position: absolute; top: 12px; right: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.7); border-radius: 6px; font-size: 12px; min-width: 270px; line-height: 1.45; }
-  #stats .big { font-size: 13px; }
-  #stats .small { font-size: 10px; color: #a8b9c7; line-height: 1.5; }
+  #stats { position: absolute; top: 12px; right: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.7); border-radius: 6px; font-size: 12px; min-width: 320px; line-height: 1.45; }
+  #stats .big { font-size: 13px; font-family: Segoe UI, Arial, sans-serif; margin-bottom: 4px; }
+  #stats .row { font-family: Consolas, "Courier New", monospace; font-size: 12px; white-space: nowrap; }
+  #stats .small { font-size: 10px; color: #a8b9c7; line-height: 1.5; font-family: Segoe UI, Arial, sans-serif; }
   #stats hr { border: none; border-top: 1px solid #4a5568; margin: 6px 0; }
   .controls { position: absolute; bottom: 12px; left: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.65); border-radius: 6px; font-size: 12px; max-width: 900px; }
   .toggle { display: inline-block; margin: 4px 6px 4px 0; padding: 4px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; user-select: none; color: white; font-size: 11px; }
@@ -671,17 +672,22 @@ function buildFrame(frameName) {
   document.getElementById('page-title').textContent = 'Truss 3D V6 - ' + frameName;
 }
 
-// ---------- Stats panel ----------
+// ---------- Stats panel (Option C: apples-to-apples) ----------
+// Each "BOLT HOLES" CSV entry = ONE rollformer fire of the WEB HOLE tool,
+// which physically punches 3 x O3.8mm holes at 17mm pitch (per F37008
+// Tool Stn 1 spec). So both the original and simplified counts MUST be
+// expressed identically: fires + (3 x fires) physical holes.
+//
 // Format:
 //   Frame TN2-1
 //   Members: 11
 //   --
-//   Original:    55 fires (165 holes)
-//   Simplified:  30 fires (90 holes)
-//   Reduction:   -45%
+//   Original:    55 fires (165 physical O3.8mm holes)
+//   Simplified:  30 fires ( 90 physical O3.8mm holes)
+//   Reduction:  -45%
 //   --
-//   All frames: 1462 -> 826 fires (-43%)
-//   3 physical OE3.8 holes per fire (Tool Stn 1)
+//   All 22 frames: 1462 -> 826 fires (-43%)
+//   1 fire = 3 physical O3.8mm holes @ 17mm pitch (Tool Stn 1)
 function updateStats(frameName) {
   const F = DATA.frames[frameName];
   const oFires = F.orig_fires_csv;
@@ -691,27 +697,46 @@ function updateStats(frameName) {
   const redPct = oFires > 0 ? (100 * (sFires - oFires) / oFires) : 0;
   const gO = DATA.global_orig_fires;
   const gS = DATA.global_simp_fires;
+  const gOH = gO * 3;
+  const gSH = gS * 3;
   const gPct = gO > 0 ? (100 * (gS - gO) / gO) : 0;
+
+  // Use literal Unicode chars for non-ASCII (page is UTF-8).
+  const OSLASH = '\\u00D8';    // diameter symbol
+  const ARROW  = '\\u2192';    // right arrow
+  const MINUS  = '\\u2212';    // proper minus sign (not hyphen)
+
+  // Pad the smaller "fires" so the parenthesised holes column lines up.
+  // Monospace font on stat panel keeps these aligned.
+  const wF = Math.max(String(oFires).length, String(sFires).length);
+  const wH = Math.max(String(oHoles).length, String(sHoles).length);
+  const padL = (s, w) => String(s).padStart(w, ' ');
+  // Convert leading spaces to non-breaking so HTML preserves them.
+  const nbsp = (s) => s.replace(/ /g, '\\u00A0');
 
   let h = '<div class="big"><b>Frame ' + frameName + '</b></div>';
   h += 'Members: ' + F.sticks.length + '<br>';
   h += '<hr>';
-  // Use literal Unicode chars for non-ASCII to avoid HTML-entity ambiguity.
-  // (Page is UTF-8, innerHTML accepts unicode directly.)
-  const NBSP = '\\u00A0';
-  const ARROW = '\\u2192';     // ->
-  const OSLASH = '\\u00D8';    // diameter symbol
-  h += '<span style="color:#f87171">Original:' + NBSP + NBSP + NBSP + oFires + ' fires (' + oHoles + ' holes)</span><br>';
-  h += '<span style="color:#34d399">Simplified: ' + sFires + ' fires (' + sHoles + ' holes)</span><br>';
+  h += '<div class="row"><span style="color:#f87171">Original:</span>'
+     + nbsp('   ' + padL(oFires, wF)) + ' fires (' + nbsp(padL(oHoles, wH))
+     + ' physical ' + OSLASH + '3.8mm holes)</div>';
+  h += '<div class="row"><span style="color:#34d399">Simplified:</span>'
+     + nbsp(' ' + padL(sFires, wF)) + ' fires (' + nbsp(padL(sHoles, wH))
+     + ' physical ' + OSLASH + '3.8mm holes)</div>';
   const redColor = redPct < 0 ? '#34d399' : (redPct > 0 ? '#fbbf24' : '#a8b9c7');
-  const sign = redPct > 0 ? '+' : '';
-  h += '<b style="color:' + redColor + '">Reduction:' + NBSP + sign + redPct.toFixed(0) + '%</b>';
+  const redStr = redPct < 0 ? (MINUS + Math.abs(redPct).toFixed(0))
+                            : (redPct > 0 ? '+' + redPct.toFixed(0) : '0');
+  h += '<div class="row"><b style="color:' + redColor + '">Reduction:'
+     + nbsp('  ') + redStr + '%</b></div>';
   h += '<hr>';
   h += '<div class="small">';
-  h += 'All ' + DATA.frame_names.length + ' frames: ' + gO + ' ' + ARROW + ' ' + gS + ' fires ';
-  const gSign = gPct > 0 ? '+' : '';
-  h += '(' + gSign + gPct.toFixed(0) + '%)<br>';
-  h += '3 physical ' + OSLASH + '3.8mm holes per fire (Tool Stn 1, 17mm pitch)';
+  const gStr = gPct < 0 ? (MINUS + Math.abs(gPct).toFixed(0))
+                        : (gPct > 0 ? '+' + gPct.toFixed(0) : '0');
+  h += 'All ' + DATA.frame_names.length + ' frames: ' + gO + ' ' + ARROW + ' '
+     + gS + ' fires (' + gStr + '%)<br>';
+  h += '&nbsp;&nbsp;&nbsp;= ' + gOH + ' ' + ARROW + ' ' + gSH
+     + ' physical ' + OSLASH + '3.8mm holes<br>';
+  h += '<br>1 fire = 3 physical ' + OSLASH + '3.8mm holes @ 17mm pitch (F37008 Tool Stn 1)';
   h += '</div>';
   document.getElementById('stats').innerHTML = h;
 }

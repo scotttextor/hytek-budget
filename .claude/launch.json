@@ -21,6 +21,13 @@
       "runtimeArgs": ["--prefix", "../hytek-install", "run", "dev"],
       "port": 3001,
       "autoPort": true
+    },
+    {
+      "name": "v6-viewer",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "scripts", "-p", "4500", "--cors", "-c-1"],
+      "port": 4500,
+      "autoPort": true
     }
   ]
 }
