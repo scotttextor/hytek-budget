@@ -6,6 +6,12 @@ Each "BOLT HOLES" position on a Linear-truss stick becomes a 3-hole cluster:
   - Pitch direction = perpendicular to that stick's own length, on the web face
   - Middle hole sits exactly on the centreline at the local position
 
+KEY INSIGHT (Tool Station 1 of F37008):
+  Each "BOLT HOLES" CSV entry = ONE rollformer tool fire = THREE physical
+  Ø3.8mm holes at 17mm pitch (3xÃ˜3.8mm punch perpendicular to stick).
+  This applies to BOTH original and simplified CSVs. So the count comparison
+  needs to multiply BOTH counts by 3 to talk in physical-hole terms.
+
 Toggle "Show original ops" hides the simplified WEB HOLES and shows the
 ORIGINAL CSV's BOLT HOLES (smaller red holes) so the user can flip between
 old and new layouts.
@@ -58,7 +64,8 @@ def parse_all_frames():
 # ---------- CSV parse: per frame ops, with length to enable B1->B2 mapping ----------
 
 def parse_csv_ops_all(csv_path):
-    """Return {frame: {csv_short_name: {length, ops:[(tool,pos)...]}}}."""
+    """Return {frame: [{short, length, ops}, ...]} preserving CSV row order
+    and allowing duplicate-name rows (W5 480 + W5 740 etc.)."""
     out = {}
     with open(csv_path) as f:
         for line in f:
@@ -66,7 +73,6 @@ def parse_csv_ops_all(csv_path):
             if len(parts) < 14 or parts[0] != 'COMPONENT':
                 continue
             full = parts[1]
-            # Frame name = everything up to the FIRST hyphen (e.g. TN2-1-W5 -> TN2-1)
             mfx = re.match(r'^([A-Z]+\d+(?:-\d+)?)-(.+)$', full)
             if not mfx:
                 continue
@@ -87,43 +93,49 @@ def parse_csv_ops_all(csv_path):
                 except ValueError:
                     pass
                 i += 2
-            out.setdefault(frame_name, {})[short] = {'length': length, 'ops': ops}
+            out.setdefault(frame_name, []).append({
+                'short': short, 'length': length, 'ops': ops
+            })
     return out
 
 
-# ---------- CSV-name -> XML-stick-name length-matching (handles B1 (Box1) -> B2) ----------
+# ---------- CSV-row -> XML-stick assignment (1:1, handles duplicates by length) ----------
 
-def build_csv_to_xml_map(sticks, csv_for_frame):
-    """For each CSV component name in this frame, decide which XML stick it
-    represents. CSV may have 'B1 (Box1)' that actually maps to XML stick 'B2'.
-    Match by base name + length first, then by length only."""
+def assign_csv_rows_to_sticks(sticks, csv_rows):
+    """For each CSV row, pick the best unused XML stick: same base name + length
+    first; then closest length within 5mm. Returns a list of (csv_row, xml_idx)
+    where xml_idx may be None if no match found.
+
+    Critical: duplicate-name sticks (W5 480 AND W5 740) need length to disambiguate.
+    """
     def stick_len(s):
         return math.hypot(s['end'][0]-s['start'][0], s['end'][2]-s['start'][2])
-    used = [False]*len(sticks)
-    mapping = {}  # csv_short -> xml_name
-    items = list(csv_for_frame.items())
-    # Pass 1: exact base-name AND length match
-    for short, info in items:
-        base = re.sub(r'\s*\(Box\d+\)\s*$', '', short).strip()
+    used = [False] * len(sticks)
+    assignments = []  # parallel to csv_rows
+    # Pass 1: same base name AND length within 1mm
+    for row in csv_rows:
+        base = re.sub(r'\s*\(Box\d+\)\s*$', '', row['short']).strip()
+        match = None
         for i, s in enumerate(sticks):
             if used[i]: continue
-            if s['name'] == base and abs(stick_len(s) - info['length']) < 1.0:
+            if s['name'] == base and abs(stick_len(s) - row['length']) < 1.0:
                 used[i] = True
-                mapping[short] = s['name']
+                match = i
                 break
-    # Pass 2: closest length only (within 5mm) for unmatched CSV rows
-    for short, info in items:
-        if short in mapping: continue
+        assignments.append(match)
+    # Pass 2: closest length only (within 5mm) for unmatched rows
+    for ri, row in enumerate(csv_rows):
+        if assignments[ri] is not None: continue
         best_idx, best_diff = None, 5.0
         for i, s in enumerate(sticks):
             if used[i]: continue
-            d = abs(stick_len(s) - info['length'])
+            d = abs(stick_len(s) - row['length'])
             if d < best_diff:
                 best_diff = d; best_idx = i
         if best_idx is not None:
             used[best_idx] = True
-            mapping[short] = sticks[best_idx]['name']
-    return mapping
+            assignments[ri] = best_idx
+    return assignments
 
 
 # ---------- Build per-frame data bundle for the JS ----------
@@ -135,24 +147,35 @@ csv_simp_all = parse_csv_ops_all(CSV_SIMP)
 frame_names = sorted(frames_xml.keys())
 
 frame_bundles = {}
+global_orig_fires = 0
+global_simp_fires = 0
 for fname in frame_names:
     sticks = frames_xml[fname]['sticks']
-    csv_orig = csv_orig_all.get(fname, {})
-    csv_simp = csv_simp_all.get(fname, {})
+    csv_orig_rows = csv_orig_all.get(fname, [])
+    csv_simp_rows = csv_simp_all.get(fname, [])
 
-    # Map CSV rows to XML stick names
-    map_orig = build_csv_to_xml_map(sticks, csv_orig)
-    map_simp = build_csv_to_xml_map(sticks, csv_simp)
+    # Map each CSV row to a unique XML stick index (1:1 assignment)
+    assign_orig = assign_csv_rows_to_sticks(sticks, csv_orig_rows)
+    assign_simp = assign_csv_rows_to_sticks(sticks, csv_simp_rows)
 
-    # Per XML stick: ops, then split ORIGINAL bolts vs SIMPLIFIED bolts
+    # Per XML stick: ops list. Aggregate the assigned CSV rows' ops onto each stick.
     ops_by_xml_orig = {s['name']: [] for s in sticks}
     ops_by_xml_simp = {s['name']: [] for s in sticks}
-    for short, info in csv_orig.items():
-        xn = map_orig.get(short)
-        if xn: ops_by_xml_orig[xn] = info['ops']
-    for short, info in csv_simp.items():
-        xn = map_simp.get(short)
-        if xn: ops_by_xml_simp[xn] = info['ops']
+    # Build by index so duplicate-name sticks each get their own ops:
+    ops_by_idx_orig = [list() for _ in sticks]
+    ops_by_idx_simp = [list() for _ in sticks]
+    for row, idx in zip(csv_orig_rows, assign_orig):
+        if idx is not None:
+            ops_by_idx_orig[idx] = row['ops']
+    for row, idx in zip(csv_simp_rows, assign_simp):
+        if idx is not None:
+            ops_by_idx_simp[idx] = row['ops']
+
+    # CSV-truth fire counts (regardless of mapping success)
+    orig_fires_csv = sum(1 for row in csv_orig_rows for t,_ in row['ops'] if t == 'BOLT HOLES')
+    simp_fires_csv = sum(1 for row in csv_simp_rows for t,_ in row['ops'] if t == 'BOLT HOLES')
+    global_orig_fires += orig_fires_csv
+    global_simp_fires += simp_fires_csv
 
     # Geometry centre/extent
     all_x = [c for s in sticks for c in (s['start'][0], s['end'][0])]
@@ -163,18 +186,14 @@ for fname in frame_names:
     cz = (min(all_z)+max(all_z))/2
     extent = max(max(all_x)-min(all_x), max(all_z)-min(all_z), 100.0)
 
-    # Tool counters
-    orig_bolt = sum(1 for n in ops_by_xml_orig for t,_ in ops_by_xml_orig[n] if t == 'BOLT HOLES')
-    simp_bolt = sum(1 for n in ops_by_xml_simp for t,_ in ops_by_xml_simp[n] if t == 'BOLT HOLES')
-
     frame_bundles[fname] = {
         'sticks': sticks,
-        'ops_orig': ops_by_xml_orig,
-        'ops_simp': ops_by_xml_simp,
+        'ops_orig_by_idx': ops_by_idx_orig,
+        'ops_simp_by_idx': ops_by_idx_simp,
         'centre': [cx, cy, cz],
         'extent': extent,
-        'orig_bolt_count': orig_bolt,
-        'simp_bolt_count': simp_bolt,
+        'orig_fires_csv': orig_fires_csv,
+        'simp_fires_csv': simp_fires_csv,
     }
 
 default_frame = 'TN2-1' if 'TN2-1' in frame_bundles else frame_names[0]
@@ -183,12 +202,14 @@ data = {
     'frames': frame_bundles,
     'frame_names': frame_names,
     'default_frame': default_frame,
+    'global_orig_fires': global_orig_fires,
+    'global_simp_fires': global_simp_fires,
 }
 
 html = '''<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
-<title>Truss 3D V6 - Simplified centreline holes</title>
+<title>Truss 3D V6</title>
 <style>
   body { margin: 0; overflow: hidden; font-family: Segoe UI, Arial, sans-serif; background: #1a202c; }
   #info { position: absolute; top: 12px; left: 12px; color: white; padding: 12px 16px; background: rgba(0,0,0,0.65); border-radius: 6px; font-size: 13px; max-width: 460px; pointer-events: none; }
@@ -199,7 +220,10 @@ html = '''<!DOCTYPE html>
   .leg { color: #f87171; }
   .web { color: #34d399; }
   .orig { color: #f87171; }
-  #stats { position: absolute; top: 12px; right: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.65); border-radius: 6px; font-size: 12px; min-width: 240px; }
+  #stats { position: absolute; top: 12px; right: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.7); border-radius: 6px; font-size: 12px; min-width: 270px; line-height: 1.45; }
+  #stats .big { font-size: 13px; }
+  #stats .small { font-size: 10px; color: #a8b9c7; line-height: 1.5; }
+  #stats hr { border: none; border-top: 1px solid #4a5568; margin: 6px 0; }
   .controls { position: absolute; bottom: 12px; left: 12px; color: white; padding: 10px 14px; background: rgba(0,0,0,0.65); border-radius: 6px; font-size: 12px; max-width: 900px; }
   .toggle { display: inline-block; margin: 4px 6px 4px 0; padding: 4px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; user-select: none; color: white; font-size: 11px; }
   .toggle.active { background: #16a34a; border-color: #14532d; }
@@ -208,25 +232,29 @@ html = '''<!DOCTYPE html>
   .leg-tog.active   { background: #dc2626; border-color: #7f1d1d; }
   .orig-tog.active  { background: #b91c1c; border-color: #7f1d1d; }
   .web-tog.active   { background: #065f46; border-color: #064e3b; }
+  .debug-tog.active { background: #15803d; border-color: #14532d; }
   #frame-bar { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); padding: 8px 14px; background: rgba(0,0,0,0.7); border-radius: 6px; color: white; font-size: 13px; }
   #frame-bar select { background: #2d3748; color: white; border: 1px solid #4a5568; border-radius: 4px; padding: 4px 8px; font-size: 13px; margin-left: 8px; }
+  #frame-bar #frame-title { font-weight: bold; color: #fbbf24; margin-right: 8px; }
 </style>
 </head>
 <body>
 <div id="info">
-  <h1>Truss 3D V6 - centreline-intersection bolts</h1>
-  <p><b>Drag</b> rotate &middot; <b>Scroll</b> zoom &middot; <b>Right-drag</b> pan</p>
-  <p><span class="web">WEB HOLES</span> = simplified 3-hole cluster (Ø3.8 @ 17mm pitch) on each stick at every centreline crossing</p>
-  <p><span class="orig">Original BOLT HOLES</span> = FrameCAD's per-stick bolt pattern (toggle to compare)</p>
-  <p><span class="swage">SWAGE</span> &middot; <span class="lip">LIP NOTCH</span> &middot; <span class="leg">LEG NOTCH</span> &middot; cyan = INNER DIMPLE</p>
+  <h1 id="page-title">Truss 3D V6</h1>
+  <p><b>Drag</b> rotate, <b>Scroll</b> zoom, <b>Right-drag</b> pan</p>
+  <p><span class="web">WEB HOLES</span> = simplified 3-hole cluster (3xO3.8 @ 17mm pitch) = ONE rollformer fire on each stick at every centreline crossing</p>
+  <p><span class="orig">Original BOLT HOLES</span> = FrameCAD's per-stick bolt pattern (toggle to compare; same 3-hole cluster, just at different positions)</p>
+  <p><span class="swage">SWAGE</span>, <span class="lip">LIP NOTCH</span>, <span class="leg">LEG NOTCH</span>, cyan = INNER DIMPLE</p>
 </div>
 <div id="frame-bar">
+  <span id="frame-title">TN2-1</span>
   Frame: <select id="frame-select"></select>
 </div>
 <div id="stats"></div>
 <div class="controls">
   <span class="toggle active web-tog"  id="t-webholes">Simplified web holes</span>
   <span class="toggle orig-tog"        id="t-orig">Show original ops</span>
+  <span class="toggle debug-tog"       id="t-debug">CL-crossing markers</span>
   <span class="toggle active swage-tog" id="t-swages">Swages</span>
   <span class="toggle active lip-tog"   id="t-lipnotches">Lip notches</span>
   <span class="toggle active leg-tog"   id="t-legmarkers">Leg notches</span>
@@ -336,45 +364,89 @@ const dimpleMat = new THREE.MeshStandardMaterial({
   color: 0x06b6d4, metalness: 0.5, roughness: 0.4,
   emissive: 0x0e7490, emissiveIntensity: 0.3
 });
-// New-rule WEB HOLES = small dark green dots on the web face
-const webHoleMat = new THREE.MeshStandardMaterial({
-  color: 0x111827, metalness: 0.2, roughness: 0.6,
-  emissive: 0x0f766e, emissiveIntensity: 0.4
+// Hole interior - dark, double-sided so it reads as a hole, not a bump.
+const holeInteriorMat = new THREE.MeshBasicMaterial({
+  color: 0x0a0a0a,
+  side: THREE.DoubleSide
 });
-// Original BOLT HOLES = small red dots
-const origHoleMat = new THREE.MeshStandardMaterial({
-  color: 0x7f1d1d, metalness: 0.2, roughness: 0.6,
-  emissive: 0xb91c1c, emissiveIntensity: 0.4
+// Original-ops hole interior - dark red tint to differentiate visually
+const origHoleInteriorMat = new THREE.MeshBasicMaterial({
+  color: 0x3a0a0a,
+  side: THREE.DoubleSide
 });
+// Thin black ring on the web surface for the rim of each hole
+const holeRimMat = new THREE.MeshBasicMaterial({
+  color: 0x000000, side: THREE.DoubleSide
+});
+const origHoleRimMat = new THREE.MeshBasicMaterial({
+  color: 0x7f1d1d, side: THREE.DoubleSide
+});
+// Debug centreline-crossing dots: bright green, no shading
+const clCrossingMat = new THREE.MeshBasicMaterial({ color: 0x22c55e });
 
 // ---------- Group containers (rebuilt on every frame switch) ----------
 let sticksGroup, swagesGroup, lipMarkersGroup, legMarkersGroup, dimpleGroup, labelsGroup;
-let webHolesGroup, origHolesGroup;
+let webHolesGroup, origHolesGroup, debugGroup;
 let allRootGroups = [];
 
-const NOTCH_LEN = 12;
+const NOTCH_LEN    = 12;
 const LIPNOTCH_LEN = 12;
-const HOLE_PITCH = 17;        // mm between adjacent holes in the 3-hole cluster
-const HOLE_DIA = 3.8;         // hole Ø
-const ORIG_HOLE_DIA = 2.6;    // smaller red dot for original ops
+const HOLE_PITCH   = 17;     // mm between adjacent holes in the 3-hole cluster
+const HOLE_DIA     = 3.8;    // physical Ø3.8mm
+const HOLE_DEPTH   = 4;      // total cylinder length (sinks through web both sides)
+const WEB_T        = T;      // web thickness (0.75mm)
 
-// Build a single 3-hole cluster (centred on a stick local position).
-// Reused for WEB HOLES; for ORIG just one hole at the position.
-function makeWebCluster(material, pitch, count, dia, depth) {
+// Build a 3-hole cluster centred on a stick local position.
+//   - hole interior: short dark cylinder, axis along local X (perpendicular to web),
+//     sunk INTO the web so it visually reads as a hole, not a bump
+//   - rim: thin black ring (annulus) on the web surface around each hole
+//   - pitch direction: local Y (across the web, flange-to-flange)
+//   - both faces rendered (DoubleSide) so dark interior visible from either side
+function makeWebCluster(interiorMat, rimMat, pitch, count, dia) {
   const grp = new THREE.Group();
   const r = dia / 2;
-  // We render each hole as a short cylinder whose AXIS is along world-X
-  // (perpendicular to the web in profile coords, i.e. into the steel).
-  // The pitch direction is along world-Y (across the web from flange to flange).
+  // Hole rim slightly larger than hole; thin (10% wider radius, very thin annulus)
+  const rOuter = r + 0.6;
   for (let i = 0; i < count; i++) {
     const offsetY = (i - (count-1)/2) * pitch;
-    const cyl = new THREE.CylinderGeometry(r, r, depth, 16);
-    // Rotate so axis points along +X (the cylinder default axis is +Y).
-    cyl.rotateZ(Math.PI / 2);
-    const mesh = new THREE.Mesh(cyl, material);
-    mesh.position.set(depth/2 + 0.05, offsetY, 0);  // sit just proud of web face
-    mesh.castShadow = false;
-    grp.add(mesh);
+
+    // 1) Interior cylinder - short, sits centred on the web (sinks into it).
+    //    Total length HOLE_DEPTH is greater than web thickness so it pokes
+    //    out both faces and the interior is visible from any angle.
+    const cyl = new THREE.CylinderGeometry(r, r, HOLE_DEPTH, 20, 1, true);
+    cyl.rotateZ(Math.PI / 2);  // axis -> +X
+    const interior = new THREE.Mesh(cyl, interiorMat);
+    interior.position.set(0, offsetY, 0);     // CENTRED on web (no proud offset)
+    interior.castShadow = false;
+    interior.renderOrder = 2;                  // draw after the steel
+    grp.add(interior);
+
+    // 2) End caps - dark disks at each face so head-on it looks like a black hole
+    //    (the disks sit exactly at the web surfaces +T/2 and -T/2)
+    const capGeom = new THREE.CircleGeometry(r * 0.95, 20);
+    const capFront = new THREE.Mesh(capGeom, interiorMat);
+    capFront.rotation.y = Math.PI / 2;         // face +X
+    capFront.position.set(WEB_T/2 + 0.05, offsetY, 0);
+    capFront.renderOrder = 3;
+    grp.add(capFront);
+    const capBack = new THREE.Mesh(capGeom, interiorMat);
+    capBack.rotation.y = -Math.PI / 2;         // face -X
+    capBack.position.set(-WEB_T/2 - 0.05, offsetY, 0);
+    capBack.renderOrder = 3;
+    grp.add(capBack);
+
+    // 3) Rim ring on each face (thin annulus around hole)
+    const ringGeom = new THREE.RingGeometry(r, rOuter, 24);
+    const ringFront = new THREE.Mesh(ringGeom, rimMat);
+    ringFront.rotation.y = Math.PI / 2;
+    ringFront.position.set(WEB_T/2 + 0.06, offsetY, 0);
+    ringFront.renderOrder = 4;
+    grp.add(ringFront);
+    const ringBack = new THREE.Mesh(ringGeom, rimMat);
+    ringBack.rotation.y = -Math.PI / 2;
+    ringBack.position.set(-WEB_T/2 - 0.06, offsetY, 0);
+    ringBack.renderOrder = 4;
+    grp.add(ringBack);
   }
   return grp;
 }
@@ -389,11 +461,15 @@ function buildFrame(frameName) {
   const centre = F.centre;
   const extent = F.extent;
 
-  // Camera + lighting positioned for this frame
+  // Camera + lighting positioned for this frame.
+  // Reset camera every frame switch so very different frame sizes (TN2-1 ~ 4m
+  // vs U1-1 ~ 12m) all fit on screen out of the gate.
   camera.position.set(centre[0] + extent*0.7, centre[1] + extent*0.5, centre[2] + extent*0.7);
   camera.far = extent * 8;
   camera.updateProjectionMatrix();
   controls.target.set(centre[0], centre[1], centre[2]);
+  controls.update();
+
   sun.position.set(centre[0]+extent, centre[1]+extent*1.2, centre[2]+extent*0.8);
   sun.shadow.camera.left = -extent;
   sun.shadow.camera.right = extent;
@@ -416,22 +492,24 @@ function buildFrame(frameName) {
   labelsGroup     = new THREE.Group();
   webHolesGroup   = new THREE.Group();
   origHolesGroup  = new THREE.Group();
+  debugGroup      = new THREE.Group();
   origHolesGroup.visible = false;  // off by default
+  debugGroup.visible = false;      // off by default
   scene.add(sticksGroup, swagesGroup, lipMarkersGroup, legMarkersGroup,
-            dimpleGroup, labelsGroup, webHolesGroup, origHolesGroup);
+            dimpleGroup, labelsGroup, webHolesGroup, origHolesGroup, debugGroup);
   allRootGroups = [sticksGroup, swagesGroup, lipMarkersGroup, legMarkersGroup,
-                   dimpleGroup, labelsGroup, webHolesGroup, origHolesGroup];
+                   dimpleGroup, labelsGroup, webHolesGroup, origHolesGroup, debugGroup];
 
-  F.sticks.forEach(stick => {
+  F.sticks.forEach((stick, idx) => {
     const sx = stick.start[0], sy = stick.start[1], sz = stick.start[2];
     const ex = stick.end[0],   ey = stick.end[1],   ez = stick.end[2];
     const dx = ex-sx, dy = ey-sy, dz = ez-sz;
     const L = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
-    const opsOrig = F.ops_orig[stick.name] || [];
-    const opsSimp = F.ops_simp[stick.name] || [];
+    const opsOrig = F.ops_orig_by_idx[idx] || [];
+    const opsSimp = F.ops_simp_by_idx[idx] || [];
     // Use SIMPLIFIED ops as primary (they include the same SWAGE/LIP/LEG/DIMPLE
-    // — just the BOLT HOLES list differs). Fall back to orig if simplified missing.
+    // - just the BOLT HOLES list differs). Fall back to orig if simplified missing.
     const ops = opsSimp.length ? opsSimp : opsOrig;
 
     // Notch zones for segmented profile
@@ -478,7 +556,7 @@ function buildFrame(frameName) {
     const q1 = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), target);
     stickGroup.quaternion.copy(q1);
 
-    // Roll so the open side faces +Y world (lips up — V5 trick)
+    // Roll so the open side faces +Y world (lips up - V5 trick)
     const stickAxis = target.clone();
     const openWorld = new THREE.Vector3(1,0,0).applyQuaternion(q1);
     const desired = new THREE.Vector3(0,1,0);
@@ -537,30 +615,33 @@ function buildFrame(frameName) {
       }
     });
 
-    // ---------- Simplified WEB HOLES (3-hole clusters) ----------
-    // For each BOLT HOLES position in the SIMPLIFIED ops, render a 3-hole
-    // cluster centred at that stick-local Z. The cluster lives in the
-    // stick's local frame: pitch direction = local Y (across the web,
-    // flange-to-flange), depth direction = local X (into the web).
+    // ---------- Simplified WEB HOLES (3-hole clusters at CL crossings) ----------
     opsSimp.forEach(([tool, pos]) => {
       if (tool !== 'BOLT HOLES') return;
-      const cluster = makeWebCluster(webHoleMat, HOLE_PITCH, 3, HOLE_DIA, 4);
-      cluster.position.set(0, 0, pos);  // local: middle hole on centreline
+      const cluster = makeWebCluster(holeInteriorMat, holeRimMat, HOLE_PITCH, 3, HOLE_DIA);
+      cluster.position.set(0, 0, pos);  // local: cluster centre on the centreline
       stickGroup.add(cluster);
       webHolesGroup.add(cluster);
+
+      // Debug marker: bright green dot AT the centreline crossing the
+      // simplifier identified. The 3-hole cluster's middle hole should sit
+      // exactly here. If they're offset, we have a transform bug.
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(2.2, 10, 8),
+        clCrossingMat
+      );
+      dot.position.set(0, 0, pos);
+      stickGroup.add(dot);
+      debugGroup.add(dot);
     });
 
-    // ---------- Original BOLT HOLES (single small red dot per op) ----------
+    // ---------- Original BOLT HOLES (3-hole clusters too - same tool fires!) ----------
     opsOrig.forEach(([tool, pos]) => {
       if (tool !== 'BOLT HOLES') return;
-      const r = ORIG_HOLE_DIA / 2;
-      const cyl = new THREE.CylinderGeometry(r, r, 4, 12);
-      cyl.rotateZ(Math.PI / 2);
-      const mesh = new THREE.Mesh(cyl, origHoleMat);
-      // Single hole sits at the stick centreline at its local pos
-      mesh.position.set(2.05, 0, pos);
-      stickGroup.add(mesh);
-      origHolesGroup.add(mesh);
+      const cluster = makeWebCluster(origHoleInteriorMat, origHoleRimMat, HOLE_PITCH, 3, HOLE_DIA);
+      cluster.position.set(0, 0, pos);
+      stickGroup.add(cluster);
+      origHolesGroup.add(cluster);
     });
 
     // Label sprite
@@ -585,27 +666,53 @@ function buildFrame(frameName) {
   // Re-apply current toggle visibility (don't reset state on frame switch)
   applyToggleStates();
   updateStats(frameName);
+  // Update title
+  document.getElementById('frame-title').textContent = frameName;
+  document.getElementById('page-title').textContent = 'Truss 3D V6 - ' + frameName;
 }
 
 // ---------- Stats panel ----------
+// Format:
+//   Frame TN2-1
+//   Members: 11
+//   --
+//   Original:    55 fires (165 holes)
+//   Simplified:  30 fires (90 holes)
+//   Reduction:   -45%
+//   --
+//   All frames: 1462 -> 826 fires (-43%)
+//   3 physical OE3.8 holes per fire (Tool Stn 1)
 function updateStats(frameName) {
   const F = DATA.frames[frameName];
-  const orig = F.orig_bolt_count;
-  // Each simplified BOLT HOLES op renders 3 physical web holes in the cluster.
-  const simpClusters = F.simp_bolt_count;
-  const simpHoles = simpClusters * 3;
-  const delta = simpHoles - orig;
-  const pct = orig > 0 ? (100 * delta / orig) : 0;
-  let h = '<b>Frame ' + frameName + '</b><br>';
+  const oFires = F.orig_fires_csv;
+  const sFires = F.simp_fires_csv;
+  const oHoles = oFires * 3;
+  const sHoles = sFires * 3;
+  const redPct = oFires > 0 ? (100 * (sFires - oFires) / oFires) : 0;
+  const gO = DATA.global_orig_fires;
+  const gS = DATA.global_simp_fires;
+  const gPct = gO > 0 ? (100 * (gS - gO) / gO) : 0;
+
+  let h = '<div class="big"><b>Frame ' + frameName + '</b></div>';
   h += 'Members: ' + F.sticks.length + '<br>';
-  h += '<hr style="border-color:#4a5568;margin:6px 0">';
-  h += '<span style="color:#f87171">Original BOLT HOLES: ' + orig + '</span><br>';
-  h += '<span style="color:#34d399">Simplified clusters: ' + simpClusters + ' (' + simpHoles + ' holes)</span><br>';
-  const dSign = delta >= 0 ? '+' : '';
-  const dColor = delta >= 0 ? '#fbbf24' : '#34d399';
-  h += '<b style="color:' + dColor + '">Delta: ' + dSign + delta + ' holes (' + dSign + pct.toFixed(0) + '%)</b>';
-  h += '<hr style="border-color:#4a5568;margin:6px 0">';
-  h += '<span style="font-size:10px;color:#a8b9c7">Profile F37008 W089 F41-38<br>Pitch ' + HOLE_PITCH + 'mm &middot; &Oslash;' + HOLE_DIA + 'mm</span>';
+  h += '<hr>';
+  // Use literal Unicode chars for non-ASCII to avoid HTML-entity ambiguity.
+  // (Page is UTF-8, innerHTML accepts unicode directly.)
+  const NBSP = '\\u00A0';
+  const ARROW = '\\u2192';     // ->
+  const OSLASH = '\\u00D8';    // diameter symbol
+  h += '<span style="color:#f87171">Original:' + NBSP + NBSP + NBSP + oFires + ' fires (' + oHoles + ' holes)</span><br>';
+  h += '<span style="color:#34d399">Simplified: ' + sFires + ' fires (' + sHoles + ' holes)</span><br>';
+  const redColor = redPct < 0 ? '#34d399' : (redPct > 0 ? '#fbbf24' : '#a8b9c7');
+  const sign = redPct > 0 ? '+' : '';
+  h += '<b style="color:' + redColor + '">Reduction:' + NBSP + sign + redPct.toFixed(0) + '%</b>';
+  h += '<hr>';
+  h += '<div class="small">';
+  h += 'All ' + DATA.frame_names.length + ' frames: ' + gO + ' ' + ARROW + ' ' + gS + ' fires ';
+  const gSign = gPct > 0 ? '+' : '';
+  h += '(' + gSign + gPct.toFixed(0) + '%)<br>';
+  h += '3 physical ' + OSLASH + '3.8mm holes per fire (Tool Stn 1, 17mm pitch)';
+  h += '</div>';
   document.getElementById('stats').innerHTML = h;
 }
 
@@ -613,6 +720,7 @@ function updateStats(frameName) {
 const toggleState = {
   't-webholes':   true,
   't-orig':       false,
+  't-debug':      false,
   't-swages':     true,
   't-lipnotches': true,
   't-legmarkers': true,
@@ -625,6 +733,7 @@ const toggleState = {
 function applyToggleStates() {
   webHolesGroup.visible   = toggleState['t-webholes'];
   origHolesGroup.visible  = toggleState['t-orig'];
+  debugGroup.visible      = toggleState['t-debug'];
   swagesGroup.visible     = toggleState['t-swages'];
   lipMarkersGroup.visible = toggleState['t-lipnotches'];
   legMarkersGroup.visible = toggleState['t-legmarkers'];
@@ -643,7 +752,7 @@ function bindToggle(id) {
     applyToggleStates();
   });
 }
-['t-webholes','t-orig','t-swages','t-lipnotches','t-legmarkers',
+['t-webholes','t-orig','t-debug','t-swages','t-lipnotches','t-legmarkers',
  't-dimples','t-labels','t-bench','t-wireframe'].forEach(bindToggle);
 
 // ---------- Frame selector ----------
@@ -676,15 +785,19 @@ window.addEventListener('resize', () => {
 
 out = os.path.join(OUT_DIR, 'truss_3d_v6.html')
 open(out, 'w', encoding='utf-8').write(html)
-print(f'Wrote V6: {out}')
-print(f'Frames: {len(frame_names)}')
-print(f'Default: {default_frame}')
-print()
-print('Per-frame bolt counts (orig vs simplified clusters):')
+print('Wrote V6: ' + out)
+print('Frames: ' + str(len(frame_names)))
+print('Default: ' + default_frame)
+print('Global: orig=' + str(global_orig_fires) + ' fires (' + str(global_orig_fires*3) + ' holes)')
+print('        simp=' + str(global_simp_fires) + ' fires (' + str(global_simp_fires*3) + ' holes)')
+gpct = (100*(global_simp_fires-global_orig_fires)/global_orig_fires) if global_orig_fires else 0
+print('        reduction ' + ('%.1f' % gpct) + '%')
+print('')
+print('Per-frame fire counts (CSV truth):')
 for n in frame_names:
     b = frame_bundles[n]
-    orig = b['orig_bolt_count']
-    simp = b['simp_bolt_count']
-    holes = simp * 3
-    pct = (100*(orig-holes)/orig) if orig else 0
-    print(f'  {n:8s}  orig={orig:4d}  clusters={simp:3d}  holes={holes:4d}  ({pct:+.0f}%)')
+    o = b['orig_fires_csv']
+    s = b['simp_fires_csv']
+    p = (100*(s-o)/o) if o else 0
+    print('  ' + n.ljust(8) + '  orig=' + ('%4d' % o) + '  simp=' + ('%4d' % s) +
+          '  (' + ('%+.0f' % p) + '%)  -> ' + str(o*3) + ' vs ' + str(s*3) + ' holes')
