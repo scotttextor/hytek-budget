@@ -46,7 +46,8 @@
       "mcp__Claude_in_Chrome__resize_window",
       "PowerShell(Get-Process chrome -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -ne \"\" } | Select-Object Id, MainWindowTitle, @{N=\"Handle\";E={[int64]$_.MainWindowHandle}} | Format-Table -AutoSize -Wrap)",
       "PowerShell($out = & \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\find-pairs.ps1\"; $out | Out-File \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\pairs.json\" -Encoding utf8; Write-Host \"Written. Length: $\\($out.Length\\) bytes\")",
-      "PowerShell(& \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\cache-corpus.ps1\")"
+      "PowerShell(& \"C:\\\\Users\\\\Scott\\\\CLAUDE CODE\\\\hytek-rfy-codec\\\\scripts\\\\cache-corpus.ps1\")",
+      "PowerShell(Get-ChildItem \"Y:\\\\\\(17\\) 2026 HYTEK PROJECTS\\\\AKAM CONSTRUCTIONS\\\\HG260012 23 SPRINGWOOD ST TOWNHOUSES\\\\03 DETAILING\\\\03 FRAMECAD DETAILER\" -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.Extension -in @\\(\".sups\",\".frt\",\".fcp\",\".cfg\",\".ini\"\\) } | Select-Object FullName -First 10)"
     ]
   }
 }
