@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1450" viewBox="0 0 1700 1450" font-family="Segoe UI, Arial, sans-serif">
+<defs>
+<pattern id="boxhatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" fill="#fef3c7"/><line x1="0" y1="0" x2="0" y2="6" stroke="#d97706" stroke-width="0.6"/></pattern>
+<pattern id="steel" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-45)"><rect width="6" height="6" fill="#dbeafe"/><line x1="0" y1="0" x2="0" y2="6" stroke="#93c5fd" stroke-width="0.5"/></pattern>
+</defs>
+<rect width="1700" height="1450" fill="#f8fafc"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#1a202c">Dimple normalisation — ORIGINAL (FrameCAD) vs NORMALISED (HYTEK rules)</text>
+<text x="30" y="64" font-size="13" fill="#4a5568">Rules: first/last dimple >= 15mm from each end · max 400mm gap between adjacent dimples · CL-to-CL alignment preserved on every pair.</text>
+<text x="30" y="84" font-size="12" fill="#7c2d12"><tspan font-weight="700">Red text</tspan> = position violates rule (FrameCAD original).  <tspan font-weight="700" fill="#14532d">Green text</tspan> = compliant (after normalisation).</text>
+<rect x="1320" y="30" width="360" height="80" fill="white" stroke="#cbd5e0" rx="3"/>
+<rect x="1330" y="42" width="14" height="14" fill="url(#steel)" stroke="#1d4ed8"/>
+<text x="1350" y="54" font-size="11" fill="#1a202c">main chord (full length)</text>
+<rect x="1330" y="62" width="14" height="14" fill="url(#boxhatch)" stroke="#d97706"/>
+<text x="1350" y="74" font-size="11" fill="#1a202c">Box piece (clips on at boxed zone)</text>
+<circle cx="1337" cy="88" r="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="1337" cy="88" r="2.2" fill="#92400e"/>
+<text x="1350" y="92" font-size="11" fill="#1a202c">INNER DIMPLE (snap-fit)</text>
+<line x1="1520" y1="88" x2="1540" y2="88" stroke="#16a34a" stroke-width="1.4" stroke-dasharray="3 2"/>
+<text x="1545" y="92" font-size="11" fill="#1a202c">CL-to-CL alignment (clips together)</text>
+<text x="30" y="148" font-size="13" font-weight="700" fill="#1a202c">#1 — short box (300mm)</text>
+<rect x="120" y="190" width="1500" height="26" fill="url(#steel)" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="112" y="207.0" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1</text>
+<text x="1628" y="207.0" font-size="10" fill="#4a5568">8165mm</text>
+<line x1="900.7723398001176" y1="176" x2="900.7723398001176" y2="188" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="900.7723398001176" cy="176" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="952.2126690182245" y1="176" x2="952.2126690182245" y2="188" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="952.2126690182245" cy="176" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="901.6909171075837" cy="203.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="901.6909171075837" cy="203.0" r="2.5" fill="#92400e"/>
+<circle cx="951.2940917107584" cy="203.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="951.2940917107584" cy="203.0" r="2.5" fill="#92400e"/>
+<rect x="898.9351851851851" y="250" width="55.114638447971785" height="26" fill="url(#boxhatch)" stroke="#d97706" stroke-width="1.5"/>
+<text x="890.9351851851851" y="267.0" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1 (Box1)</text>
+<text x="962.0498236331568" y="267.0" font-size="10" fill="#4a5568">300mm</text>
+<line x1="900.7723398001175" y1="236" x2="900.7723398001175" y2="248" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="900.7723398001175" cy="236" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="952.2126690182245" y1="236" x2="952.2126690182245" y2="248" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="952.2126690182245" cy="236" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="901.6909171075837" cy="263.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="901.6909171075837" cy="263.0" r="2.5" fill="#92400e"/>
+<circle cx="951.2940917107583" cy="263.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="951.2940917107583" cy="263.0" r="2.5" fill="#92400e"/>
+<text x="900.7723398001175" y="222" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="952.2126690182245" y="222" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<line x1="901.6909171075837" y1="216" x2="901.6909171075837" y2="250" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="951.2940917107584" y1="216" x2="951.2940917107583" y2="250" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<text x="30" y="450.5" font-size="13" font-weight="700" fill="#1a202c">#2 — medium box (738mm) — adds 1 dimple to fit 400mm rule</text>
+<rect x="120" y="492.5" width="1500" height="26" fill="url(#steel)" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="112" y="509.5" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1</text>
+<text x="1628" y="509.5" font-size="10" fill="#4a5568">5522mm</text>
+<line x1="624.2925954765225" y1="478.5" x2="624.2925954765225" y2="490.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="624.2925954765225" cy="478.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="819.2738532857686" y1="478.5" x2="819.2738532857686" y2="490.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="819.2738532857686" cy="478.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="625.6507252412944" cy="505.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="625.6507252412944" cy="505.5" r="2.5" fill="#92400e"/>
+<circle cx="721.7845825109102" cy="505.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="721.7845825109102" cy="505.5" r="2.5" fill="#92400e"/>
+<circle cx="817.9184397805262" cy="505.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="817.9184397805262" cy="505.5" r="2.5" fill="#92400e"/>
+<text x="721.7832243811455" y="464.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">718mm gap</text>
+<rect x="621.5763359469786" y="552.5" width="200.4164931278634" height="26" fill="url(#boxhatch)" stroke="#d97706" stroke-width="1.5"/>
+<text x="613.5763359469786" y="569.5" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1 (Box1)</text>
+<text x="829.992829074842" y="569.5" font-size="10" fill="#4a5568">738mm</text>
+<line x1="624.2925954765225" y1="538.5" x2="624.2925954765225" y2="550.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="624.2925954765225" cy="538.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="819.2765695452981" y1="538.5" x2="819.2765695452981" y2="550.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="819.2765695452981" cy="538.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="625.6507252412944" cy="565.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="625.6507252412944" cy="565.5" r="2.5" fill="#92400e"/>
+<circle cx="721.7845825109102" cy="565.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="721.7845825109102" cy="565.5" r="2.5" fill="#92400e"/>
+<circle cx="817.9184397805262" cy="565.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="817.9184397805262" cy="565.5" r="2.5" fill="#92400e"/>
+<text x="624.2925954765225" y="524.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="819.2765695452981" y="524.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="721.7845825109102" y="524.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">718mm gap</text>
+<line x1="625.6507252412944" y1="518.5" x2="625.6507252412944" y2="552.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="721.7845825109102" y1="518.5" x2="721.7845825109102" y2="552.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="817.9184397805262" y1="518.5" x2="817.9184397805262" y2="552.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<text x="30" y="753.0" font-size="13" font-weight="700" fill="#1a202c">#3 — long top-chord box (1182mm) — adds 2 dimples</text>
+<rect x="120" y="795.0" width="1500" height="26" fill="url(#steel)" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="112" y="812.0" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-T5</text>
+<text x="1628" y="812.0" font-size="10" fill="#4a5568">2595mm</text>
+<line x1="297.3461373944609" y1="781.0" x2="297.3461373944609" y2="793.0" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="297.3461373944609" cy="781.0" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="968.9909480117609" y1="781.0" x2="968.9909480117609" y2="793.0" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="968.9909480117609" cy="781.0" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="300.23629966743863" cy="808.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="300.23629966743863" cy="808.0" r="2.5" fill="#92400e"/>
+<circle cx="522.1949819075841" cy="808.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="522.1949819075841" cy="808.0" r="2.5" fill="#92400e"/>
+<circle cx="744.1478838231836" cy="808.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="744.1478838231836" cy="808.0" r="2.5" fill="#92400e"/>
+<circle cx="966.1065660633291" cy="808.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="966.1065660633291" cy="808.0" r="2.5" fill="#92400e"/>
+<text x="633.1685427031109" y="767.0" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">1162mm gap</text>
+<rect x="291.5658128485054" y="855.0" width="683.211240033757" height="26" fill="url(#boxhatch)" stroke="#d97706" stroke-width="1.5"/>
+<text x="283.5658128485054" y="872.0" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-T5 (Box1)</text>
+<text x="982.7770528822624" y="872.0" font-size="10" fill="#4a5568">1182mm</text>
+<line x1="297.3461373944609" y1="841.0" x2="297.3461373944609" y2="853.0" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="297.3461373944609" cy="841.0" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="968.9967283363069" y1="841.0" x2="968.9967283363069" y2="853.0" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="968.9967283363069" cy="841.0" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="300.2362996674387" cy="868.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="300.2362996674387" cy="868.0" r="2.5" fill="#92400e"/>
+<circle cx="522.1949819075842" cy="868.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="522.1949819075842" cy="868.0" r="2.5" fill="#92400e"/>
+<circle cx="744.1478838231836" cy="868.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="744.1478838231836" cy="868.0" r="2.5" fill="#92400e"/>
+<circle cx="966.1065660633292" cy="868.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="966.1065660633292" cy="868.0" r="2.5" fill="#92400e"/>
+<text x="297.3461373944609" y="827.0" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="968.9967283363069" y="827.0" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="633.1714328653838" y="827.0" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">1162mm gap</text>
+<line x1="300.23629966743863" y1="821.0" x2="300.2362996674387" y2="855.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="522.1949819075841" y1="821.0" x2="522.1949819075842" y2="855.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="744.1478838231836" y1="821.0" x2="744.1478838231836" y2="855.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="966.1065660633291" y1="821.0" x2="966.1065660633292" y2="855.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<text x="30" y="1055.5" font-size="13" font-weight="700" fill="#1a202c">#4 — main chord with TWO boxes (Box1+Box2) — the hardest case</text>
+<rect x="120" y="1097.5" width="1500" height="26" fill="url(#steel)" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="112" y="1114.5" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1</text>
+<text x="1628" y="1114.5" font-size="10" fill="#4a5568">5509mm</text>
+<line x1="283.1967763599731" y1="1083.5" x2="283.1967763599731" y2="1095.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="283.1967763599731" cy="1083.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="548.1995897845461" y1="1083.5" x2="548.1995897845461" y2="1095.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="548.1995897845461" cy="1083.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="813.1996805401776" y1="1083.5" x2="813.1996805401776" y2="1095.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="813.1996805401776" cy="1083.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="1524.1457172417547" y1="1083.5" x2="1524.1457172417547" y2="1095.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="1524.1457172417547" cy="1083.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="1617.277331058392" y1="1083.5" x2="1617.277331058392" y2="1095.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="1617.277331058392" cy="1083.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="284.558110830777" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="284.558110830777" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="390.01524694607303" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="390.01524694607303" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="495.46966039242733" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="495.46966039242733" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="600.9267965077233" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="600.9267965077233" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="706.3812099540776" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="706.3812099540776" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="811.8383460693736" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="811.8383460693736" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="1525.5070517125587" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="1525.5070517125587" cy="1110.5" r="2.5" fill="#92400e"/>
+<circle cx="1615.9159965875883" cy="1110.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="1615.9159965875883" cy="1110.5" r="2.5" fill="#92400e"/>
+<text x="1617.277331058392" y="1069.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="415.6981830722596" y="1069.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">973mm gap</text>
+<text x="680.6996351623618" y="1069.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">973mm gap</text>
+<text x="1168.6726988909663" y="1069.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">2611mm gap</text>
+<rect x="280.4741074183653" y="1157.5" width="535.44824206342" height="26" fill="url(#boxhatch)" stroke="#d97706" stroke-width="1.5"/>
+<text x="272.4741074183653" y="1174.5" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1 (Box1)</text>
+<text x="823.9223494817853" y="1174.5" font-size="10" fill="#4a5568">1967mm</text>
+<line x1="283.1967763599731" y1="1143.5" x2="283.1967763599731" y2="1155.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="283.1967763599731" cy="1143.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="548.1968671156044" y1="1143.5" x2="548.1968671156044" y2="1155.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="548.1968671156044" cy="1143.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="813.1996805401775" y1="1143.5" x2="813.1996805401775" y2="1155.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="813.1996805401775" cy="1143.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="284.558110830777" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="284.558110830777" cy="1170.5" r="2.5" fill="#92400e"/>
+<circle cx="390.015246946073" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="390.015246946073" cy="1170.5" r="2.5" fill="#92400e"/>
+<circle cx="495.46966039242733" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="495.46966039242733" cy="1170.5" r="2.5" fill="#92400e"/>
+<circle cx="600.9267965077233" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="600.9267965077233" cy="1170.5" r="2.5" fill="#92400e"/>
+<circle cx="706.3812099540776" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="706.3812099540776" cy="1170.5" r="2.5" fill="#92400e"/>
+<circle cx="811.8383460693736" cy="1170.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="811.8383460693736" cy="1170.5" r="2.5" fill="#92400e"/>
+<text x="283.1967763599731" y="1129.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="813.1996805401775" y="1129.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="415.6968217377888" y="1129.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">973mm gap</text>
+<text x="680.698273827891" y="1129.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">973mm gap</text>
+<line x1="284.558110830777" y1="1123.5" x2="284.558110830777" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="390.01524694607303" y1="1123.5" x2="390.015246946073" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="495.46966039242733" y1="1123.5" x2="495.46966039242733" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="600.9267965077233" y1="1123.5" x2="600.9267965077233" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="706.3812099540776" y1="1123.5" x2="706.3812099540776" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="811.8383460693736" y1="1123.5" x2="811.8383460693736" y2="1157.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<rect x="1521.423048300147" y="1232.5" width="98.57695169985297" height="26" fill="url(#boxhatch)" stroke="#d97706" stroke-width="1.5"/>
+<text x="1513.423048300147" y="1249.5" text-anchor="end" font-size="11" fill="#1a202c" font-weight="600">1-B1 (Box2)</text>
+<text x="1628.0" y="1249.5" font-size="10" fill="#4a5568">362mm</text>
+<line x1="1524.145717241755" y1="1218.5" x2="1524.145717241755" y2="1230.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="1524.145717241755" cy="1218.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<line x1="1617.277331058392" y1="1218.5" x2="1617.277331058392" y2="1230.5" stroke="#dc2626" stroke-width="1" opacity="0.5"/>
+<circle cx="1617.277331058392" cy="1218.5" r="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" opacity="0.6"/>
+<circle cx="1525.5070517125587" cy="1245.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="1525.5070517125587" cy="1245.5" r="2.5" fill="#92400e"/>
+<circle cx="1615.9159965875883" cy="1245.5" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="1615.9159965875883" cy="1245.5" r="2.5" fill="#92400e"/>
+<text x="1524.145717241755" y="1204.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<text x="1617.277331058392" y="1204.5" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700">10mm</text>
+<line x1="1525.5070517125587" y1="1123.5" x2="1525.5070517125587" y2="1232.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<line x1="1615.9159965875883" y1="1123.5" x2="1615.9159965875883" y2="1232.5" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+<rect x="30" y="1390" width="1640" height="40" fill="#f0fdf4" stroke="#16a34a" rx="3"/>
+<text x="45" y="1408" font-size="13" fill="#14532d"><tspan font-weight="700">All 10 box pieces in this job normalised:</tspan> 15mm engagement margins · max 400mm gaps · CL-to-CL match preserved on every pair.</text>
+<text x="45" y="1424" font-size="11" fill="#14532d">Configurable via --dimple-margin (default 15mm) and --dimple-max-gap (default 400mm). In production: editor settings, not CLI.</text>
+</svg>
