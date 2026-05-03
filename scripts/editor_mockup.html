@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HYTEK ITM — Engineering Rules editor (mockup)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: #f1f5f9;
+    color: #1a202c;
+  }
+  .topbar {
+    background: linear-gradient(180deg, #231F20 0%, #2a2625 100%);
+    color: #FFCB05;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 3px solid #FFCB05;
+  }
+  .topbar h1 { margin: 0; font-size: 20px; font-weight: 700; }
+  .topbar .crumb { color: rgba(255,203,5,0.6); font-size: 13px; }
+  .topbar .crumb::before { content: "›"; margin-right: 8px; }
+  .container {
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1700px;
+    margin: 0 auto;
+  }
+  .panel {
+    background: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .panel h2 {
+    margin: 0;
+    padding: 14px 18px;
+    background: #fafaf8;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 16px;
+  }
+  .panel .body { padding: 18px; }
+  .panel .footer {
+    padding: 14px 18px;
+    background: #fafaf8;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .field .help {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  input[type=number] {
+    width: 100px;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  input[type=number]:focus {
+    outline: none;
+    border-color: #FFCB05;
+    box-shadow: 0 0 0 3px rgba(255,203,5,0.2);
+  }
+  .unit { color: #6b7280; font-size: 13px; }
+  .scope-pills {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .scope-pills label {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    background: white;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .scope-pills input[type=radio] { display: none; }
+  .scope-pills input[type=radio]:checked + span {
+    color: #1a202c;
+    font-weight: 700;
+  }
+  .scope-pills label:has(input:checked) {
+    background: #FFCB05;
+    border-color: #d1a604;
+  }
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .toggle input { margin: 0; }
+  .toggle .toggle-label { font-size: 13px; font-weight: 600; }
+  .toggle .toggle-help { font-size: 11px; color: #6b7280; margin-top: 2px; }
+  button {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .btn-primary { background: #FFCB05; color: #231F20; border-color: #d1a604; }
+  .btn-primary:hover { background: #f0c000; }
+  .btn-secondary { background: white; color: #4a5568; border-color: #cbd5e0; }
+  .btn-secondary:hover { background: #f8fafc; }
+  .preview-stick {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 14px;
+    margin-bottom: 14px;
+    background: #fafbfc;
+  }
+  .preview-stick .stick-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .preview-stick .stick-meta {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 12px;
+  }
+  .stick-bar-container {
+    margin: 12px 0 8px;
+  }
+  .stick-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .stick-bar-row .label {
+    width: 80px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: right;
+  }
+  .stick-bar-row.original .label { color: #dc2626; }
+  .stick-bar-row.normalised .label { color: #16a34a; }
+  .stick-bar {
+    flex: 1;
+    height: 26px;
+    position: relative;
+    border: 1.5px solid;
+    border-radius: 2px;
+    background-image: repeating-linear-gradient(45deg, #fef3c7, #fef3c7 2px, #fde68a 2px, #fde68a 4px);
+  }
+  .stick-bar.original { border-color: #dc2626; }
+  .stick-bar.normalised { border-color: #16a34a; }
+  .dimple {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1.8px solid;
+  }
+  .dimple.original { background: #fee2e2; border-color: #dc2626; }
+  .dimple.normalised { background: #fbbf24; border-color: #92400e; }
+  .stick-bar .end-label {
+    position: absolute;
+    bottom: -16px;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .summary-row {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e2e8f0;
+  }
+  .summary-row .pill {
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: #f1f5f9;
+    color: #4a5568;
+    font-family: 'Consolas', monospace;
+  }
+  .summary-row .pill.fail { background: #fee2e2; color: #7f1d1d; font-weight: 700; }
+  .summary-row .pill.pass { background: #dcfce7; color: #14532d; font-weight: 700; }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge.preview { background: #fef3c7; color: #92400e; border: 1px solid #d97706; }
+  .footer-note {
+    font-size: 11px;
+    color: #6b7280;
+    padding: 12px 18px;
+    background: #fafaf8;
+    border-top: 1px solid #e2e8f0;
+    border-radius: 0 0 6px 6px;
+  }
+  .stat-strip {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    padding: 12px 18px;
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+  }
+  .stat-strip .stat .num { font-size: 18px; font-weight: 700; color: #1a202c; }
+  .stat-strip .stat .label { color: #6b7280; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="crumb">hytek-itm</span>
+  <span class="crumb">Settings</span>
+  <h1>Engineering Rules</h1>
+</div>
+
+<div class="container">
+
+  <!-- LEFT: settings panel -->
+  <div class="panel">
+    <h2>Dimple normalisation</h2>
+    <div class="body">
+
+      <div class="field">
+        <label>Scope</label>
+        <div class="scope-pills">
+          <label><input type="radio" name="scope" value="global"><span>Global default</span></label>
+          <label><input type="radio" name="scope" value="plan" checked><span>This plan only</span></label>
+          <label><input type="radio" name="scope" value="job"><span>This job only</span></label>
+        </div>
+        <div class="help">Lower scope overrides higher scope. Job > Plan > Global.</div>
+      </div>
+
+      <div class="field">
+        <label>End margin</label>
+        <div class="input-row">
+          <input type="number" id="margin" min="5" max="50" step="0.5" value="15" />
+          <span class="unit">mm minimum from each end of Box piece to first/last dimple</span>
+        </div>
+        <div class="help">FrameCAD's default is 10mm. HYTEK rule is 15mm. Range 5-50mm.</div>
+      </div>
+
+      <div class="field">
+        <label>Maximum gap between dimples</label>
+        <div class="input-row">
+          <input type="number" id="maxgap" min="100" max="800" step="10" value="400" />
+          <span class="unit">mm maximum between adjacent dimples</span>
+        </div>
+        <div class="help">Bigger gap = fewer dimples but weaker clip-fit. Smaller = more dimples but stronger.</div>
+      </div>
+
+      <div class="toggle">
+        <input type="checkbox" id="enabled" checked />
+        <div>
+          <div class="toggle-label">Apply dimple normalisation</div>
+          <div class="toggle-help">If off, FrameCAD's original dimples are kept as-is.</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="num" id="stat-pieces">10</div>
+        <div class="label">Box pieces in current job</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="stat-changed">10</div>
+        <div class="label">Will be modified</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="stat-dimples">+22</div>
+        <div class="label">Net dimples added/removed</div>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="btn-secondary">Reset to defaults</button>
+      <button class="btn-primary">Save settings</button>
+    </div>
+    <div class="footer-note">Settings flow through to RFY/CSV generation. Live preview updates as you change values — no need to re-run the bundle.</div>
+  </div>
+
+  <!-- RIGHT: live preview -->
+  <div class="panel">
+    <h2>Live preview <span class="badge preview" style="margin-left: 10px;">UPDATES AS YOU TYPE</span></h2>
+    <div class="body" id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+// Sample boxes from the actual job
+const SAMPLES = [
+  { name: 'U3-1-B1 (Box1)',   length: 300.0,  origDimples: [10.0, 290.0],          desc: 'Short box (300mm) — 1 gap' },
+  { name: 'U4-1-B1 (Box1)',   length: 737.8,  origDimples: [10.0, 727.8],          desc: 'Medium box — 738mm — original 1 gap of 718mm violates 400mm rule' },
+  { name: 'U1-1-T5 (Box1)',  length: 1182.0, origDimples: [10.0, 1172.0],          desc: 'Long top-chord box — 1182mm — 1162mm gap = 3× over rule' },
+  { name: 'U1-1-B1 (Box1)',  length: 1966.6, origDimples: [10.0, 983.3, 1956.6],   desc: 'Longest box — 1967mm — twin 973mm gaps both violate' },
+];
+
+function computeDimples(length, margin, maxGap) {
+  const usable = length - 2 * margin;
+  if (usable <= 0) return [length / 2];
+  const nGaps = Math.max(1, Math.ceil(usable / maxGap));
+  const spacing = usable / nGaps;
+  const dimples = [];
+  for (let i = 0; i <= nGaps; i++) {
+    dimples.push(Math.round((margin + i * spacing) * 100) / 100);
+  }
+  return dimples;
+}
+
+function checkRules(length, dimples, margin, maxGap) {
+  const issues = [];
+  if (dimples.length === 0) return ['no dimples'];
+  if (dimples[0] < margin - 0.01) issues.push(`start margin ${dimples[0].toFixed(1)}mm < ${margin}mm`);
+  const endMargin = length - dimples[dimples.length - 1];
+  if (endMargin < margin - 0.01) issues.push(`end margin ${endMargin.toFixed(1)}mm < ${margin}mm`);
+  for (let i = 0; i < dimples.length - 1; i++) {
+    const gap = dimples[i+1] - dimples[i];
+    if (gap > maxGap + 0.01) issues.push(`gap ${gap.toFixed(0)}mm > ${maxGap}mm`);
+  }
+  return issues;
+}
+
+function renderStick(sample, margin, maxGap) {
+  const newDimples = computeDimples(sample.length, margin, maxGap);
+  const origIssues = checkRules(sample.length, sample.origDimples, margin, maxGap);
+  const newIssues = checkRules(sample.length, newDimples, margin, maxGap);
+
+  const dimplePill = (dims) => dims.map(d => d.toFixed(1)).join(', ');
+
+  const dimpleHtml = (dims, cls) => dims.map(d =>
+    `<div class="dimple ${cls}" style="left: ${(d / sample.length) * 100}%"></div>`
+  ).join('');
+
+  return `
+    <div class="preview-stick">
+      <div class="stick-name">${sample.name}</div>
+      <div class="stick-meta">${sample.desc}</div>
+      <div class="stick-bar-container">
+        <div class="stick-bar-row original">
+          <div class="label">ORIGINAL</div>
+          <div class="stick-bar original">
+            ${dimpleHtml(sample.origDimples, 'original')}
+            <div class="end-label" style="left: 0%; bottom: -14px;">0</div>
+            <div class="end-label" style="left: 100%; bottom: -14px;">${sample.length.toFixed(0)}</div>
+          </div>
+        </div>
+        <div class="stick-bar-row normalised">
+          <div class="label">NORMALISED</div>
+          <div class="stick-bar normalised">
+            ${dimpleHtml(newDimples, 'normalised')}
+          </div>
+        </div>
+      </div>
+      <div class="summary-row">
+        <span class="pill">${sample.origDimples.length}→${newDimples.length} dimples</span>
+        <span class="pill ${origIssues.length ? 'fail' : 'pass'}">Original: ${origIssues.length ? origIssues.join(' · ') : 'PASS'}</span>
+        <span class="pill ${newIssues.length ? 'fail' : 'pass'}">Normalised: ${newIssues.length ? newIssues.join(' · ') : 'PASS'}</span>
+      </div>
+      <div class="summary-row">
+        <span class="pill">positions: [${dimplePill(newDimples)}]</span>
+      </div>
+    </div>
+  `;
+}
+
+function refresh() {
+  const margin = parseFloat(document.getElementById('margin').value) || 15;
+  const maxgap = parseFloat(document.getElementById('maxgap').value) || 400;
+  const enabled = document.getElementById('enabled').checked;
+  const previewEl = document.getElementById('preview');
+
+  if (!enabled) {
+    previewEl.innerHTML = '<div style="padding: 30px; text-align: center; color: #6b7280;">Dimple normalisation is OFF. FrameCAD originals will be kept (10mm margins, large gaps).</div>';
+    document.getElementById('stat-changed').textContent = '0';
+    document.getElementById('stat-dimples').textContent = '0';
+    return;
+  }
+
+  previewEl.innerHTML = SAMPLES.map(s => renderStick(s, margin, maxgap)).join('');
+
+  // Update stats
+  let totalDimplesOld = 0, totalDimplesNew = 0;
+  SAMPLES.forEach(s => {
+    totalDimplesOld += s.origDimples.length;
+    totalDimplesNew += computeDimples(s.length, margin, maxgap).length;
+  });
+  // Multiply by job-wide ratio (roughly 2.5x for the rest of the job)
+  const delta = totalDimplesNew - totalDimplesOld;
+  document.getElementById('stat-changed').textContent = SAMPLES.length;
+  document.getElementById('stat-dimples').textContent = (delta >= 0 ? '+' : '') + delta;
+}
+
+document.getElementById('margin').addEventListener('input', refresh);
+document.getElementById('maxgap').addEventListener('input', refresh);
+document.getElementById('enabled').addEventListener('change', refresh);
+
+refresh();
+</script>
+
+</body>
+</html>
