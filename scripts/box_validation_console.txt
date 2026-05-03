@@ -1,0 +1,41 @@
+================================================================================
+HYTEK Linear-Truss simplifier with --check-boxes validation
+================================================================================
+
+STEP 1 — 4-layer detection per frame (existing audit log):
+--------------------------------------------------------------------------------
+  TN1-1 ... TN1-8         APPLY     all 4 layers passed
+  TN2-1 ... TN2-6         APPLY     all 4 layers passed
+  TT1-1 ... TT4-1         APPLY     all 4 layers passed
+  U1-1 ... U4-1           APPLY     all 4 layers passed
+  Applied: 22 frames, Skipped: 0
+
+STEP 2 — BOX VALIDATION (new):
+--------------------------------------------------------------------------------
+  Detected 10 chord+Box pairs across the job:
+
+  Main stick              Length Box piece               Length Gap match      Engagement   Status
+  ------------------------------------------------------------------------------------------------
+  TT2-1-B1                8151.9 TT2-1-B1 (Box1)          300.0 258.1=258.1mm  10mm/32mm    FAIL: engagement margin large (start 10.0mm, end 31.899999999999977mm — typical 10mm)
+  TT3-1-B1                8164.9 TT3-1-B1 (Box1)          300.0 280.0=280.0mm  10mm/10mm    CLIP OK
+  TT4-1-B1                8151.9 TT4-1-B1 (Box1)          300.0 258.1=258.1mm  10mm/32mm    FAIL: engagement margin large (start 10.0mm, end 31.899999999999977mm — typical 10mm)
+  U1-1-B1                 5509.3 U1-1-B1 (Box1)          1966.6 973.3=973.3mm  10mm/10mm    FAIL: dimple count mismatch (5 on main vs 3 on Box)
+  U1-1-B1                 5509.3 U1-1-B1 (Box2)           362.1 973.3vs342.1   10mm/10mm    FAIL: dimple count mismatch (5 on main vs 2 on Box); dimple gap mismatch (main 973.3mm vs Box 342.1mm)
+  U1-1-H8                 1461.8 U1-1-H8 (Box1)           622.3 602.3=602.3mm  10mm/10mm    CLIP OK
+  U1-1-T5                 2595.0 U1-1-T5 (Box1)          1182.0 1162.0=1162.0mm 10mm/10mm    CLIP OK
+  U2-1-B1                 8151.8 U2-1-B1 (Box1)           300.0 280.0=280.0mm  10mm/10mm    CLIP OK
+  U3-1-B1                 8164.8 U3-1-B1 (Box1)           300.0 280.0=280.0mm  10mm/10mm    CLIP OK
+  U4-1-B1                 5522.3 U4-1-B1 (Box1)           737.8 717.8=717.8mm  10mm/10mm    CLIP OK
+
+--------------------------------------------------------------------------------
+  WARNING: 4 box pairs have issues — review above.
+
+STEP 3 — CSV/RFY simplification (existing):
+--------------------------------------------------------------------------------
+  Original BOLT HOLES: 1462
+  Simplified:           826
+  Reduction:           -636 (-43.5%)
+
+Output:
+  C:\...\2603191-GF-LIN-89.075.simplified.csv
+  C:\...\2603191-GF-LIN-89.075.simplified.rfy

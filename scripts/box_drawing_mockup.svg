@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="700" viewBox="0 0 1900 700" font-family="Segoe UI, Arial, sans-serif">
+<defs>
+<pattern id="box-zone" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fef3c7"/><line x1="0" y1="0" x2="0" y2="8" stroke="#d97706" stroke-width="1"/></pattern>
+<pattern id="steel" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-45)"><rect width="6" height="6" fill="#dbeafe"/><line x1="0" y1="0" x2="0" y2="6" stroke="#93c5fd" stroke-width="0.6"/></pattern>
+</defs>
+<rect width="1900" height="700" fill="#f8fafc"/>
+<text x="50" y="40" font-size="20" font-weight="700" fill="#1a202c">U3-1 / B1 — boxed-zone callout (factory shop drawing mockup)</text>
+<text x="50" y="62" font-size="13" fill="#4a5568">8164.8mm bottom chord with B1(Box1) clip-on at the high-shear web cluster (W14 area)</text>
+<rect x="50" y="220" width="1800.0" height="36" fill="url(#steel)" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="60" y="242.0" font-size="13" fill="#1d4ed8" font-weight="600">B1</text>
+<line x1="50" y1="206" x2="1850.0" y2="206" stroke="#374151" stroke-width="0.8"/>
+<text x="950.0" y="202" text-anchor="middle" font-size="11" fill="#374151">8164.8 mm</text>
+<rect x="984.7222222222221" y="212" width="66.13756613756607" height="52" fill="url(#box-zone)" stroke="#d97706" stroke-width="2.5" stroke-dasharray="6 3" opacity="0.85"/>
+<text x="1017.7910052910051" y="130" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">⚠ BOX HERE</text>
+<text x="1017.7910052910051" y="148" text-anchor="middle" font-size="12" fill="#92400e">Insert B1(Box1) — 300mm clip-on</text>
+<text x="1017.7910052910051" y="164" text-anchor="middle" font-size="11" fill="#92400e">Snap-fit at dimples 4249.9 / 4529.9</text>
+<line x1="1017.7910052910051" y1="168" x2="1017.7910052910051" y2="208" stroke="#92400e" stroke-width="1.5" marker-end="url(#a)"/>
+<circle cx="986.926807760141" cy="238.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.8"/>
+<circle cx="986.926807760141" cy="238.0" r="2.5" fill="#92400e"/>
+<circle cx="1048.6552028218694" cy="238.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.8"/>
+<circle cx="1048.6552028218694" cy="238.0" r="2.5" fill="#92400e"/>
+<line x1="59.810405643738974" y1="216" x2="59.810405643738974" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="59.810405643738974" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="105.7010582010582" y1="216" x2="105.7010582010582" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="105.7010582010582" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="497.26631393298055" y1="216" x2="497.26631393298055" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="497.26631393298055" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="888.447971781305" y1="216" x2="888.447971781305" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="888.447971781305" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="919.3827160493827" y1="216" x2="919.3827160493827" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="919.3827160493827" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="946.7416225749558" y1="216" x2="946.7416225749558" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="946.7416225749558" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1017.7910052910051" y1="216" x2="1017.7910052910051" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1017.7910052910051" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1054.9096119929454" y1="216" x2="1054.9096119929454" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1054.9096119929454" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1340.652557319224" y1="216" x2="1340.652557319224" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1340.652557319224" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1624.4929453262785" y1="216" x2="1624.4929453262785" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1624.4929453262785" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1663.7103174603174" y1="216" x2="1663.7103174603174" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1663.7103174603174" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1784.0652557319224" y1="216" x2="1784.0652557319224" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1784.0652557319224" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="1833.0930335097" y1="216" x2="1833.0930335097" y2="222" stroke="#475569" stroke-width="1"/>
+<circle cx="1833.0930335097" cy="214" r="1.8" fill="#16a34a"/>
+<line x1="986.926807760141" y1="260" x2="986.926807760141" y2="274" stroke="#92400e" stroke-width="0.8"/>
+<text x="986.926807760141" y="288" text-anchor="middle" font-size="10" fill="#92400e">4249.9</text>
+<line x1="1048.6552028218694" y1="260" x2="1048.6552028218694" y2="274" stroke="#92400e" stroke-width="0.8"/>
+<text x="1048.6552028218694" y="288" text-anchor="middle" font-size="10" fill="#92400e">4529.9</text>
+<rect x="898.7654320987654" y="420" width="66.13756613756614" height="36" fill="url(#box-zone)" stroke="#d97706" stroke-width="2"/>
+<text x="908.7654320987654" y="442.0" font-size="11" fill="#92400e" font-weight="600">B1(Box1)</text>
+<circle cx="900.9700176366842" cy="438.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.8"/>
+<circle cx="900.9700176366842" cy="438.0" r="2.5" fill="#92400e"/>
+<circle cx="962.6984126984127" cy="438.0" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.8"/>
+<circle cx="962.6984126984127" cy="438.0" r="2.5" fill="#92400e"/>
+<text x="931.8342151675485" y="408" text-anchor="middle" font-size="11" fill="#92400e" font-weight="600">300mm clip-on (B1 Box1) — dimples at 10 / 290</text>
+<line x1="986.926807760141" y1="294" x2="900.9700176366842" y2="416" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+<line x1="1048.6552028218694" y1="294" x2="962.6984126984127" y2="416" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+<text x="50" y="486" font-size="11" fill="#16a34a" font-weight="600">Green dashes show clip-fit alignment: Box piece dimples meet B1 dimples = box snaps closed</text>
+<rect x="50" y="610" width="1800" height="70" fill="white" stroke="#cbd5e0" rx="3"/>
+<text x="65" y="632" font-size="13" font-weight="700" fill="#1a202c">Factory operator instructions:</text>
+<text x="65" y="652" font-size="12" fill="#374151">1. Lay B1 main chord on bench  ·  2. Slide B1(Box1) into the orange-hatched zone  ·  3. Push until dimples snap (you'll feel the click)</text>
+<text x="65" y="670" font-size="12" fill="#374151">4. Verify both pairs of dimples are engaged  ·  5. Continue with web placement (green dots = web positions on B1)</text>
+</svg>
