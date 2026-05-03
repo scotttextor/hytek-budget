@@ -220,8 +220,8 @@ def render_truss_panel(sticks, title, subtitle, panel_w, panel_h, x0, y0,
     out.append(f'<rect x="{x0+10}" y="{sum_y - 4}" width="380" height="34" fill="white" opacity="0.85" rx="3"/>')
     out.append(
         f'<text x="{x0+18}" y="{sum_y + 12}" font-size="11" font-weight="600" fill="#1a202c">'
-        f'Sticks: {len(sticks)}  ·  Bolt holes: {op_count["bolt"]}  ·  Dimples: {op_count["dimple"]}  '
-        f'·  Notches: {op_count["notch"]}  ·  Swages: {op_count["swage"]}'
+        f'Sticks: {len(sticks)}  |  Bolt holes: {op_count["bolt"]}  |  Dimples: {op_count["dimple"]}  '
+        f'|  Notches: {op_count["notch"]}  |  Swages: {op_count["swage"]}'
         f'</text>'
     )
     return out
@@ -254,15 +254,15 @@ def main():
     svg.append(f'<rect width="{PAGE_W}" height="{PAGE_H}" fill="#f8fafc"/>')
 
     # Header
-    svg.append(f'<text x="20" y="32" font-size="20" font-weight="800" fill="#1a202c">HYTEK Linear Truss — full-truss simplifier diff (ENGINEERING REVIEW)</text>')
-    svg.append(f'<text x="20" y="54" font-size="13" fill="#4a5568">Job <tspan font-weight="700">2603191 ROCKVILLE TH-TYPE-A1-LT</tspan> · plan <tspan font-weight="700">GF-LIN-89.075</tspan> · truss <tspan font-weight="700">{args.truss}</tspan> · profile 89×41 lipped C 0.75mm AZ150</text>')
-    svg.append(f'<text x="20" y="74" font-size="12" fill="#1f2937">Legend: <tspan fill="#1e40af" font-weight="700">━━ chord</tspan>  <tspan fill="#475569" font-weight="700">━━ web</tspan>  <tspan fill="#fbbf24" font-weight="700">┅┅ Box piece</tspan>  <tspan fill="#dc2626" font-weight="700">● bolt hole (orig)</tspan>  <tspan fill="#2563eb" font-weight="700">● bolt hole (simp)</tspan>  <tspan fill="#d97706" font-weight="700">◆ dimple (orig)</tspan>  <tspan fill="#16a34a" font-weight="700">◆ dimple (simp)</tspan>  <tspan fill="#a78bfa" font-weight="700">· notch</tspan>  <tspan fill="#94a3b8" font-weight="700">· swage</tspan></text>')
+    svg.append(f'<text x="20" y="32" font-size="20" font-weight="800" fill="#1a202c">HYTEK Linear Truss - full-truss simplifier diff (ENGINEERING REVIEW)</text>')
+    svg.append(f'<text x="20" y="54" font-size="13" fill="#4a5568">Job <tspan font-weight="700">2603191 ROCKVILLE TH-TYPE-A1-LT</tspan> | plan <tspan font-weight="700">GF-LIN-89.075</tspan> | truss <tspan font-weight="700">{args.truss}</tspan> | profile 89x41 lipped C 0.75mm AZ150</text>')
+    svg.append(f'<text x="20" y="74" font-size="12" fill="#1f2937">Legend: <tspan fill="#1e40af" font-weight="700">==== chord</tspan>  <tspan fill="#475569" font-weight="700">==== web</tspan>  <tspan fill="#fbbf24" font-weight="700">---- Box piece</tspan>  <tspan fill="#dc2626" font-weight="700">o bolt hole (orig)</tspan>  <tspan fill="#2563eb" font-weight="700">o bolt hole (simp)</tspan>  <tspan fill="#d97706" font-weight="700">[+] dimple (orig)</tspan>  <tspan fill="#16a34a" font-weight="700">[+] dimple (simp)</tspan>  <tspan fill="#a78bfa" font-weight="700">. notch</tspan>  <tspan fill="#94a3b8" font-weight="700">. swage</tspan></text>')
 
     # Top panel: ORIGINAL
     svg.extend(render_truss_panel(
         orig,
         title='FrameCAD ORIGINAL',
-        subtitle='offset-based BOLT HOLES — produced by FrameCAD Structure (BEFORE simplification)',
+        subtitle='offset-based BOLT HOLES - produced by FrameCAD Structure (BEFORE simplification)',
         panel_w=panel_w, panel_h=panel_h,
         x0=20, y0=HEADER_H,
         use_simplified_palette=False,
@@ -272,7 +272,7 @@ def main():
     svg.extend(render_truss_panel(
         simp,
         title='SIMPLIFIED OUTPUT',
-        subtitle='centreline-rule WEB HOLES at every chord↔web junction · normalised dimples (15mm margin, 400mm max gap) · W↔W skipped',
+        subtitle='centreline-rule WEB HOLES at every chord-web junction | normalised dimples (15mm margin, 900mm max gap) | W-W skipped',
         panel_w=panel_w, panel_h=panel_h,
         x0=20, y0=HEADER_H + panel_h + panel_gap,
         use_simplified_palette=True,
@@ -286,7 +286,7 @@ def main():
     s_dim   = sum(1 for s in simp for op,_ in s['ops'] if 'DIMPLE' in op.upper())
     svg.append(f'<rect x="20" y="{foot_y - 8}" width="{PAGE_W - 40}" height="{FOOTER_H - 24}" fill="#1f2937" rx="4"/>')
     svg.append(f'<text x="35" y="{foot_y + 12}" font-size="13" font-weight="700" fill="#fbbf24">DIFF SUMMARY · {args.truss}</text>')
-    svg.append(f'<text x="35" y="{foot_y + 32}" font-size="12" fill="white">Bolt holes: <tspan font-weight="700">{o_bolts} → {s_bolts}</tspan> ({s_bolts - o_bolts:+d})  ·  Dimples: <tspan font-weight="700">{o_dim} → {s_dim}</tspan> ({s_dim - o_dim:+d})  ·  Sticks: <tspan font-weight="700">{len(orig)} → {len(simp)}</tspan>  ·  Physical-fit ops (notches/swages/chamfers) preserved exactly</text>')
+    svg.append(f'<text x="35" y="{foot_y + 32}" font-size="12" fill="white">Bolt holes: <tspan font-weight="700">{o_bolts} -&gt; {s_bolts}</tspan> ({s_bolts - o_bolts:+d})  |  Dimples: <tspan font-weight="700">{o_dim} -&gt; {s_dim}</tspan> ({s_dim - o_dim:+d})  |  Sticks: <tspan font-weight="700">{len(orig)} -&gt; {len(simp)}</tspan>  |  Physical-fit ops (notches/swages/chamfers) preserved exactly</text>')
 
     svg.append('</svg>')
     out_path = os.path.join(OUT_DIR, args.out)

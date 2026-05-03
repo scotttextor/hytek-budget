@@ -286,7 +286,7 @@
       <div class="field">
         <label>Maximum gap between dimples</label>
         <div class="input-row">
-          <input type="number" id="maxgap" min="100" max="800" step="10" value="400" />
+          <input type="number" id="maxgap" min="100" max="1500" step="10" value="900" />
           <span class="unit">mm maximum between adjacent dimples</span>
         </div>
         <div class="help">Bigger gap = fewer dimples but weaker clip-fit. Smaller = more dimples but stronger.</div>
@@ -334,9 +334,9 @@
 // Sample boxes from the actual job
 const SAMPLES = [
   { name: 'U3-1-B1 (Box1)',   length: 300.0,  origDimples: [10.0, 290.0],          desc: 'Short box (300mm) — 1 gap' },
-  { name: 'U4-1-B1 (Box1)',   length: 737.8,  origDimples: [10.0, 727.8],          desc: 'Medium box — 738mm — original 1 gap of 718mm violates 400mm rule' },
-  { name: 'U1-1-T5 (Box1)',  length: 1182.0, origDimples: [10.0, 1172.0],          desc: 'Long top-chord box — 1182mm — 1162mm gap = 3× over rule' },
-  { name: 'U1-1-B1 (Box1)',  length: 1966.6, origDimples: [10.0, 983.3, 1956.6],   desc: 'Longest box — 1967mm — twin 973mm gaps both violate' },
+  { name: 'U4-1-B1 (Box1)',   length: 737.8,  origDimples: [10.0, 727.8],          desc: 'Medium box (738mm) — FrameCAD: 2 dimples, 1 gap of 718mm' },
+  { name: 'U1-1-T5 (Box1)',  length: 1182.0, origDimples: [10.0, 1172.0],          desc: 'Long top-chord box (1182mm) — FrameCAD: 2 dimples, 1 gap of 1162mm' },
+  { name: 'U1-1-B1 (Box1)',  length: 1966.6, origDimples: [10.0, 983.3, 1956.6],   desc: 'Longest box (1967mm) — FrameCAD: 3 dimples, two ~973mm gaps' },
 ];
 
 function computeDimples(length, margin, maxGap) {
@@ -409,7 +409,7 @@ function renderStick(sample, margin, maxGap) {
 
 function refresh() {
   const margin = parseFloat(document.getElementById('margin').value) || 15;
-  const maxgap = parseFloat(document.getElementById('maxgap').value) || 400;
+  const maxgap = parseFloat(document.getElementById('maxgap').value) || 900;
   const enabled = document.getElementById('enabled').checked;
   const previewEl = document.getElementById('preview');
 
