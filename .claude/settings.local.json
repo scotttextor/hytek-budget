@@ -53,7 +53,8 @@
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:1947/_int_/devices.html\" -UseBasicParsing -TimeoutSec 5; Write-Output \"Sentinel ACC reachable: HTTP $\\($r.StatusCode\\)\" } catch { Write-Output \"Sentinel ACC unreachable: $_\" }; try { $r2 = Invoke-WebRequest -Uri \"http://localhost:1947/_int_/products.html\" -UseBasicParsing -TimeoutSec 5; \\($r2.Content -split \"`n\" | Select-String -Pattern 'Product|Vendor|Feature|FrameCAD' | Select-Object -First 40\\) } catch { Write-Output \"products page error: $_\" })",
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:1947/_int_/products.html\" -UseBasicParsing -TimeoutSec 5; $r.Content -replace '<[^>]+>', ' ' -replace '\\\\s+', ' ' | Select-String -Pattern '59693|FrameCAD|Provisional|Trial|Expir|Feature|Product' } catch { Write-Output $_ })",
       "PowerShell(Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile','-Command','Stop-Service hasplms -Force; Set-Service hasplms -StartupType Disabled' -Wait; Get-Service hasplms | Select-Object Name, Status, StartType)",
-      "PowerShell(Get-Service hasplms)"
+      "PowerShell(Get-Service hasplms)",
+      "Bash(grep -q \"^Done\\\\.$\" \"C:/Users/Scott/AppData/Local/Temp/claude/C--Users-Scott-CLAUDE-CODE-hytek-budget/b6365b82-c25c-434d-a339-b87feae5a9a1/tasks/bruo0l2cf.output\")"
     ]
   }
 }
