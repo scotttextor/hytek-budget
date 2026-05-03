@@ -55,7 +55,7 @@ def main():
             reader = PdfReader(pdf_path)
             for page in reader.pages:
                 writer.add_page(page)
-            print(f'  [{i}/{len(trusses)}] {t}: SVG→PDF OK')
+            print(f'  [{i}/{len(trusses)}] {t}: SVG-to-PDF OK')
         except Exception as e:
             print(f'  [{i}/{len(trusses)}] {t} CONVERT FAILED: {e}')
         finally:
