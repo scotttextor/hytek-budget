@@ -34,7 +34,9 @@ def parse_frame(name):
         sticks.append({'name':name, 'usage':usage, 'start':(sx,sz), 'end':(ex,ez)})
     return sticks
 
-def line_int(s1, s2, slack=20):
+def line_int(s1, s2, slack=50):
+    """Generous slack (50mm) to catch chord splices and end-to-end joints
+    where centrelines meet at very ends of sticks."""
     x1, z1 = s1['start']; x2, z2 = s1['end']
     x3, z3 = s2['start']; x4, z4 = s2['end']
     d = (x1-x2)*(z3-z4) - (z1-z2)*(x3-x4)
@@ -71,16 +73,22 @@ def render_frame(sticks, ox, oy, scale, name):
         return ' '.join(f'{a:.1f},{b:.1f}' for a,b in (to_px(*p) for p in pts))
 
     out = []
-    # Members
-    for s in sticks:
-        is_chord = 'chord' in s['usage'].lower()
-        out.append(f'<polygon points="{member_poly(s)}" fill="{"#dbeafe" if is_chord else "#e2e8f0"}" stroke="{"#1d4ed8" if is_chord else "#475569"}" stroke-width="0.8"/>')
+    # Layer order: chords FIRST (underneath), then webs ON TOP — matches real
+    # assembly where webs lay on top of chord webs.
+    chords = [s for s in sticks if 'chord' in s['usage'].lower()]
+    webs   = [s for s in sticks if 'chord' not in s['usage'].lower()]
+    for s in chords:
+        out.append(f'<polygon points="{member_poly(s)}" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.8" opacity="0.85"/>')
+    for s in webs:
+        out.append(f'<polygon points="{member_poly(s)}" fill="#e2e8f0" stroke="#475569" stroke-width="0.9"/>')
 
-    # Centrelines
-    for s in sticks:
+    # Centrelines (chords first, then webs)
+    for s in chords:
         x1, y1 = to_px(*s['start']); x2, y2 = to_px(*s['end'])
-        col = '#1d4ed8' if 'chord' in s['usage'].lower() else '#334155'
-        out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{col}" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.5"/>')
+        out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#1d4ed8" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.5"/>')
+    for s in webs:
+        x1, y1 = to_px(*s['start']); x2, y2 = to_px(*s['end'])
+        out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#334155" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.5"/>')
 
     # Find crossings
     web_chord_count = 0
@@ -95,14 +103,14 @@ def render_frame(sticks, ox, oy, scale, name):
             if both_webs:
                 web_web_count += 1
                 # Red X (skipped)
-                out.append(f'<g stroke="#dc2626" stroke-width="2" opacity="0.85">')
-                out.append(f'<line x1="{cx-6}" y1="{cy-6}" x2="{cx+6}" y2="{cy+6}"/>')
-                out.append(f'<line x1="{cx-6}" y1="{cy+6}" x2="{cx+6}" y2="{cy-6}"/>')
+                out.append(f'<g stroke="#dc2626" stroke-width="2.5" opacity="0.9">')
+                out.append(f'<line x1="{cx-7}" y1="{cy-7}" x2="{cx+7}" y2="{cy+7}"/>')
+                out.append(f'<line x1="{cx-7}" y1="{cy+7}" x2="{cx+7}" y2="{cy-7}"/>')
                 out.append(f'</g>')
             else:
                 web_chord_count += 1
-                # Green dot (kept)
-                out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="3.5" fill="#16a34a" stroke="#14532d" stroke-width="0.8"/>')
+                # Green dot (kept) — bigger + bolder so it's never missed
+                out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="5" fill="#16a34a" stroke="#14532d" stroke-width="1.2"/>')
 
     # Member labels
     for s in sticks:
