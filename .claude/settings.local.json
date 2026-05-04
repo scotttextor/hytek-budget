@@ -55,7 +55,9 @@
       "PowerShell(Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile','-Command','Stop-Service hasplms -Force; Set-Service hasplms -StartupType Disabled' -Wait; Get-Service hasplms | Select-Object Name, Status, StartType)",
       "PowerShell(Get-Service hasplms)",
       "Bash(grep -q \"^Done\\\\.$\" \"C:/Users/Scott/AppData/Local/Temp/claude/C--Users-Scott-CLAUDE-CODE-hytek-budget/b6365b82-c25c-434d-a339-b87feae5a9a1/tasks/bruo0l2cf.output\")",
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\Scott\\\\AppData\\\\Local\\\\Temp\\\\watch-detailer.ps1\")"
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\Scott\\\\AppData\\\\Local\\\\Temp\\\\watch-detailer.ps1\")",
+      "Bash(tasklist /FI \"IMAGENAME eq FRAMECAD Detailer.exe\")",
+      "PowerShell(Write-Host \"This PC hostname: $env:COMPUTERNAME\"; Write-Host \"Logged on as: $env:USERNAME\"; Write-Host \"Sessions:\"; quser 2>$null | Out-String)"
     ]
   }
 }
