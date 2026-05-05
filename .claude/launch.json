@@ -23,6 +23,13 @@
       "autoPort": true
     },
     {
+      "name": "hytek-planner-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../hytek-planner", "run", "dev"],
+      "port": 3002,
+      "autoPort": true
+    },
+    {
       "name": "v6-viewer",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "http-server", "scripts", "-p", "4500", "--cors", "-c-1"],
