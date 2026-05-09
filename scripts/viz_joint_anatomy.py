@@ -55,7 +55,7 @@ svg.append('<text x="30" y="52" font-size="12" fill="white" opacity="0.85">centr
 # Big panel taking left 60% of width
 P1_X, P1_Y, P1_W, P1_H = 30, 80, 1010, 720
 svg.append(f'<rect x="{P1_X}" y="{P1_Y}" width="{P1_W}" height="{P1_H}" fill="white" stroke="#cbd5e1" stroke-width="1.5" rx="6"/>')
-svg.append(f'<text x="{P1_X + 20}" y="{P1_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">1 &nbsp; ONE JOINT — plan view (top-down on the steel)</text>')
+svg.append(f'<text x="{P1_X + 20}" y="{P1_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">1 &#160; ONE JOINT — plan view (top-down on the steel)</text>')
 svg.append(f'<text x="{P1_X + 20}" y="{P1_Y + 48}" font-size="12" fill="#4a5568">Web W10 meets bottom chord B1 at world position (299, 2784). The centreline of each stick crosses at one point — that point becomes the joint.</text>')
 
 # Drawing area inside panel 1
@@ -195,7 +195,7 @@ svg.append(f'<text x="{DA_X + DA_W/2}" y="{foot_y}" text-anchor="middle" font-si
 # ============== PANEL 2: WEB HOLE TOOL ==============
 P2_X, P2_Y, P2_W, P2_H = 1060, 80, 610, 220
 svg.append(f'<rect x="{P2_X}" y="{P2_Y}" width="{P2_W}" height="{P2_H}" fill="white" stroke="#cbd5e1" stroke-width="1.5" rx="6"/>')
-svg.append(f'<text x="{P2_X + 20}" y="{P2_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">2 &nbsp; WEB HOLE tool — one fire, three holes</text>')
+svg.append(f'<text x="{P2_X + 20}" y="{P2_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">2 &#160; WEB HOLE tool — one fire, three holes</text>')
 svg.append(f'<text x="{P2_X + 20}" y="{P2_Y + 46}" font-size="11" fill="#4a5568">F300i has a station with three Ø3.8mm punches in a line. One machine cycle = three physical holes.</text>')
 
 # Tool schematic
@@ -240,7 +240,7 @@ svg.append(f'<text x="{spec_x}" y="{P2_Y + 204}" font-size="10" font-style="ital
 # ============== PANEL 3: BOLT THROUGH BOTH ==============
 P3_X, P3_Y, P3_W, P3_H = 1060, 320, 610, 220
 svg.append(f'<rect x="{P3_X}" y="{P3_Y}" width="{P3_W}" height="{P3_H}" fill="white" stroke="#cbd5e1" stroke-width="1.5" rx="6"/>')
-svg.append(f'<text x="{P3_X + 20}" y="{P3_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">3 &nbsp; ASSEMBLED — bolt passes through both sticks</text>')
+svg.append(f'<text x="{P3_X + 20}" y="{P3_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">3 &#160; ASSEMBLED — bolt passes through both sticks</text>')
 svg.append(f'<text x="{P3_X + 20}" y="{P3_Y + 46}" font-size="11" fill="#4a5568">Cross-section through one screw. Three of these per joint = the bolted connection.</text>')
 
 # Cross-section: stack two C-sections vertically, screw through both
@@ -281,7 +281,7 @@ svg.append(f'<text x="{xs_cx + 70}" y="{xs_cy + 68}" font-size="10" font-style="
 # ============== PANEL 4: RULES IN ACTION ==============
 P4_X, P4_Y, P4_W, P4_H = 30, 820, 1640, 320
 svg.append(f'<rect x="{P4_X}" y="{P4_Y}" width="{P4_W}" height="{P4_H}" fill="white" stroke="#cbd5e1" stroke-width="1.5" rx="6"/>')
-svg.append(f'<text x="{P4_X + 20}" y="{P4_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">4 &nbsp; RULES IN ACTION — when the bare centreline rule needs to be modified</text>')
+svg.append(f'<text x="{P4_X + 20}" y="{P4_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">4 &#160; RULES IN ACTION — when the bare centreline rule needs to be modified</text>')
 
 # Sub-panel coords
 SP_W = 380
