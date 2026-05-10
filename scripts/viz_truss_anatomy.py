@@ -112,7 +112,7 @@ svg.append(f'<text x="30" y="56" font-size="12" fill="white" opacity="0.85">Real
 PA_X, PA_Y, PA_W, PA_H = 30, 80, W - 60, 700
 svg.append(f'<rect x="{PA_X}" y="{PA_Y}" width="{PA_W}" height="{PA_H}" fill="white" stroke="#cbd5e1" stroke-width="1.5" rx="6"/>')
 svg.append(f'<text x="{PA_X + 20}" y="{PA_Y + 28}" font-size="16" font-weight="700" fill="#1a202c">A &#160; FULL TRUSS — every machine operation colour-coded</text>')
-svg.append(f'<text x="{PA_X + 20}" y="{PA_Y + 46}" font-size="11" fill="#4a5568">All ops shown at their real machine positions on each stick. Hover-equivalent: see legend (Panel E) for what each colour means.</text>')
+svg.append(f'<text x="{PA_X + 20}" y="{PA_Y + 46}" font-size="11" fill="#4a5568">Plan view, centreline-trimmed: webs stop where they meet chord centrelines (matches bench reality). Bolt-hole positions follow the CL-to-CL rule. See Panel D legend for colours.</text>')
 
 # Truss drawing area
 TA_PAD = 60
@@ -147,13 +147,54 @@ def stick_op_xz(s, pos):
 # Sticks (chords thicker, webs thinner)
 def is_box(name): return '(Box' in name
 
-# Main sticks first
+def line_intersect_xz(p1, p2, p3, p4):
+    """Intersect segment (p1,p2) with line through (p3,p4) in 2D.
+    Returns t along (p1->p2) where intersection occurs, or None."""
+    x1, z1 = p1; x2, z2 = p2; x3, z3 = p3; x4, z4 = p4
+    denom = (x1 - x2) * (z3 - z4) - (z1 - z2) * (x3 - x4)
+    if abs(denom) < 1e-9: return None
+    t = ((x1 - x3) * (z3 - z4) - (z1 - z3) * (x3 - x4)) / denom
+    return t
+
+# Build a list of chord segments for trimming web lines
+chord_segs = []
 for s in u11:
     if is_box(s['name']): continue
-    x1p, y1p = to_svg(s['x1'], s['z1'])
-    x2p, y2p = to_svg(s['x2'], s['z2'])
+    if 'CHORD' in (s['usage'] or '').upper():
+        chord_segs.append(s)
+
+# Main sticks first — webs are trimmed at their first/last chord CL crossings
+# so the overview matches bench reality (physical steel doesn't cross chord)
+for s in u11:
+    if is_box(s['name']): continue
     usage = (s['usage'] or '').upper()
-    if 'CHORD' in usage:
+    is_chord = 'CHORD' in usage
+    # Default: full centreline
+    sx1, sz1 = s['x1'], s['z1']
+    sx2, sz2 = s['x2'], s['z2']
+    if not is_chord:
+        # Web — trim at nearest chord CL crossings on each end
+        ts = []
+        for c in chord_segs:
+            t = line_intersect_xz((sx1, sz1), (sx2, sz2),
+                                  (c['x1'], c['z1']), (c['x2'], c['z2']))
+            if t is not None and -0.05 <= t <= 1.05:
+                # Also confirm crossing is within the chord segment
+                u = line_intersect_xz((c['x1'], c['z1']), (c['x2'], c['z2']),
+                                      (sx1, sz1), (sx2, sz2))
+                if u is not None and -0.05 <= u <= 1.05:
+                    ts.append(max(0.0, min(1.0, t)))
+        if ts:
+            ts.sort()
+            t_lo, t_hi = ts[0], ts[-1]
+            sx1n = s['x1'] + t_lo * (s['x2'] - s['x1'])
+            sz1n = s['z1'] + t_lo * (s['z2'] - s['z1'])
+            sx2n = s['x1'] + t_hi * (s['x2'] - s['x1'])
+            sz2n = s['z1'] + t_hi * (s['z2'] - s['z1'])
+            sx1, sz1, sx2, sz2 = sx1n, sz1n, sx2n, sz2n
+    x1p, y1p = to_svg(sx1, sz1)
+    x2p, y2p = to_svg(sx2, sz2)
+    if is_chord:
         stroke, sw = '#1e40af', 6
     else:
         stroke, sw = '#475569', 4
