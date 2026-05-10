@@ -18,7 +18,8 @@ import os, math
 
 CSV = r'C:/Users/Scott/OneDrive - Textor Metal Industries/Desktop/2603191-GF-LIN-89.075.csv'
 DESKTOP = r'C:/Users/Scott/OneDrive - Textor Metal Industries/Desktop'
-OUT = os.path.join(DESKTOP, 'HYTEK_truss_anatomy_U1-1.svg')
+TRUSS = 'U4-1'
+OUT = os.path.join(DESKTOP, f'HYTEK_truss_anatomy_{TRUSS}.svg')
 
 # ---------- Op classification ----------
 OP_COLORS = {
@@ -67,7 +68,13 @@ def parse_csv(path):
     return sticks
 
 all_sticks = parse_csv(CSV)
-u11 = [s for s in all_sticks if s['name'].startswith('U1-1-')]
+u11 = [s for s in all_sticks if s['name'].startswith(f'{TRUSS}-')]
+# Compute summary for header
+_n_sticks = len(u11)
+_n_box = sum(1 for s in u11 if '(Box' in s['name'])
+_n_web = sum(1 for s in u11 if 'WEB' in (s['usage'] or '').upper())
+_max_len = max((s['length'] for s in u11), default=0)
+_TRUSS_SUMMARY = f'{_n_sticks} sticks · {_n_web} webs · {_n_box} Box pieces · longest member {_max_len:.0f}mm'
 
 # ---------- Page geometry ----------
 W, H = 1700, 2400
@@ -96,7 +103,7 @@ svg.append(f'<rect width="{W}" height="{H}" fill="#f8fafc"/>')
 svg.append(f'<rect x="0" y="0" width="{W}" height="64" fill="#231F20"/>')
 svg.append(f'<rect x="0" y="0" width="8" height="64" fill="#FFCB05"/>')
 svg.append(f'<text x="30" y="38" font-size="22" font-weight="800" fill="#FFCB05">HYTEK Linear Truss — full anatomy: tools, joints, flange cuts</text>')
-svg.append(f'<text x="30" y="56" font-size="12" fill="white" opacity="0.85">Real example: U1-1 from job 2603191 ROCKVILLE  ·  21 sticks · 5509mm bottom chord · 5 webs · 3 Box pieces</text>')
+svg.append(f'<text x="30" y="56" font-size="12" fill="white" opacity="0.85">Real example: {TRUSS} from job 2603191 ROCKVILLE TH-TYPE-A1-LT  ·  {_TRUSS_SUMMARY}  ·  3 fasteners per joint (per FrameCAD spec)</text>')
 
 # ============ PANEL A: FULL TRUSS ELEVATION ============
 PA_X, PA_Y, PA_W, PA_H = 30, 80, W - 60, 700
@@ -151,7 +158,7 @@ for s in u11:
                f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round"/>')
     # Stick name label
     midx, midy = (x1p + x2p) / 2, (y1p + y2p) / 2
-    short_name = s['name'].replace('U1-1-', '')
+    short_name = s['name'].replace(f'{TRUSS}-', '')
     if 'CHORD' in usage:
         svg.append(f'<text x="{midx}" y="{midy + 18}" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a8a">{short_name}</text>')
     else:
@@ -165,7 +172,7 @@ for s in u11:
     svg.append(f'<line x1="{x1p:.1f}" y1="{y1p - 5:.1f}" x2="{x2p:.1f}" y2="{y2p - 5:.1f}" '
                f'stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-dasharray="6,3"/>')
     midx, midy = (x1p + x2p) / 2, (y1p + y2p) / 2
-    short = s['name'].replace('U1-1-', '')
+    short = s['name'].replace(f'{TRUSS}-', '')
     svg.append(f'<text x="{midx}" y="{midy - 12}" text-anchor="middle" font-size="8" font-style="italic" fill="#92400e">{short}</text>')
 
 # Ops as marks
