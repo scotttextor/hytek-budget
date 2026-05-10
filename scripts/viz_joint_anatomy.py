@@ -370,7 +370,7 @@ svg.append(f'<text x="{sc_x + SP_W/2}" y="{SP_Y + SP_H - 18}" text-anchor="middl
 # Closing footer
 svg.append(f'<text x="{W/2}" y="{H - 8}" text-anchor="middle" font-size="10" fill="#64748b">'
            'HYTEK Linear-truss simplifier — visual reference for engineering review.  '
-           '15mm dimple margin / 900mm max gap / W↔W skip / 30mm end-zone / 17mm apex dedup'
+           '15mm dimple margin / 1200mm max gap / W↔W skip / 30mm end-zone / 17mm apex dedup'
            '</text>')
 
 svg.append('</svg>')

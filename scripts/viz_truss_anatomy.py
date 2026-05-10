@@ -632,7 +632,7 @@ tool_groups = [
         ('RIGHT PARTIAL FLANGE', 'Partial bend — only part of the flange height', 'Used where a full flange would interfere with another stick', 'Preserved exactly'),
     ]),
     ('BOX-PIECE ASSEMBLY', [
-        ('INNER DIMPLE',      'Press-formed dimple — outward on Box, inward on chord', 'Snap-fit alignment when Box clips onto main chord', 'REWRITTEN by simplifier (15mm/900mm rule)'),
+        ('INNER DIMPLE',      'Press-formed dimple — outward on Box, inward on chord', 'Snap-fit alignment when Box clips onto main chord', 'REWRITTEN by simplifier (15mm/1200mm rule)'),
     ]),
     ('STIFFENING &amp; SERVICES', [
         ('SWAGE',             'Linear flange embossing along part of the stick', 'Anti-buckling stiffener on slender sticks', 'Preserved exactly'),

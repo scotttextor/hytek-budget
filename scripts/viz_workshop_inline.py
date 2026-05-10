@@ -7,7 +7,7 @@ every op marked with its colour-coded symbol AT THE EXACT machine position.
 Op-position numbers printed alongside so you can compare to the CSV.
 
 Output: HYTEK_U4-1_workshop.svg on Desktop. Drawing is the SIMPLIFIED state
-(centreline-rule bolt holes, 15/900 dimples) — what gets cut on the F300i
+(centreline-rule bolt holes, 15/1200 dimples) — what gets cut on the F300i
 when 'Simplify linear trusses' is ticked.
 """
 import os, math
@@ -109,7 +109,7 @@ svg.append(f'<rect x="0" y="0" width="{W}" height="{HEADER_H}" fill="#231F20"/>'
 svg.append(f'<rect x="0" y="0" width="8" height="{HEADER_H}" fill="#FFCB05"/>')
 svg.append(f'<text x="30" y="36" font-size="22" font-weight="800" fill="#FFCB05">HYTEK Workshop Drawing — Truss {TRUSS}</text>')
 svg.append(f'<text x="30" y="58" font-size="13" fill="white" opacity="0.9">Job 2603191 ROCKVILLE TH-TYPE-A1-LT  |  Plan GF-LIN-89.075  |  Profile 89x41 LC 0.75mm AZ150  |  {len(sticks)} sticks  |  3 fasteners per joint</text>')
-svg.append(f'<text x="30" y="78" font-size="11" fill="#FFCB05" opacity="0.85">SIMPLIFIED state - bolt holes follow centreline-intersection rule, dimples follow 15mm/900mm rule. This is what gets cut on the F300i.</text>')
+svg.append(f'<text x="30" y="78" font-size="11" fill="#FFCB05" opacity="0.85">SIMPLIFIED state - bolt holes follow centreline-intersection rule, dimples follow 15mm/1200mm rule. This is what gets cut on the F300i.</text>')
 
 # Scale bar (top-right)
 sb_x = W - PAD_X - 200
@@ -225,7 +225,7 @@ svg.append(f'<text x="{PAD_X}" y="{fy + 18}" font-size="13" font-weight="700" fi
 
 legend_items = [
     ('●●●', '#dc2626', 'BOLT HOLES', '3 holes Ø3.8mm @ 17mm pitch — one rollformer fire = web-to-chord screw connection'),
-    ('◆',   '#f59e0b', 'INNER DIMPLE', 'Press-formed snap point — 15mm from end, 900mm max gap between'),
+    ('◆',   '#f59e0b', 'INNER DIMPLE', 'Press-formed snap point — 15mm from end, 1200mm max gap between'),
     ('|',   '#94a3b8', 'SWAGE',         'Linear flange embossing — anti-buckling stiffener'),
     ('▲',   '#a78bfa', 'LIP NOTCH',     'Cuts the 11mm lip return so adjacent sticks lie flat'),
     ('▲',   '#06b6d4', 'LEG NOTCH',     'Trims flange-heel for stick-on-stick fit (left/right variants)'),

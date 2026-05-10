@@ -59,8 +59,8 @@ svg.append('</defs>')
 svg.append(f'<rect width="{PAGE_W}" height="{PAGE_H}" fill="#f8fafc"/>')
 
 # Header
-svg.append(f'<text x="{MARGIN}" y="40" font-size="22" font-weight="700" fill="#1a202c">Dimple normalisation — FrameCAD ORIGINAL vs NORMALISED (rules: 15mm margin, 900mm max gap)</text>')
-svg.append(f'<text x="{MARGIN}" y="62" font-size="14" fill="#dc2626" font-weight="600">RED row = ORIGINAL FrameCAD output (the BEFORE — these positions FAIL the 15mm/900mm rules)</text>')
+svg.append(f'<text x="{MARGIN}" y="40" font-size="22" font-weight="700" fill="#1a202c">Dimple normalisation — FrameCAD ORIGINAL vs NORMALISED (rules: 15mm margin, 1200mm max gap)</text>')
+svg.append(f'<text x="{MARGIN}" y="62" font-size="14" fill="#dc2626" font-weight="600">RED row = ORIGINAL FrameCAD output (the BEFORE — these positions FAIL the 15mm/1200mm rules)</text>')
 svg.append(f'<text x="{MARGIN}" y="82" font-size="14" fill="#16a34a" font-weight="600">GREEN row = NORMALISED output (the AFTER — these are what get cut on the rollformer)</text>')
 
 def draw_row(x, y, w, length_mm, dimples, is_orig, label_left):
@@ -115,10 +115,10 @@ def draw_row(x, y, w, length_mm, dimples, is_orig, label_left):
             d1, d2 = dimples[i], dimples[i+1]
             gap = d2 - d1
             dx_mid = x + ((d1 + d2) / 2 / length_mm) * w
-            gap_col = '#dc2626' if (gap > 900 and is_orig) else txt_col
+            gap_col = '#dc2626' if (gap > 1200 and is_orig) else txt_col
             out.append(f'<text x="{dx_mid}" y="{y - 6}" text-anchor="middle" font-size="10" font-weight="700" fill="{gap_col}">{gap:.0f}mm</text>')
-            if gap > 900 and is_orig:
-                out.append(f'<text x="{dx_mid}" y="{y - 18}" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">FAIL (>900)</text>')
+            if gap > 1200 and is_orig:
+                out.append(f'<text x="{dx_mid}" y="{y - 18}" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">FAIL (>1200)</text>')
     return out
 
 # Render each case
@@ -154,7 +154,7 @@ for box_name, length_expected, title in cases:
 # Footer
 foot_y = PAGE_H - 50
 svg.append(f'<rect x="{MARGIN}" y="{foot_y - 10}" width="{PAGE_W - 2*MARGIN}" height="42" fill="#f0fdf4" stroke="#16a34a" rx="3"/>')
-svg.append(f'<text x="{MARGIN + 15}" y="{foot_y + 10}" font-size="13" fill="#14532d"><tspan font-weight="700">Result:</tspan> all 10 Box pieces in this job normalised. Every margin is now exactly 15mm. Every gap is &lt;= 900mm.</text>')
+svg.append(f'<text x="{MARGIN + 15}" y="{foot_y + 10}" font-size="13" fill="#14532d"><tspan font-weight="700">Result:</tspan> all 10 Box pieces in this job normalised. Every margin is now exactly 15mm. Every gap is &lt;= 1200mm.</text>')
 svg.append(f'<text x="{MARGIN + 15}" y="{foot_y + 28}" font-size="11" fill="#14532d">The GREEN dimples are what gets punched. The RED row is shown for comparison only — those positions are no longer in the simplified RFY.</text>')
 
 svg.append('</svg>')

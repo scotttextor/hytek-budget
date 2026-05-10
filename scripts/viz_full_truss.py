@@ -272,7 +272,7 @@ def main():
     svg.extend(render_truss_panel(
         simp,
         title='SIMPLIFIED OUTPUT',
-        subtitle='centreline-rule WEB HOLES at every chord-web junction | normalised dimples (15mm margin, 900mm max gap) | W-W skipped',
+        subtitle='centreline-rule WEB HOLES at every chord-web junction | normalised dimples (15mm margin, 1200mm max gap) | W-W skipped',
         panel_w=panel_w, panel_h=panel_h,
         x0=20, y0=HEADER_H + panel_h + panel_gap,
         use_simplified_palette=True,
