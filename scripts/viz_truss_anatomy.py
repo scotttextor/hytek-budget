@@ -16,7 +16,10 @@ Output: HYTEK_truss_anatomy_U1-1.svg on Desktop.
 """
 import os, math
 
-CSV = r'C:/Users/Scott/OneDrive - Textor Metal Industries/Desktop/2603191-GF-LIN-89.075.csv'
+# Use the SIMPLIFIED CSV — bolt holes are at centreline-rule positions where
+# stick centrelines actually cross. The original FrameCAD CSV has offset-based
+# bolt positions that don't visually line up at the stick crossings.
+CSV = r'C:/Users/Scott/OneDrive - Textor Metal Industries/Desktop/2603191-GF-LIN-89.075.simplified.csv'
 DESKTOP = r'C:/Users/Scott/OneDrive - Textor Metal Industries/Desktop'
 TRUSS = 'U4-1'
 OUT = os.path.join(DESKTOP, f'HYTEK_truss_anatomy_{TRUSS}.svg')
@@ -175,8 +178,11 @@ for s in u11:
     short = s['name'].replace(f'{TRUSS}-', '')
     svg.append(f'<text x="{midx}" y="{midy - 12}" text-anchor="middle" font-size="8" font-style="italic" fill="#92400e">{short}</text>')
 
-# Ops as marks
+# Ops as marks — non-bolt ops drawn per-stick. BOLT HOLES are grouped into
+# joint-level markers below so the eye sees ONE 3-hole cluster at each
+# centreline-crossing instead of two coincident dots.
 op_count = {}
+bolt_world_positions = []  # (xw, zw, parent_stick_dict) for grouping
 for s in u11:
     for op, pos in s['ops']:
         op_count[op] = op_count.get(op, 0) + 1
@@ -187,8 +193,10 @@ for s in u11:
         if is_box(s['name']):
             yp -= 5
         if op in ('BOLT HOLES', 'WEB HOLES'):
-            svg.append(f'<circle cx="{xp:.1f}" cy="{yp:.1f}" r="2.6" fill="{col}" stroke="white" stroke-width="0.5"/>')
-        elif op == 'INNER DIMPLE':
+            # Collect for joint-grouping; don't draw individually
+            bolt_world_positions.append((xw, zw, s))
+            continue
+        if op == 'INNER DIMPLE':
             svg.append(f'<rect x="{xp-2.5:.1f}" y="{yp-2.5:.1f}" width="5" height="5" fill="{col}" stroke="white" stroke-width="0.5" transform="rotate(45 {xp:.1f} {yp:.1f})"/>')
         elif op == 'TRUSS CHAMFER' or op == 'CHAMFER':
             svg.append(f'<polygon points="{xp},{yp-4} {xp+3.5},{yp+2} {xp-3.5},{yp+2}" fill="{col}" opacity="0.9"/>')
@@ -200,6 +208,58 @@ for s in u11:
             svg.append(f'<rect x="{xp-1.8:.1f}" y="{yp-1.8:.1f}" width="3.6" height="3.6" fill="{col}" opacity="0.85"/>')
         else:
             svg.append(f'<circle cx="{xp:.1f}" cy="{yp:.1f}" r="1.4" fill="{col}" opacity="0.8"/>')
+
+# ---- Joint-level bolt-hole markers (the centreline rule, visualised) ----
+# Group BOLT HOLES across sticks by world position (2mm tolerance). Each unique
+# group = one centreline-crossing = one joint. Draw a single 3-hole cluster
+# centred on the joint, with the cluster oriented perpendicular to the chord
+# (or whichever stick passes nearest horizontally) so it reads as "3 punches".
+GROUP_TOL = 2.0  # mm
+joint_groups = []  # list of {world: (x,z), sticks: [s,...]}
+for xw, zw, s in bolt_world_positions:
+    matched = None
+    for g in joint_groups:
+        gx, gz = g['world']
+        if abs(gx - xw) < GROUP_TOL and abs(gz - zw) < GROUP_TOL:
+            matched = g
+            break
+    if matched:
+        # Use mean of points for refined position
+        n = len(matched['sticks']) + 1
+        gx, gz = matched['world']
+        matched['world'] = ((gx * (n-1) + xw) / n, (gz * (n-1) + zw) / n)
+        matched['sticks'].append(s)
+    else:
+        joint_groups.append({'world': (xw, zw), 'sticks': [s]})
+
+# Render each joint as a 3-hole cluster centred on the CL crossing
+PITCH_PX = 17 * scale  # 17mm pitch in screen space
+for g in joint_groups:
+    gx, gz = g['world']
+    cx, cy = to_svg(gx, gz)
+    sticks = g['sticks']
+    # Choose orientation perpendicular to the FIRST chord stick in the group
+    # (chords are usually the longer/more horizontal; webs are short).
+    chord_sticks = [s for s in sticks if 'CHORD' in (s['usage'] or '').upper()]
+    ref_stick = chord_sticks[0] if chord_sticks else sticks[0]
+    sx1, sz1 = ref_stick['x1'], ref_stick['z1']
+    sx2, sz2 = ref_stick['x2'], ref_stick['z2']
+    sdx, sdz = (sx2 - sx1), (sz2 - sz1)
+    L = math.hypot(sdx, sdz) or 1.0
+    # Perpendicular direction in WORLD space
+    perp_wx, perp_wz = -sdz / L, sdx / L
+    # Map to screen-space perpendicular (z is flipped on screen)
+    perp_px = perp_wx * scale
+    perp_py = -perp_wz * scale
+    # Halo ring marking the joint
+    svg.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="6.5" fill="none" stroke="#dc2626" stroke-width="0.7" opacity="0.45"/>')
+    # 3 punches: -PITCH, 0, +PITCH along perpendicular
+    for k in (-1, 0, 1):
+        hx = cx + perp_px * k * 17
+        hy = cy + perp_py * k * 17
+        svg.append(f'<circle cx="{hx:.2f}" cy="{hy:.2f}" r="1.6" fill="#dc2626" stroke="white" stroke-width="0.4"/>')
+
+op_count['BOLT HOLES (joints)'] = len(joint_groups)
 
 # Op-count column on right of panel A
 oc_x = ta_x1 + 30
